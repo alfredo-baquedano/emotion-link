@@ -42,7 +42,7 @@ const EmotionalChart = () => {
     const r = Math.hypot(d.target.x - d.source.x, d.target.y - d.source.y);
     return `
       M${d.source.x},${d.source.y}
-      A${r},${r} 0 0,1 ${d.target.x},${d.target.y}
+      A${0},${0} 0 0,1 ${d.target.x},${d.target.y}
     `;
   }
 
@@ -75,13 +75,15 @@ const EmotionalChart = () => {
     const width = 928;
     const height = 600;
     const suits = events.reduce((acc, curr) => {
-      if (curr.relationships.followed_by.length) 
-        acc.push({ source: curr.id, target: curr.relationships.followed_by[0], type: 'cause' });
-      if (curr.relationships.preceded_by.length)
-        acc.push({ source: curr.relationships.preceded_by[0], target: curr.id, type: 'result' });
-      return acc
+      curr.relationships.followed_by.forEach(event => {
+        acc.push({ source: curr.id, target: event, type: 'cause' });
+      });
+      curr.relationships.preceded_by.forEach(event => {
+        acc.push({ source: event, target: curr.id, type: 'result' });
+      });
+      return acc;
     }, [])
-    
+  
     const types = Array.from(new Set(suits.map(d => d.type)));
     const nodes = events;
     const links = suits
@@ -94,8 +96,8 @@ const EmotionalChart = () => {
     const color = d3.scaleOrdinal(types, d3.schemeCategory10);
   
     const simulation = d3.forceSimulation(nodes)
-        .force("link", d3.forceLink(links).distance(() => 100).id(d => d.id))
-        .force("charge", d3.forceManyBody().strength(-400))
+        .force("link", d3.forceLink(links).strength(() => 0.1).distance(() => 100).id(d => d.id))
+        .force("charge", d3.forceManyBody().strength(-500))
         .force("x", d3.forceX())
         .force("y", d3.forceY())
   
@@ -111,7 +113,7 @@ const EmotionalChart = () => {
       .join("marker")
         .attr("id", d => `arrow-${d}`)
         .attr("viewBox", "0 -5 10 10")
-        .attr("refX", 30)
+        .attr("refX", 40)
         .attr("refY", -1.5)
         .attr("markerWidth", 6)
         .attr("markerHeight", 6)
@@ -141,23 +143,24 @@ const EmotionalChart = () => {
     node.append("circle")
         .attr("stroke", "white")
         .attr("stroke-width", 0.1)
-        .attr("r", 15);
+        .attr("r", 25);
 
     node.append("path")
         .data(nodes)
-        .attr("d", "M-15,0 a1,1 0 0,0 30,0")
+        .attr("d", "M-25,0 a1,1 0 0,0 50,0")
         .attr("transform", "rotate(-45)")
-        .attr("fill", d => emotions[d?.emotions[1]]?.color ?? 'white')
+        .attr("fill", d => emotions[d?.emotions[1]]?.color ?? 'transparent')
   
     node.append("text")
-    .attr("y", 30)
+    .attr("y", 40)
     .attr("text-anchor", "middle")
       .attr("fill", "black")
+      .attr("font-size", "16px")
       .text(d => d.name)
     .clone(true).lower()
       .attr("fill", "none")
       .attr("stroke", "white")
-      .attr("stroke-width", .5);
+      .attr("stroke-width", 1);
   
     simulation.on("tick", () => {
       link.attr("d", linkArc);

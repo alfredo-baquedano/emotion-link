@@ -1,18 +1,33 @@
 [
   {
-    "id": "8a3b82a2-5b47-4c3c-82b9-7d8d6a52d546",
-    "name": "Project Kickoff",
-    "date": "2024-05-01",
-    "location": "Head Office",
-    "participants": [
-      "Alice",
-      "Bob",
-      "Charlie"
-    ],
+    "id": "be1a920a-d36a-4bdd-b360-13bb5c9b0800",
+    "name": "Myself",
+    "date": "2024-05-017",
+    "location": "Home",
+    "participants": [],
     "relationships": {
       "preceded_by": [],
       "followed_by": [
-        "4b8d84d3-2a77-4ec5-8885-5db2d55521af"
+        "4b8d84d3-2a77-4ec5-8885-5db2d55521af",
+        "8a3b82a2-5b47-4c3c-82b9-7d8d6a52d546",
+        "4b8d84d3-2a77-4ec5-8885-5db2d55521af",
+        "e5f6d7e8-8c4f-4f7d-9b8a-5d9b6e7d8f7e",
+        "7b9b3b0f-8d2a-4efb-9b9f-5dbd6f6d4f73"
+      ]
+    },
+    "impact": 8,
+    "emotions": []
+  },
+  {
+    "id": "8a3b82a2-5b47-4c3c-82b9-7d8d6a52d546",
+    "name": "Got a GF",
+    "date": "2024-05-01",
+    "location": "Got a GF",
+    "participants": [],
+    "relationships": {
+      "preceded_by": [],
+      "followed_by": [
+        "3f6a3c10-6d8a-4d1e-96a5-3b4bdc6b731d"
       ]
     },
     "impact": 8,
@@ -23,22 +38,13 @@
   },
   {
     "id": "4b8d84d3-2a77-4ec5-8885-5db2d55521af",
-    "name": "Initial Meeting",
+    "name": "A dog bite me",
     "date": "2024-05-03",
-    "location": "Conference Room A",
-    "participants": [
-      "Alice",
-      "Bob",
-      "Charlie",
-      "David"
-    ],
+    "location": "A dog bite me",
+    "participants": [],
     "relationships": {
-      "preceded_by": [
-        "8a3b82a2-5b47-4c3c-82b9-7d8d6a52d546"
-      ],
-      "followed_by": [
-        "3f6a3c10-6d8a-4d1e-96a5-3b4bdc6b731d"
-      ]
+      "preceded_by": [],
+      "followed_by": []
     },
     "impact": 6,
     "emotions": [
@@ -48,110 +54,96 @@
   },
   {
     "id": "3f6a3c10-6d8a-4d1e-96a5-3b4bdc6b731d",
-    "name": "Requirement Gathering",
+    "name": "Got dumped",
     "date": "2024-05-07",
     "location": "Client's Office",
-    "participants": [
-      "Alice",
-      "David",
-      "Client Team"
-    ],
+    "participants": [],
     "relationships": {
-      "preceded_by": [
-        "4b8d84d3-2a77-4ec5-8885-5db2d55521af"
-      ],
+      "preceded_by": [],
       "followed_by": [
-        "7b9b3b0f-8d2a-4efb-9b9f-5dbd6f6d4f73"
+        "e697408a-cfce-4ff3-8bf9-534c90d06e43"
       ]
     },
     "impact": 9,
     "emotions": [
       "fear",
-      "love"
+      "sadness"
+    ]
+  },
+  {
+    "id": "e697408a-cfce-4ff3-8bf9-534c90d06e43",
+    "name": "Meet another girl",
+    "date": "2024-05-07",
+    "location": "Client's Office",
+    "participants": [],
+    "relationships": {
+      "preceded_by": [],
+      "followed_by": []
+    },
+    "impact": 9,
+    "emotions": [
+      "fear",
+      "sadness"
     ]
   },
   {
     "id": "7b9b3b0f-8d2a-4efb-9b9f-5dbd6f6d4f73",
-    "name": "Design Phase",
+    "name": "Playing LoL",
     "date": "2024-05-15",
     "location": "Design Studio",
-    "participants": [
-      "Charlie",
-      "Design Team"
-    ],
+    "participants": [],
     "relationships": {
-      "preceded_by": [
-        "3f6a3c10-6d8a-4d1e-96a5-3b4bdc6b731d"
-      ],
-      "followed_by": [
-        "e5f6d7e8-8c4f-4f7d-9b8a-5d9b6e7d8f7e"
-      ]
+      "preceded_by": [],
+      "followed_by": []
     },
     "impact": 7,
     "emotions": [
-      "joy",
-      "love"
+      "anger"
     ]
   },
   {
     "id": "e5f6d7e8-8c4f-4f7d-9b8a-5d9b6e7d8f7e",
-    "name": "Implementation Phase",
+    "name": "Start my first big project",
     "date": "2024-06-01",
     "location": "Development Lab",
-    "participants": [
-      "Bob",
-      "Development Team"
-    ],
+    "participants": [],
     "relationships": {
-      "preceded_by": [
-        "7b9b3b0f-8d2a-4efb-9b9f-5dbd6f6d4f73"
-      ],
+      "preceded_by": [],
       "followed_by": [
         "f4b7e3d2-5d8c-4f6b-9b9d-5d7d7e8e9f8d"
       ]
     },
     "impact": 10,
     "emotions": [
-      "anger",
-      "sadness"
+      "joy",
+      "fear"
     ]
   },
   {
     "id": "f4b7e3d2-5d8c-4f6b-9b9d-5d7d7e8e9f8d",
-    "name": "Testing Phase",
+    "name": "Getting my first job",
     "date": "2024-07-01",
     "location": "Quality Assurance Center",
-    "participants": [
-      "Alice",
-      "QA Team"
-    ],
+    "participants": [],
     "relationships": {
-      "preceded_by": [
-        "e5f6d7e8-8c4f-4f7d-9b8a-5d9b6e7d8f7e"
-      ],
+      "preceded_by": [],
       "followed_by": [
         "b3d5e7f8-9c5b-4f7d-9b8a-6d7b8e9f9f7d"
       ]
     },
     "impact": 8,
     "emotions": [
-      "fear",
-      "sadness"
+      "joy"
     ]
   },
   {
     "id": "b3d5e7f8-9c5b-4f7d-9b8a-6d7b8e9f9f7d",
-    "name": "Launch",
+    "name": "Getting a rise",
     "date": "2024-08-01",
     "location": "Main Auditorium",
-    "participants": [
-      "All Team Members",
-      "Stakeholders"
-    ],
+    "participants": [],
     "relationships": {
-      "preceded_by": [
-        "f4b7e3d2-5d8c-4f6b-9b9d-5d7d7e8e9f8d"
-      ],
+      "preceded_by": [],
       "followed_by": []
     },
     "impact": 9,
