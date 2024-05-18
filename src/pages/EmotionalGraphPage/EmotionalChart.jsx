@@ -1,6 +1,7 @@
 import { useRef, useEffect } from 'react'
 import * as d3 from "d3";
 import events from './testData.json';
+import ChartLegend from './../../components/ChartLegend'
 
 const emotions =  {
   joy: {
@@ -175,7 +176,10 @@ const EmotionalChart = () => {
   }
 
   return (
-    <svg ref={ref} />
+    <>
+      <ChartLegend emotions={emotions}/>
+      <svg ref={ref} />
+    </>
   )
 }
 
