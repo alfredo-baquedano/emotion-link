@@ -2,7 +2,7 @@
   {
     "id": "be1a920a-d36a-4bdd-b360-13bb5c9b0800",
     "name": "Myself",
-    "date": "2024-05-017",
+    "date": "2024-05-17",
     "location": "Home",
     "participants": [],
     "relationships": {
@@ -12,7 +12,9 @@
         "8a3b82a2-5b47-4c3c-82b9-7d8d6a52d546",
         "4b8d84d3-2a77-4ec5-8885-5db2d55521af",
         "e5f6d7e8-8c4f-4f7d-9b8a-5d9b6e7d8f7e",
-        "7b9b3b0f-8d2a-4efb-9b9f-5dbd6f6d4f73"
+        "7b9b3b0f-8d2a-4efb-9b9f-5dbd6f6d4f73",
+        "8b9c0d1e-2f3a-4b5c-6d7e-8f9g0h1i2j3k",
+        "6f7a8b9c-0d1e-2f3a-4b5c-6d7e8f9g0h1i"
       ]
     },
     "impact": 8,
@@ -22,7 +24,7 @@
     "id": "8a3b82a2-5b47-4c3c-82b9-7d8d6a52d546",
     "name": "Got a GF",
     "date": "2024-05-01",
-    "location": "Got a GF",
+    "location": "Park",
     "participants": [],
     "relationships": {
       "preceded_by": [],
@@ -38,9 +40,9 @@
   },
   {
     "id": "4b8d84d3-2a77-4ec5-8885-5db2d55521af",
-    "name": "A dog bite me",
+    "name": "A dog bit me",
     "date": "2024-05-03",
-    "location": "A dog bite me",
+    "location": "Street",
     "participants": [],
     "relationships": {
       "preceded_by": [],
@@ -54,19 +56,20 @@
   },
   {
     "id": "3f6a3c10-6d8a-4d1e-96a5-3b4bdc6b731d",
-    "name": "Got dumped",
+    "name": "GF died",
     "date": "2024-05-07",
-    "location": "Client's Office",
+    "location": "Hospital",
     "participants": [],
     "relationships": {
       "preceded_by": [],
       "followed_by": [
-        "e697408a-cfce-4ff3-8bf9-534c90d06e43"
+        "e697408a-cfce-4ff3-8bf9-534c90d06e43",
+        "6f7a8b9c-0d1e-2f3a-4b5c-6d7e8f9g0h1i",
+        "2f3a4b5c-6d7e-8f9g-0h1i-2j3k4l5m6n7o"
       ]
     },
     "impact": 9,
     "emotions": [
-      "fear",
       "sadness"
     ]
   },
@@ -74,11 +77,13 @@
     "id": "e697408a-cfce-4ff3-8bf9-534c90d06e43",
     "name": "Meet another girl",
     "date": "2024-05-07",
-    "location": "Client's Office",
+    "location": "Cafe",
     "participants": [],
     "relationships": {
       "preceded_by": [],
-      "followed_by": []
+      "followed_by": [
+        "1e2f3a4b-5c6d-7e8f-9g0h-1i2j3k4l5m6n"
+      ]
     },
     "impact": 9,
     "emotions": [
@@ -90,11 +95,13 @@
     "id": "7b9b3b0f-8d2a-4efb-9b9f-5dbd6f6d4f73",
     "name": "Playing LoL",
     "date": "2024-05-15",
-    "location": "Design Studio",
+    "location": "Home",
     "participants": [],
     "relationships": {
       "preceded_by": [],
-      "followed_by": []
+      "followed_by": [
+        "0d1e2f3a-4b5c-6d7e-8f9g-0h1i2j3k4l5m"
+      ]
     },
     "impact": 7,
     "emotions": [
@@ -128,7 +135,8 @@
     "relationships": {
       "preceded_by": [],
       "followed_by": [
-        "b3d5e7f8-9c5b-4f7d-9b8a-6d7b8e9f9f7d"
+        "b3d5e7f8-9c5b-4f7d-9b8a-6d7b8e9f9f7d",
+        "2b3c4d5e-6f7a-8b9c-0d1e-2f3a4b5c6d7e"
       ]
     },
     "impact": 8,
@@ -138,15 +146,355 @@
   },
   {
     "id": "b3d5e7f8-9c5b-4f7d-9b8a-6d7b8e9f9f7d",
-    "name": "Getting a rise",
+    "name": "Getting a raise",
     "date": "2024-08-01",
-    "location": "Main Auditorium",
+    "location": "Office",
+    "participants": [],
+    "relationships": {
+      "preceded_by": [],
+      "followed_by": [
+        "4b5c6d7e-8f9g-0h1i-2j3k-4l5m6n7o8p9q"
+      ]
+    },
+    "impact": 9,
+    "emotions": [
+      "joy",
+      "love"
+    ]
+  },
+  {
+    "id": "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
+    "name": "Bought a new car",
+    "date": "2024-09-01",
+    "location": "Car Dealership",
+    "participants": [],
+    "relationships": {
+      "preceded_by": [],
+      "followed_by": []
+    },
+    "impact": 7,
+    "emotions": [
+      "joy",
+      "surprise"
+    ]
+  },
+  {
+    "id": "2b3c4d5e-6f7a-8b9c-0d1e-2f3a4b5c6d7e",
+    "name": "Went on vacation",
+    "date": "2024-10-01",
+    "location": "Beach Resort",
+    "participants": [],
+    "relationships": {
+      "preceded_by": [],
+      "followed_by": []
+    },
+    "impact": 8,
+    "emotions": [
+      "joy",
+      "love"
+    ]
+  },
+  {
+    "id": "3c4d5e6f-7a8b-9c0d-1e2f-3a4b5c6d7e8f",
+    "name": "Graduated from college",
+    "date": "2024-05-15",
+    "location": "University",
+    "participants": [],
+    "relationships": {
+      "preceded_by": [],
+      "followed_by": []
+    },
+    "impact": 10,
+    "emotions": [
+      "joy",
+      "surprise"
+    ]
+  },
+  {
+    "id": "4d5e6f7a-8b9c-0d1e-2f3a-4b5c6d7e8f9g",
+    "name": "Moved to a new city",
+    "date": "2024-06-01",
+    "location": "New Apartment",
     "participants": [],
     "relationships": {
       "preceded_by": [],
       "followed_by": []
     },
     "impact": 9,
+    "emotions": [
+      "fear",
+      "surprise"
+    ]
+  },
+  {
+    "id": "5e6f7a8b-9c0d-1e2f-3a4b-5c6d7e8f9g0h",
+    "name": "Started a new hobby",
+    "date": "2024-07-01",
+    "location": "Community Center",
+    "participants": [],
+    "relationships": {
+      "preceded_by": [],
+      "followed_by": []
+    },
+    "impact": 6,
+    "emotions": [
+      "joy"
+    ]
+  },
+  {
+    "id": "6f7a8b9c-0d1e-2f3a-4b5c-6d7e8f9g0h1i",
+    "name": "Lost a loved one",
+    "date": "2024-08-01",
+    "location": "Home",
+    "participants": [],
+    "relationships": {
+      "preceded_by": [],
+      "followed_by": [
+        "2f3a4b5c-6d7e-8f9g-0h1i-2j3k4l5m6n7o"
+      ]
+    },
+    "impact": 10,
+    "emotions": [
+      "sadness"
+    ]
+  },
+  {
+    "id": "7a8b9c0d-1e2f-3a4b-5c6d-7e8f9g0h1i2j",
+    "name": "Attended a wedding",
+    "date": "2024-09-01",
+    "location": "Church",
+    "participants": [],
+    "relationships": {
+      "preceded_by": [],
+      "followed_by": []
+    },
+    "impact": 7,
+    "emotions": [
+      "joy",
+      "love"
+    ]
+  },
+  {
+    "id": "8b9c0d1e-2f3a-4b5c-6d7e-8f9g0h1i2j3k",
+    "name": "Adopted a pet",
+    "date": "2024-10-01",
+    "location": "Animal Shelter",
+    "participants": [],
+    "relationships": {
+      "preceded_by": [],
+      "followed_by": []
+    },
+    "impact": 8,
+    "emotions": [
+      "love",
+      "sadness"
+    ]
+  },
+  {
+    "id": "9c0d1e2f-3a4b-5c6d-7e8f-9g0h1i2j3k4l",
+    "name": "Ran a marathon",
+    "date": "2024-11-01",
+    "location": "City Park",
+    "participants": [],
+    "relationships": {
+      "preceded_by": [],
+      "followed_by": []
+    },
+    "impact": 9,
+    "emotions": [
+      "joy",
+      "surprise"
+    ]
+  },
+  {
+    "id": "0d1e2f3a-4b5c-6d7e-8f9g-0h1i2j3k4l5m",
+    "name": "Had a car accident",
+    "date": "2024-12-01",
+    "location": "Highway",
+    "participants": [],
+    "relationships": {
+      "preceded_by": [],
+      "followed_by": []
+    },
+    "impact": 10,
+    "emotions": [
+      "fear",
+      "anger"
+    ]
+  },
+  {
+    "id": "1e2f3a4b-5c6d-7e8f-9g0h-1i2j3k4l5m6n",
+    "name": "Got married",
+    "date": "2025-01-01",
+    "location": "Beach",
+    "participants": [],
+    "relationships": {
+      "preceded_by": [],
+      "followed_by": [
+        "2f3a4b5c-6d7e-8f9g-0h1i-2j3k4l5m6n7o"
+      ]
+    },
+    "impact": 10,
+    "emotions": [
+      "joy",
+      "love"
+    ]
+  },
+  {
+    "id": "2f3a4b5c-6d7e-8f9g-0h1i-2j3k4l5m6n7o",
+    "name": "Had a child",
+    "date": "2025-02-01",
+    "location": "Hospital",
+    "participants": [],
+    "relationships": {
+      "preceded_by": [],
+      "followed_by": []
+    },
+    "impact": 10,
+    "emotions": [
+      "fear",
+      "love"
+    ]
+  },
+  {
+    "id": "3a4b5c6d-7e8f-9g0h-1i2j-3k4l5m6n7o8p",
+    "name": "Lost a job",
+    "date": "2025-03-01",
+    "location": "Office",
+    "participants": [],
+    "relationships": {
+      "preceded_by": [],
+      "followed_by": []
+    },
+    "impact": 9,
+    "emotions": [
+      "sadness",
+      "fear"
+    ]
+  },
+  {
+    "id": "4b5c6d7e-8f9g-0h1i-2j3k-4l5m6n7o8p9q",
+    "name": "Started a business",
+    "date": "2025-04-01",
+    "location": "Home Office",
+    "participants": [],
+    "relationships": {
+      "preceded_by": [],
+      "followed_by": []
+    },
+    "impact": 10,
+    "emotions": [
+      "joy",
+      "fear"
+    ]
+  },
+  {
+    "id": "5c6d7e8f-9g0h-1i2j-3k4l-5m6n7o8p9q0r",
+    "name": "Bought a house",
+    "date": "2025-05-01",
+    "location": "New House",
+    "participants": [],
+    "relationships": {
+      "preceded_by": [],
+      "followed_by": []
+    },
+    "impact": 9,
+    "emotions": [
+      "joy",
+      "surprise"
+    ]
+  },
+  {
+    "id": "6d7e8f9g-0h1i-2j3k-4l5m-6n7o8p9q0r1s",
+    "name": "Traveled abroad",
+    "date": "2025-06-01",
+    "location": "Paris",
+    "participants": [],
+    "relationships": {
+      "preceded_by": [],
+      "followed_by": []
+    },
+    "impact": 8,
+    "emotions": [
+      "joy",
+      "surprise"
+    ]
+  },
+  {
+    "id": "7e8f9g0h-1i2j-3k4l-5m6n-7o8p9q0r1s2t",
+    "name": "Graduated from high school",
+    "date": "2025-07-01",
+    "location": "High School",
+    "participants": [],
+    "relationships": {
+      "preceded_by": [],
+      "followed_by": []
+    },
+    "impact": 9,
+    "emotions": [
+      "joy",
+      "surprise"
+    ]
+  },
+  {
+    "id": "8f9g0h1i-2j3k-4l5m-6n7o-8p9q0r1s2t3u",
+    "name": "Broke a bone",
+    "date": "2025-08-01",
+    "location": "Hospital",
+    "participants": [],
+    "relationships": {
+      "preceded_by": [],
+      "followed_by": []
+    },
+    "impact": 7,
+    "emotions": [
+      "fear",
+      "sadness"
+    ]
+  },
+  {
+    "id": "9g0h1i2j-3k4l-5m6n-7o8p-9q0r1s2t3u4v",
+    "name": "Learned a new language",
+    "date": "2025-09-01",
+    "location": "Language School",
+    "participants": [],
+    "relationships": {
+      "preceded_by": [],
+      "followed_by": []
+    },
+    "impact": 8,
+    "emotions": [
+      "joy",
+      "surprise"
+    ]
+  },
+  {
+    "id": "0h1i2j3k-4l5m-6n7o-8p9q-0r1s2t3u4v5w",
+    "name": "Won a lottery",
+    "date": "2025-10-01",
+    "location": "Lottery Office",
+    "participants": [],
+    "relationships": {
+      "preceded_by": [],
+      "followed_by": []
+    },
+    "impact": 10,
+    "emotions": [
+      "joy",
+      "surprise"
+    ]
+  },
+  {
+    "id": "1i2j3k4l-5m6n-7o8p-9q0r-1s2t3u4v5w6x",
+    "name": "Retired",
+    "date": "2025-11-01",
+    "location": "Home",
+    "participants": [],
+    "relationships": {
+      "preceded_by": [],
+      "followed_by": []
+    },
+    "impact": 10,
     "emotions": [
       "joy",
       "love"

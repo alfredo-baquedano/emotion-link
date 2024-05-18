@@ -72,9 +72,13 @@ const EmotionalChart = () => {
   }
 
   const loadChart = svg => {
-    const width = 928;
-    const height = 600;
-    const suits = events.reduce((acc, curr) => {
+    const width = 1628;
+    const height = 800;
+    const filteredEvents = events
+      .filter((e) => events
+        .some(eventR => e.name === 'Myself' || eventR.relationships.followed_by
+            .some(eventF => eventF === e.id)));
+    const suits = filteredEvents.reduce((acc, curr) => {
       curr.relationships.followed_by.forEach(event => {
         acc.push({ source: curr.id, target: event, type: 'cause' });
       });
@@ -85,7 +89,7 @@ const EmotionalChart = () => {
     }, [])
   
     const types = Array.from(new Set(suits.map(d => d.type)));
-    const nodes = events;
+    const nodes = filteredEvents;
     const links = suits
 
     console.log('nodes', nodes)
