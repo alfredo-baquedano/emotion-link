@@ -1,0 +1,163 @@
+[
+  {
+    "id": "8a3b82a2-5b47-4c3c-82b9-7d8d6a52d546",
+    "name": "Project Kickoff",
+    "date": "2024-05-01",
+    "location": "Head Office",
+    "participants": [
+      "Alice",
+      "Bob",
+      "Charlie"
+    ],
+    "relationships": {
+      "preceded_by": [],
+      "followed_by": [
+        "4b8d84d3-2a77-4ec5-8885-5db2d55521af"
+      ]
+    },
+    "impact": 8,
+    "emotions": [
+      "joy",
+      "love"
+    ]
+  },
+  {
+    "id": "4b8d84d3-2a77-4ec5-8885-5db2d55521af",
+    "name": "Initial Meeting",
+    "date": "2024-05-03",
+    "location": "Conference Room A",
+    "participants": [
+      "Alice",
+      "Bob",
+      "Charlie",
+      "David"
+    ],
+    "relationships": {
+      "preceded_by": [
+        "8a3b82a2-5b47-4c3c-82b9-7d8d6a52d546"
+      ],
+      "followed_by": [
+        "3f6a3c10-6d8a-4d1e-96a5-3b4bdc6b731d"
+      ]
+    },
+    "impact": 6,
+    "emotions": [
+      "surprise",
+      "fear"
+    ]
+  },
+  {
+    "id": "3f6a3c10-6d8a-4d1e-96a5-3b4bdc6b731d",
+    "name": "Requirement Gathering",
+    "date": "2024-05-07",
+    "location": "Client's Office",
+    "participants": [
+      "Alice",
+      "David",
+      "Client Team"
+    ],
+    "relationships": {
+      "preceded_by": [
+        "4b8d84d3-2a77-4ec5-8885-5db2d55521af"
+      ],
+      "followed_by": [
+        "7b9b3b0f-8d2a-4efb-9b9f-5dbd6f6d4f73"
+      ]
+    },
+    "impact": 9,
+    "emotions": [
+      "fear",
+      "love"
+    ]
+  },
+  {
+    "id": "7b9b3b0f-8d2a-4efb-9b9f-5dbd6f6d4f73",
+    "name": "Design Phase",
+    "date": "2024-05-15",
+    "location": "Design Studio",
+    "participants": [
+      "Charlie",
+      "Design Team"
+    ],
+    "relationships": {
+      "preceded_by": [
+        "3f6a3c10-6d8a-4d1e-96a5-3b4bdc6b731d"
+      ],
+      "followed_by": [
+        "e5f6d7e8-8c4f-4f7d-9b8a-5d9b6e7d8f7e"
+      ]
+    },
+    "impact": 7,
+    "emotions": [
+      "joy",
+      "love"
+    ]
+  },
+  {
+    "id": "e5f6d7e8-8c4f-4f7d-9b8a-5d9b6e7d8f7e",
+    "name": "Implementation Phase",
+    "date": "2024-06-01",
+    "location": "Development Lab",
+    "participants": [
+      "Bob",
+      "Development Team"
+    ],
+    "relationships": {
+      "preceded_by": [
+        "7b9b3b0f-8d2a-4efb-9b9f-5dbd6f6d4f73"
+      ],
+      "followed_by": [
+        "f4b7e3d2-5d8c-4f6b-9b9d-5d7d7e8e9f8d"
+      ]
+    },
+    "impact": 10,
+    "emotions": [
+      "anger",
+      "sadness"
+    ]
+  },
+  {
+    "id": "f4b7e3d2-5d8c-4f6b-9b9d-5d7d7e8e9f8d",
+    "name": "Testing Phase",
+    "date": "2024-07-01",
+    "location": "Quality Assurance Center",
+    "participants": [
+      "Alice",
+      "QA Team"
+    ],
+    "relationships": {
+      "preceded_by": [
+        "e5f6d7e8-8c4f-4f7d-9b8a-5d9b6e7d8f7e"
+      ],
+      "followed_by": [
+        "b3d5e7f8-9c5b-4f7d-9b8a-6d7b8e9f9f7d"
+      ]
+    },
+    "impact": 8,
+    "emotions": [
+      "fear",
+      "sadness"
+    ]
+  },
+  {
+    "id": "b3d5e7f8-9c5b-4f7d-9b8a-6d7b8e9f9f7d",
+    "name": "Launch",
+    "date": "2024-08-01",
+    "location": "Main Auditorium",
+    "participants": [
+      "All Team Members",
+      "Stakeholders"
+    ],
+    "relationships": {
+      "preceded_by": [
+        "f4b7e3d2-5d8c-4f6b-9b9d-5d7d7e8e9f8d"
+      ],
+      "followed_by": []
+    },
+    "impact": 9,
+    "emotions": [
+      "joy",
+      "love"
+    ]
+  }
+]

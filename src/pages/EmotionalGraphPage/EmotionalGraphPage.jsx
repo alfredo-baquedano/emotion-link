@@ -1,8 +1,12 @@
 import React from 'react'
+import EmotionalChart from './EmotionalChart'
 
 const EmotionalGraphPage = () => {
   return (
-    <div>EmotionalGraphPage</div>
+    <div>
+      <div>Emotional Chart</div>
+      <EmotionalChart/>
+    </div>
   )
 }
 
