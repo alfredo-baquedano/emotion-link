@@ -1,36 +1,45 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import * as d3 from "d3";
 import events from './testData.json';
 import ChartLegend from './../../components/ChartLegend'
+import CreateEventForm from './CreateEventForm'
+import { Dialog } from '@mui/material';
 
 const emotions =  {
   joy: {
+    name: 'joy',
     display_name: "Joy",
-    color: "#87D37C"  // Pale yellow
+    color: "#87D37C"
   },
   surprise: {
+    name: 'surprise',
     display_name: "Surprise",
     color: "#FFCC99"
   },
   sadness: {
+    name: 'sadness',
     display_name: "Sadness",
     color: "#99CCFF"
   },
   anger: {
+    name: 'anger',
     display_name: "Anger",
-    color: "#ff4d4d"  // Pale red
+    color: "#ff4d4d"
   },
   fear: {
+    name: 'fear',
     display_name: "Fear",
-    color: "#8E44AD"  // Pale pink
+    color: "#8E44AD"
   },
   love: {
+    name: 'love',
     display_name: "Love",
-    color: "#FFBDFF"  // Pale pink
+    color: "#FFBDFF"
   }
 }
 
 const EmotionalChart = () => {
+  const [openCreateEvent, setOpenCreateEvent] = useState(false);
   const ref = useRef();
 
   useEffect(() => {
@@ -38,6 +47,18 @@ const EmotionalChart = () => {
     loadChart(svgElement);
     return () => d3.select(ref.current).selectAll('*').remove();;
   }, [])
+
+  const handleOpenCreateEvent = () => {
+    setOpenCreateEvent(true);
+  }
+
+  const handleCloseCreateEvent = () => {
+    setOpenCreateEvent(false);
+  }
+
+  const handleCreateEvent = () => {
+    setOpenCreateEvent(false);
+  }
 
   const linkArc = (d) => {
     const r = Math.hypot(d.target.x - d.source.x, d.target.y - d.source.y);
@@ -48,7 +69,6 @@ const EmotionalChart = () => {
   }
 
   const drag = simulation => {
-    
     function dragstarted(event, d) {
       if (!event.active) simulation.alphaTarget(0.3).restart();
       d.fx = d.x;
@@ -67,9 +87,9 @@ const EmotionalChart = () => {
     }
     
     return d3.drag()
-        .on("start", dragstarted)
-        .on("drag", dragged)
-        .on("end", dragended);
+      .on("start", dragstarted)
+      .on("drag", dragged)
+      .on("end", dragended);
   }
 
   const loadChart = svg => {
@@ -91,28 +111,22 @@ const EmotionalChart = () => {
   
     const types = Array.from(new Set(suits.map(d => d.type)));
     const nodes = filteredEvents;
-    const links = suits
-
-    console.log('nodes', nodes)
-    console.log('links', links)
-    console.log('suits', suits)
-    console.log('types', types)
+    const links = suits;
   
     const color = d3.scaleOrdinal(types, d3.schemeCategory10);
   
     const simulation = d3.forceSimulation(nodes)
-        .force("link", d3.forceLink(links).strength(() => 0.1).distance(() => 100).id(d => d.id))
-        .force("charge", d3.forceManyBody().strength(-500))
-        .force("x", d3.forceX())
-        .force("y", d3.forceY())
+      .force("link", d3.forceLink(links).strength(() => 0.1).distance(() => 100).id(d => d.id))
+      .force("charge", d3.forceManyBody().strength(-500))
+      .force("x", d3.forceX())
+      .force("y", d3.forceY())
   
     svg
-        .attr("viewBox", [-width / 2, -height / 2, width, height])
-        .attr("width", width)
-        .attr("height", height)
-        .attr("style", "max-width: 100%; height: auto; font: 12px sans-serif;");
-    
-    // Per-type markers, as they don't inherit styles.
+      .attr("viewBox", [-width / 2, -height / 2, width, height])
+      .attr("width", width)
+      .attr("height", height)
+      .attr("style", "max-width: 100%; height: auto; font: 12px sans-serif;");
+
     svg.append("defs").selectAll("marker")
       .data(types)
       .join("marker")
@@ -144,28 +158,34 @@ const EmotionalChart = () => {
       .join("g")
         .attr("fill", d => emotions[d?.emotions[0]]?.color ?? 'white')
         .call(drag(simulation));
-  
+
     node.append("circle")
         .attr("stroke", "white")
         .attr("stroke-width", 0.1)
-        .attr("r", 25);
+        .attr("r", 25)
+      .clone(true).lower()
+        .attr("fill", "transparent")
+        .attr("stroke", "white")
+        .attr("stroke-width", 2)
 
     node.append("path")
-        .data(nodes)
-        .attr("d", "M-25,0 a1,1 0 0,0 50,0")
-        .attr("transform", "rotate(-45)")
-        .attr("fill", d => emotions[d?.emotions[1]]?.color ?? 'transparent')
-  
+      .data(nodes)
+      .attr("d", "M-25,0 a1,1 0 0,0 50,0")
+      .attr("transform", "rotate(-45)")
+      .attr("fill", d => emotions[d?.emotions[1]]?.color ?? 'transparent')
+
+    node.on("click", handleOpenCreateEvent);
+
     node.append("text")
-    .attr("y", 40)
-    .attr("text-anchor", "middle")
-      .attr("fill", "black")
-      .attr("font-size", "16px")
-      .text(d => d.name)
-    .clone(true).lower()
-      .attr("fill", "none")
-      .attr("stroke", "white")
-      .attr("stroke-width", 1);
+      .attr("y", 40)
+      .attr("text-anchor", "middle")
+        .attr("fill", "white")
+        .attr("font-size", "12px")
+        .text(d => d.name)
+      .clone(true).lower()
+        .attr("fill", "none")
+        .attr("stroke", "black")
+        .attr("stroke-width", 1);
   
     simulation.on("tick", () => {
       link.attr("d", linkArc);
@@ -175,9 +195,14 @@ const EmotionalChart = () => {
     return Object.assign(svg.node(), { scales: {color} });
   }
 
+  const emotionList = Object.values(emotions);
+
   return (
-    <>
-      <ChartLegend emotions={emotions}/>
+    <>  
+      <Dialog open={openCreateEvent} onClose={handleCloseCreateEvent}>
+        <CreateEventForm relatedEvent={''} onCreate={handleCreateEvent} emotionsList={emotionList} onClose={handleCloseCreateEvent} />
+      </Dialog>
+      <ChartLegend emotionList={emotionList}/>
       <svg ref={ref} />
     </>
   )
