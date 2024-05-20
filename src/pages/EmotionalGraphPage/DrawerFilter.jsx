@@ -6,9 +6,6 @@ import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import Chip from '@mui/material/Chip';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import TextField from '@mui/material/TextField';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -74,35 +71,28 @@ export default function DrawerFilter({ filters, setFilters }) {
 
   const DrawerList = (
     <Box sx={{ width: 250 }} role='presentation'>
-      <Toolbar>
-        <IconButton
-          onClick={toggleDrawer(false)}
-          edge='start'
-          color='inherit'
-          aria-label='close drawer'
-          sx={{ mr: 2 }}
-        >
-          <MenuIcon />
-        </IconButton>
-        <TextField
-          autoFocus
-          placeholder='Search by Event Name'
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          InputProps={{
-            startAdornment: <SearchIcon />,
-          }}
-          fullWidth
-          sx={{ mt: 1, mb: 1 }}
-        />
-      </Toolbar>
+      <TextField
+        autoFocus
+        label='Search by event'
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        InputProps={{
+          startAdornment: <SearchIcon />,
+        }}
+        fullWidth
+        sx={{ mt: 2, mb: 1, mr: 3, ml: 3, width: '80%' }}
+      />
       <Divider />
       <TextField
-        placeholder='Search by People Involved'
+        autoFocus
+        label='Search by People Involved'
         value={peopleInvolved}
         onChange={(e) => setPeopleInvolved(e.target.value)}
+        InputProps={{
+          startAdornment: <SearchIcon />,
+        }}
         fullWidth
-        sx={{ mb: 1 }}
+        sx={{ mt: 2, mb: 1, mr: 3, ml: 3, width: '80%' }}
       />
       <Divider />
       <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -111,14 +101,14 @@ export default function DrawerFilter({ filters, setFilters }) {
           value={startDate}
           onChange={(date) => setStartDate(date)}
           renderInput={(params) => <TextField {...params} fullWidth />}
-          sx={{ mb: 2 }}
+          sx={{ mt: 2, mb: 1, mr: 3, ml: 3, width: '80%' }}
         />
         <DatePicker
           label='End Date'
           value={endDate}
           onChange={(date) => setEndDate(date)}
           renderInput={(params) => <TextField {...params} fullWidth />}
-          sx={{ mb: 2 }}
+          sx={{ mt: 2, mb: 1, mr: 3, ml: 3, width: '80%' }}
         />
       </LocalizationProvider>
       <Divider />
@@ -133,7 +123,7 @@ export default function DrawerFilter({ filters, setFilters }) {
         min={1}
         max={10}
         valueLabelDisplay='auto'
-        sx={{ mb: 2 }}
+        sx={{ mt: 2, mb: 1, mr: 3, ml: 3, width: '80%' }}
       />
       <Divider />
       <List>
