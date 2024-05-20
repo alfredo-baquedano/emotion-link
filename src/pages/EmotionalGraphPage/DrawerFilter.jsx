@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
@@ -8,9 +8,11 @@ import ListItem from '@mui/material/ListItem';
 import Chip from '@mui/material/Chip';
 import SearchIcon from '@mui/icons-material/Search';
 import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography'; // Importa Typography
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
+import { SingleInputDateRangeField } from '@mui/x-date-pickers-pro/SingleInputDateRangeField';
 import Slider from '@mui/material/Slider';
 
 const emotions = {
@@ -49,8 +51,6 @@ const emotions = {
 export default function DrawerFilter({ filters, setFilters }) {
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
   const [peopleInvolved, setPeopleInvolved] = useState('');
   const [value, setValue] = useState(5);
 
@@ -70,7 +70,10 @@ export default function DrawerFilter({ filters, setFilters }) {
   };
 
   const DrawerList = (
-    <Box sx={{ width: 250 }} role='presentation'>
+    <Box sx={{ width: 300 }} role='presentation'>
+      <Typography variant='h6' gutterBottom sx={{ ml: 3, mt: 2 }}>
+        Filters:
+      </Typography>{' '}
       <TextField
         autoFocus
         label='Search by event'
@@ -80,7 +83,7 @@ export default function DrawerFilter({ filters, setFilters }) {
           startAdornment: <SearchIcon />,
         }}
         fullWidth
-        sx={{ mt: 2, mb: 1, mr: 3, ml: 3, width: '80%' }}
+        sx={{ mt: 2, mb: 2, mr: 3, ml: 3, width: '80%' }}
       />
       <Divider />
       <TextField
@@ -92,26 +95,23 @@ export default function DrawerFilter({ filters, setFilters }) {
           startAdornment: <SearchIcon />,
         }}
         fullWidth
-        sx={{ mt: 2, mb: 1, mr: 3, ml: 3, width: '80%' }}
+        sx={{ mt: 2, mb: 2, mr: 3, ml: 3, width: '80%' }}
       />
-      <Divider />
+      <Divider sx={{ mb: 2 }} />
+      <Typography variant='h8' sx={{ ml: 3, mt: 3 }}>
+        Filter by date:
+      </Typography>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DatePicker
-          label='Start Date'
-          value={startDate}
-          onChange={(date) => setStartDate(date)}
-          renderInput={(params) => <TextField {...params} fullWidth />}
-          sx={{ mt: 2, mb: 1, mr: 3, ml: 3, width: '80%' }}
-        />
-        <DatePicker
-          label='End Date'
-          value={endDate}
-          onChange={(date) => setEndDate(date)}
-          renderInput={(params) => <TextField {...params} fullWidth />}
-          sx={{ mt: 2, mb: 1, mr: 3, ml: 3, width: '80%' }}
+        <DateRangePicker
+          slots={{ field: SingleInputDateRangeField }}
+          name='allowedRange'
+          sx={{ mt: 2, mb: 2, mr: 3, ml: 3, width: '80%' }}
         />
       </LocalizationProvider>
-      <Divider />
+      <Divider sx={{ mb: 3 }} />
+      <Typography variant='h8' sx={{ ml: 3, mt: 3 }}>
+        Filter by impact:
+      </Typography>
       <Slider
         aria-label='Restricted values'
         defaultValue={5}
@@ -123,7 +123,7 @@ export default function DrawerFilter({ filters, setFilters }) {
         min={1}
         max={10}
         valueLabelDisplay='auto'
-        sx={{ mt: 2, mb: 1, mr: 3, ml: 3, width: '80%' }}
+        sx={{ mt: 2, mb: 2, mr: 3, ml: 3, width: '80%' }}
       />
       <Divider />
       <List>
