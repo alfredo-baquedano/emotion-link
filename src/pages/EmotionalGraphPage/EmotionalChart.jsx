@@ -1,8 +1,9 @@
 import { useRef, useEffect, useState } from 'react'
 import * as d3 from "d3";
-import events from './testData.json';
+import staticEvents from './testData.json';
 import ChartLegend from './../../components/ChartLegend'
 import CreateEventForm from './CreateEventForm'
+import EditEventForm from './EditEventForm'
 import { Dialog } from '@mui/material';
 
 const emotions =  {
@@ -40,9 +41,13 @@ const emotions =  {
 
 const EmotionalChart = () => {
   const [openCreateEvent, setOpenCreateEvent] = useState(false);
+  const [openEditEvent, setOpenEditEvent] = useState(false);
+  localStorage.setItem('events', JSON.stringify(staticEvents));
+  const [events, setEvents] = useState([]);
   const ref = useRef();
 
   useEffect(() => {
+    setEvents(JSON.parse(localStorage.getItem('events')) ?? []);
     const svgElement = d3.select(ref.current)
     loadChart(svgElement);
     return () => d3.select(ref.current).selectAll('*').remove();;
@@ -56,7 +61,22 @@ const EmotionalChart = () => {
     setOpenCreateEvent(false);
   }
 
-  const handleCreateEvent = () => {
+  const handleOpenEditEvent = (e) => {
+    e.stopPropagation()
+    setOpenEditEvent(true);
+  }
+
+  const handleCloseEditEvent = () => {
+    setOpenEditEvent(false);
+  }
+
+  const handleCreateEvent = (event) => {
+    setEvents([...events, event]);
+    setOpenCreateEvent(false);
+  }
+
+  const handleEditEvent = (event) => {
+    setEvents([...events, event]);
     setOpenCreateEvent(false);
   }
 
@@ -130,63 +150,118 @@ const EmotionalChart = () => {
     svg.append("defs").selectAll("marker")
       .data(types)
       .join("marker")
-        .attr("id", d => `arrow-${d}`)
-        .attr("viewBox", "0 -5 10 10")
-        .attr("refX", 40)
-        .attr("refY", -1.5)
-        .attr("markerWidth", 6)
-        .attr("markerHeight", 6)
-        .attr("orient", "auto")
-      .append("path")
-        .attr("fill", color)
-        .attr("d", "M0,-5L10,0L0,5");
+      .attr("id", d => `arrow-${d}`)
+      .attr("viewBox", "0 -5 10 10")
+      .attr("refX", 40)
+      .attr("refY", -1.5)
+      .attr("markerWidth", 6)
+      .attr("markerHeight", 6)
+      .attr("orient", "auto")
+    .append("path")
+      .attr("fill", color)
+      .attr("d", "M0,-5L10,0L0,5");
   
     const link = svg.append("g")
-        .attr("fill", "none")
-        .attr("stroke-width", 1.5)
-      .selectAll("path")
+      .attr("fill", "none")
+      .attr("stroke-width", 1.5)
+    .selectAll("path")
       .data(links)
       .join("path")
-        .attr("stroke", d => color(d.type))
-        .attr("marker-end", d => `url(${new URL(`#arrow-${d.type}`, location)})`);
+      .attr("stroke", d => color(d.type))
+      .attr("marker-end", d => `url(${new URL(`#arrow-${d.type}`, location)})`);
   
     const node = svg.append("g")
-        .attr("stroke-linecap", "round")
-        .attr("stroke-linejoin", "round")
-      .selectAll("g")
+      .attr("stroke-linecap", "round")
+      .attr("stroke-linejoin", "round")
+      .attr("stroke", "white")
+      .attr("stroke-width", 1)
+    .selectAll("g")
       .data(nodes)
       .join("g")
-        .attr("fill", d => emotions[d?.emotions[0]]?.color ?? 'white')
-        .call(drag(simulation));
+      .call(drag(simulation))
+    
+    node
+      .on("mouseover", function(e) {
+        const data = e.target.__data__;
+        d3.select(this)
+          .attr("stroke-width", 5)
+        d3.select(`#edit-button-${data.id}`)
+          .style("display", "block");
+        d3.select(`#create-button-${data.id}`)
+          .style("display", "block");
+      })
+      .on("mouseout", function(e) {
+        const data = e.target.__data__;
+        d3.select(this)
+          .attr("stroke-width", 1)
+        d3.select(`#edit-button-${data.id}`)
+          .style("display", "none");
+        d3.select(`#create-button-${data.id}`)
+          .style("display", "none");
+      })
 
-    node.append("circle")
-        .attr("stroke", "white")
-        .attr("stroke-width", 0.1)
-        .attr("r", 25)
-      .clone(true).lower()
-        .attr("fill", "transparent")
-        .attr("stroke", "white")
-        .attr("stroke-width", 2)
+    const nodeCircle = node.append("g")
+      .attr("cursor", "grab")
+    
+    nodeCircle.append("circle")
+      .attr("r", 25)
+      .attr("fill", d => emotions[d?.emotions[0]]?.color ?? 'white')
 
-    node.append("path")
+    nodeCircle.append("path")
       .data(nodes)
       .attr("d", "M-25,0 a1,1 0 0,0 50,0")
       .attr("transform", "rotate(-45)")
       .attr("fill", d => emotions[d?.emotions[1]]?.color ?? 'transparent')
 
-    node.on("click", handleOpenCreateEvent);
-
     node.append("text")
       .attr("y", 40)
       .attr("text-anchor", "middle")
-        .attr("fill", "white")
-        .attr("font-size", "12px")
-        .text(d => d.name)
-      .clone(true).lower()
-        .attr("fill", "none")
-        .attr("stroke", "black")
-        .attr("stroke-width", 1);
-  
+      .attr("fill", "white")
+      .attr("font-size", "14px")
+      .attr("stroke", "black")
+      .attr("stroke-linecap", "round")
+      .attr("stroke-linejoin", "round")
+      .attr("stroke-width", .4)
+      .text(d => d.name);
+
+    const editButton = node.append("g")
+      .data(nodes)
+      .attr("id", d => `edit-button-${d.id}`)
+      .attr("stroke-width", 0)
+      .attr("transform", `translate(20, -17)`)
+      .style("cursor", "pointer")
+      .style("display", "none")
+      .on("click", handleOpenEditEvent)
+    
+    editButton.append("circle")
+      .attr("r", 10)
+      .attr("fill", 'white')
+
+    editButton.append("path")
+      .attr("transform", `translate(-8, -8) scale(0.7)`)
+      .attr("fill", "gray")
+      .attr("stroke", "gray")
+      .attr("d", "M3 17.25V21h3.75L17.81 9.94l-3.75-3.75zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75z")
+
+    const createButton = node.append("g")
+      .data(nodes)
+      .attr("id", d => `create-button-${d.id}`)
+      .attr("stroke-width", 2)
+      .attr("transform", `translate(-18, 20)`)
+      .style("cursor", "pointer")
+      .style("display", "none")
+      .on("click", handleOpenCreateEvent)
+    
+    createButton.append("circle")
+      .attr("r", 10)
+      .attr("fill", 'white')
+
+    createButton.append("path")
+      .attr("transform", `translate(-9, -8) scale(0.7)`)
+      .attr("fill", "gray")
+      .attr("stroke", "gray")
+      .attr("d", "M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z")
+
     simulation.on("tick", () => {
       link.attr("d", linkArc);
       node.attr("transform", d => `translate(${d.x},${d.y})`);
@@ -200,7 +275,18 @@ const EmotionalChart = () => {
   return (
     <>  
       <Dialog open={openCreateEvent} onClose={handleCloseCreateEvent}>
-        <CreateEventForm relatedEvent={''} onCreate={handleCreateEvent} emotionsList={emotionList} onClose={handleCloseCreateEvent} />
+        <CreateEventForm
+          relatedEvent={''}
+          onCreate={handleCreateEvent}
+          emotionsList={emotionList}
+          onClose={handleCloseCreateEvent} />
+      </Dialog>
+      <Dialog open={openEditEvent} onClose={handleCloseEditEvent}>
+        <EditEventForm
+          event={'currentEvent'}
+          emotionsList={emotionList}
+          onEdit={handleEditEvent}
+          onClose={handleCloseEditEvent} />
       </Dialog>
       <ChartLegend emotionList={emotionList}/>
       <svg ref={ref} />
