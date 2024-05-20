@@ -17,7 +17,7 @@ import {
 } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
 
-const CreateEventForm = ({ onCreate, onClose, relatedEvent, emotionsList }) => {
+const EditEventForm = ({ onCreate, onClose, relatedEvent, emotionsList }) => {
   const [eventData, setEventData] = useState({
     name: '',
     date: '',
@@ -70,7 +70,7 @@ const CreateEventForm = ({ onCreate, onClose, relatedEvent, emotionsList }) => {
   return (
     <Box component="form" onSubmit={handleSubmit} sx={{ p: 4 }}>
       <DialogTitle id="alert-dialog-title">
-        Create Related Event
+        Edit Event
       </DialogTitle>
       <DialogContent>
         <TextField
@@ -168,4 +168,4 @@ const CreateEventForm = ({ onCreate, onClose, relatedEvent, emotionsList }) => {
   );
 };
 
-export default CreateEventForm;
+export default EditEventForm;
