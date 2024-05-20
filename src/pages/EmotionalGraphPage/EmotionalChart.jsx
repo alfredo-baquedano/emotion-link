@@ -1,56 +1,22 @@
 import { useRef, useEffect, useState } from 'react'
 import * as d3 from "d3";
-import staticEvents from './testData.json';
 import ChartLegend from './../../components/ChartLegend'
 import CreateEventForm from './CreateEventForm'
 import EditEventForm from './EditEventForm'
+import emotionList from '../../contants/emotions.json'
 import { Dialog } from '@mui/material';
 
-const emotions =  {
-  joy: {
-    name: 'joy',
-    display_name: "Joy",
-    color: "#87D37C"
-  },
-  surprise: {
-    name: 'surprise',
-    display_name: "Surprise",
-    color: "#FFCC99"
-  },
-  sadness: {
-    name: 'sadness',
-    display_name: "Sadness",
-    color: "#99CCFF"
-  },
-  anger: {
-    name: 'anger',
-    display_name: "Anger",
-    color: "#ff4d4d"
-  },
-  fear: {
-    name: 'fear',
-    display_name: "Fear",
-    color: "#8E44AD"
-  },
-  love: {
-    name: 'love',
-    display_name: "Love",
-    color: "#FFBDFF"
-  }
-}
+const emotions = emotionList.reduce((acc, curr) => ({ ...acc, [curr.name]: curr}), {}) 
 
-const EmotionalChart = () => {
+const EmotionalChart = ({ events }) => {
   const [openCreateEvent, setOpenCreateEvent] = useState(false);
   const [openEditEvent, setOpenEditEvent] = useState(false);
-  localStorage.setItem('events', JSON.stringify(staticEvents));
-  const [events, setEvents] = useState([]);
   const ref = useRef();
 
   useEffect(() => {
-    setEvents(JSON.parse(localStorage.getItem('events')) ?? []);
     const svgElement = d3.select(ref.current)
     loadChart(svgElement);
-    return () => d3.select(ref.current).selectAll('*').remove();;
+    return () => d3.select(ref.current).selectAll('*').remove();
   }, [])
 
   const handleOpenCreateEvent = () => {
@@ -269,8 +235,6 @@ const EmotionalChart = () => {
   
     return Object.assign(svg.node(), { scales: {color} });
   }
-
-  const emotionList = Object.values(emotions);
 
   return (
     <>  

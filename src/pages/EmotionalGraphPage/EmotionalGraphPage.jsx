@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DrawerFilter from './DrawerFilter';
 import EmotionalChart from './EmotionalChart';
+import staticEvents from './testData.json';
+
+localStorage.setItem('events', JSON.stringify(staticEvents));
 
 const EmotionalGraphPage = () => {
   const [filters, setFilters] = useState({
@@ -11,11 +14,16 @@ const EmotionalGraphPage = () => {
     Fear: true,
     Love: true,
   });
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    setEvents(JSON.parse(localStorage.getItem('events')) ?? []);
+  }, [])
 
   return (
     <div>
       <DrawerFilter filters={filters} setFilters={setFilters} />
-      <EmotionalChart />
+      <EmotionalChart events={events}/>
     </div>
   );
 };

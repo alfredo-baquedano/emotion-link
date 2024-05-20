@@ -1,0 +1,412 @@
+[
+  {
+    "name": "joy",
+    "displayName": "Joy",
+    "color": "#87D37C",
+    "children": [
+      {
+        "name": "serenity",
+        "displayName": "Serenity",
+        "color": "#FFD700",
+        "children": [
+          {
+            "name": "peaceful",
+            "displayName": "Peaceful",
+            "color": "#FFD700"
+          },
+          {
+            "name": "satisfied",
+            "displayName": "Satisfied",
+            "color": "#FFD700"
+          },
+          {
+            "name": "relieved",
+            "displayName": "Relieved",
+            "color": "#FFD700"
+          }
+        ]
+      },
+      {
+        "name": "ecstasy",
+        "displayName": "Ecstasy",
+        "color": "#FFD700",
+        "children": [
+          {
+            "name": "enthusiastic",
+            "displayName": "Enthusiastic",
+            "color": "#FFD700"
+          },
+          {
+            "name": "euphoric",
+            "displayName": "Euphoric",
+            "color": "#FFD700"
+          },
+          {
+            "name": "elated",
+            "displayName": "Elated",
+            "color": "#FFD700"
+          },
+          {
+            "name": "excited",
+            "displayName": "Excited",
+            "color": "#FFD700"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "trust",
+    "displayName": "Trust",
+    "color": "#FFCC99",
+    "children": [
+      {
+        "name": "acceptance",
+        "displayName": "Acceptance",
+        "color": "#7FFF00",
+        "children": [
+          {
+            "name": "agreeable",
+            "displayName": "Agreeable",
+            "color": "#7FFF00"
+          },
+          {
+            "name": "friendly",
+            "displayName": "Friendly",
+            "color": "#7FFF00"
+          },
+          {
+            "name": "supportive",
+            "displayName": "Supportive",
+            "color": "#7FFF00"
+          }
+        ]
+      },
+      {
+        "name": "admiration",
+        "displayName": "Admiration",
+        "color": "#7FFF00",
+        "children": [
+          {
+            "name": "appreciative",
+            "displayName": "Appreciative",
+            "color": "#7FFF00"
+          },
+          {
+            "name": "respectful",
+            "displayName": "Respectful",
+            "color": "#7FFF00"
+          },
+          {
+            "name": "approval",
+            "displayName": "Approval",
+            "color": "#7FFF00"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "fear",
+    "displayName": "Fear",
+    "color": "#8E44AD",
+    "children": [
+      {
+        "name": "terror",
+        "displayName": "Terror",
+        "color": "#1E90FF",
+        "children": [
+          {
+            "name": "panic",
+            "displayName": "Panic",
+            "color": "#1E90FF"
+          },
+          {
+            "name": "hysterical",
+            "displayName": "Hysterical",
+            "color": "#1E90FF"
+          }
+        ]
+      },
+      {
+        "name": "fright",
+        "displayName": "Fright",
+        "color": "#1E90FF",
+        "children": [
+          {
+            "name": "scared",
+            "displayName": "Scared",
+            "color": "#1E90FF"
+          },
+          {
+            "name": "helpless",
+            "displayName": "Helpless",
+            "color": "#1E90FF"
+          },
+          {
+            "name": "frightened",
+            "displayName": "Frightened",
+            "color": "#1E90FF"
+          }
+        ]
+      },
+      {
+        "name": "anxiety",
+        "displayName": "Anxiety",
+        "color": "#1E90FF",
+        "children": [
+          {
+            "name": "worried",
+            "displayName": "Worried",
+            "color": "#1E90FF"
+          },
+          {
+            "name": "nervous",
+            "displayName": "Nervous",
+            "color": "#1E90FF"
+          },
+          {
+            "name": "insecure",
+            "displayName": "Insecure",
+            "color": "#1E90FF"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "surprise",
+    "displayName": "Surprise",
+    "color": "#FFCC99",
+    "children": [
+      {
+        "name": "amazement",
+        "displayName": "Amazement",
+        "color": "#32CD32",
+        "children": [
+          {
+            "name": "astonished",
+            "displayName": "Astonished",
+            "color": "#32CD32"
+          },
+          {
+            "name": "overcome",
+            "displayName": "Overcome",
+            "color": "#32CD32"
+          },
+          {
+            "name": "speechless",
+            "displayName": "Speechless",
+            "color": "#32CD32"
+          }
+        ]
+      },
+      {
+        "name": "astonishment",
+        "displayName": "Astonishment",
+        "color": "#32CD32",
+        "children": [
+          {
+            "name": "perplexed",
+            "displayName": "Perplexed",
+            "color": "#32CD32"
+          },
+          {
+            "name": "disillusioned",
+            "displayName": "Disillusioned",
+            "color": "#32CD32"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "sadness",
+    "displayName": "Sadness",
+    "color": "#99CCFF",
+    "children": [
+      {
+        "name": "grief",
+        "displayName": "Grief",
+        "color": "#6495ED",
+        "children": [
+          {
+            "name": "powerless",
+            "displayName": "Powerless",
+            "color": "#6495ED"
+          },
+          {
+            "name": "neglected",
+            "displayName": "Neglected",
+            "color": "#6495ED"
+          },
+          {
+            "name": "isolated",
+            "displayName": "Isolated",
+            "color": "#6495ED"
+          }
+        ]
+      },
+      {
+        "name": "sorrow",
+        "displayName": "Sorrow",
+        "color": "#6495ED",
+        "children": [
+          {
+            "name": "hurt",
+            "displayName": "Hurt",
+            "color": "#6495ED"
+          },
+          {
+            "name": "depressed",
+            "displayName": "Depressed",
+            "color": "#6495ED"
+          },
+          {
+            "name": "despair",
+            "displayName": "Despair",
+            "color": "#6495ED"
+          }
+        ]
+      },
+      {
+        "name": "disappointment",
+        "displayName": "Disappointment",
+        "color": "#6495ED",
+        "children": [
+          {
+            "name": "dismayed",
+            "displayName": "Dismayed",
+            "color": "#6495ED"
+          },
+          {
+            "name": "displeased",
+            "displayName": "Displeased",
+            "color": "#6495ED"
+          }
+        ]
+      },
+      {
+        "name": "shame",
+        "displayName": "Shame",
+        "color": "#6495ED",
+        "children": [
+          {
+            "name": "guilt",
+            "displayName": "Guilt",
+            "color": "#6495ED"
+          },
+          {
+            "name": "regretful",
+            "displayName": "Regretful",
+            "color": "#6495ED"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "anger",
+    "displayName": "Anger",
+    "color": "#ff4d4d",
+    "children": [
+      {
+        "name": "rage",
+        "displayName": "Rage",
+        "color": "#FF6347",
+        "children": [
+          {
+            "name": "hostile",
+            "displayName": "Hostile",
+            "color": "#FF6347"
+          },
+          {
+            "name": "hateful",
+            "displayName": "Hateful",
+            "color": "#FF6347"
+          },
+          {
+            "name": "violent",
+            "displayName": "Violent",
+            "color": "#FF6347"
+          }
+        ]
+      },
+      {
+        "name": "frustration",
+        "displayName": "Frustration",
+        "color": "#FF6347",
+        "children": [
+          {
+            "name": "irritated",
+            "displayName": "Irritated",
+            "color": "#FF6347"
+          },
+          {
+            "name": "annoyed",
+            "displayName": "Annoyed",
+            "color": "#FF6347"
+          }
+        ]
+      },
+      {
+        "name": "agitation",
+        "displayName": "Agitation",
+        "color": "#FF6347",
+        "children": [
+          {
+            "name": "resentful",
+            "displayName": "Resentful",
+            "color": "#FF6347"
+          },
+          {
+            "name": "aggravated",
+            "displayName": "Aggravated",
+            "color": "#FF6347"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "disgust",
+    "displayName": "Disgust",
+    "color": "#DA70D6",
+    "children": [
+      {
+        "name": "revulsion",
+        "displayName": "Revulsion",
+        "color": "#DA70D6",
+        "children": [
+          {
+            "name": "nauseated",
+            "displayName": "Nauseated",
+            "color": "#DA70D6"
+          },
+          {
+            "name": "appalled",
+            "displayName": "Appalled",
+            "color": "#DA70D6"
+          }
+        ]
+      },
+      {
+        "name": "contempt",
+        "displayName": "Contempt",
+        "color": "#DA70D6",
+        "children": [
+          {
+            "name": "disdainful",
+            "displayName": "Disdainful",
+            "color": "#DA70D6"
+          },
+          {
+            "name": "scornful",
+            "displayName": "Scornful",
+            "color": "#DA70D6"
+          }
+        ]
+      }
+    ]
+  }
+]
