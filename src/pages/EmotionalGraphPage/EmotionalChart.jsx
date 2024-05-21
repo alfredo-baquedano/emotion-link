@@ -59,7 +59,11 @@ const EmotionalChart = ({ events, filters, onClickCreate, onClickEdit }) => {
         node.name === 'Myself' ||
         (node.emotions.some((emotion) => filters[emotion]) &&
           node.impact >= filters.impactRange[0] &&
-          node.impact <= filters.impactRange[1]);
+          node.impact <= filters.impactRange[1] &&
+          (!filters.searchTerm ||
+            node.name
+              .toLowerCase()
+              .includes(filters.searchTerm.toLowerCase())));
       return { ...node, visible };
     });
 

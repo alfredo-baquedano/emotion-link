@@ -49,7 +49,7 @@ const emotions = {
 
 export default function DrawerFilter({ filters, setFilters }) {
   const [open, setOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState(filters.searchTerm || '');
   const [peopleInvolved, setPeopleInvolved] = useState('');
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
@@ -74,6 +74,14 @@ export default function DrawerFilter({ filters, setFilters }) {
     }));
   };
 
+  const handleSearchTermChange = (e) => {
+    setSearchTerm(e.target.value);
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      searchTerm: e.target.value,
+    }));
+  };
+
   const DrawerList = (
     <Box sx={{ width: 300 }} role='presentation'>
       <Typography variant='h6' gutterBottom sx={{ ml: 3, mt: 2 }}>
@@ -83,7 +91,7 @@ export default function DrawerFilter({ filters, setFilters }) {
         autoFocus
         label='Search by event'
         value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        onChange={handleSearchTermChange}
         InputProps={{
           startAdornment: <SearchIcon />,
         }}
