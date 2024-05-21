@@ -5,7 +5,7 @@ const ChartLegend = ({emotionList}) =>
         key={emotion.name}
         style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginRight: '25px'}}>
         <div style={{ backgroundColor: emotion.color, height: '16px', width: '16px' }}></div>
-        <span style={{ marginLeft: '8px' }}>{emotion.display_name}</span>
+        <span style={{ marginLeft: '8px' }}>{emotion.displayName}</span>
       </div>
     )}
   </div>
