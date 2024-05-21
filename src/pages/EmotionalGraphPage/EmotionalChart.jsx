@@ -1,50 +1,23 @@
 import { useRef, useEffect, useState } from 'react';
-import * as d3 from "d3";
+import * as d3 from 'd3';
 import ChartLegend from './../../components/ChartLegend';
-import CreateEventForm from './CreateEventForm';
-import EditEventForm from './EditEventForm';
-import { Dialog } from '@mui/material';
 import emotionList from '../../contants/emotions.json';
 
-const EmotionalChart = ({ events }) => {
-  const [openCreateEvent, setOpenCreateEvent] = useState(false);
-  const [openEditEvent, setOpenEditEvent] = useState(false);
+const EmotionalChart = ({ events, onClickCreate, onClickEdit }) => {
   const ref = useRef();
 
-  const emotions = emotionList.reduce((acc, curr) => ({ ...acc, [curr.name]: curr}), {});
+  const emotions = emotionList.reduce(
+    (acc, curr) => ({ ...acc, [curr.name]: curr }),
+    {},
+  );
 
   useEffect(() => {
-    const svgElement = d3.select(ref.current)
+    const svgElement = d3.select(ref.current);
     loadChart(svgElement);
-    return () => d3.select(ref.current).selectAll('*').remove();
-  }, []);
-
-  const handleOpenCreateEvent = () => {
-    setOpenCreateEvent(true);
-  };
-
-  const handleCloseCreateEvent = () => {
-    setOpenCreateEvent(false);
-  };
-
-  const handleOpenEditEvent = (e) => {
-    e.stopPropagation();
-    setOpenEditEvent(true);
-  };
-
-  const handleCloseEditEvent = () => {
-    setOpenEditEvent(false);
-  };
-
-  const handleCreateEvent = (event) => {
-    setEvents([...events, event]);
-    setOpenCreateEvent(false);
-  };
-
-  const handleEditEvent = (event) => {
-    setEvents([...events, event]);
-    setOpenCreateEvent(false);
-  };
+    return () => {
+      d3.select(ref.current).selectAll('*').remove();
+    };
+  }, [events]);
 
   const linkArc = (d) => {
     const r = Math.hypot(d.target.x - d.source.x, d.target.y - d.source.y);
@@ -123,7 +96,9 @@ const EmotionalChart = ({ events }) => {
       .attr('viewBox', [-width / 2, -height / 2, width, height])
       .attr('width', width)
       .attr('height', height)
-      .attr('style', 'max-width: 100%; height: auto; font: 12px sans-serif;');
+      .attr('style', 'max-width: 100%; height: auto; font: 12px sans-serif;')
+      .transition()
+      .duration(500);
 
     svg
       .append('defs')
@@ -213,7 +188,7 @@ const EmotionalChart = ({ events }) => {
       .attr('transform', `translate(20, -17)`)
       .style('cursor', 'pointer')
       .style('display', 'none')
-      .on('click', handleOpenEditEvent);
+      .on('click', onClickEdit);
 
     editButton.append('circle').attr('r', 10).attr('fill', 'white');
 
@@ -235,7 +210,7 @@ const EmotionalChart = ({ events }) => {
       .attr('transform', `translate(-18, 20)`)
       .style('cursor', 'pointer')
       .style('display', 'none')
-      .on('click', handleOpenCreateEvent);
+      .on('click', onClickCreate);
 
     createButton.append('circle').attr('r', 10).attr('fill', 'white');
 
@@ -250,30 +225,14 @@ const EmotionalChart = ({ events }) => {
       link.attr('d', linkArc);
       node.attr('transform', (d) => `translate(${d.x},${d.y})`);
     });
-  }
+  };
 
   return (
     <>
-      <Dialog open={openCreateEvent} onClose={handleCloseCreateEvent}>
-        <CreateEventForm
-          relatedEvent={''}
-          onCreate={handleCreateEvent}
-          emotionsList={emotionList}
-          onClose={handleCloseCreateEvent}
-        />
-      </Dialog>
-      <Dialog open={openEditEvent} onClose={handleCloseEditEvent}>
-        <EditEventForm
-          event={'currentEvent'}
-          emotionsList={emotionList}
-          onEdit={handleEditEvent}
-          onClose={handleCloseEditEvent}
-        />
-      </Dialog>
       <ChartLegend emotionList={emotionList} />
       <svg ref={ref} />
     </>
   );
-}
+};
 
 export default EmotionalChart;
