@@ -84,18 +84,27 @@ const EmotionalGraphPage = () => {
     const isDateInRange =
       (!filters.startDate || eventDate >= new Date(filters.startDate)) &&
       (!filters.endDate || eventDate <= new Date(filters.endDate));
+    const matchesImpactRange =
+      node.impact >= filters.impactRange[0] &&
+      node.impact <= filters.impactRange[1];
+    const matchesSearchTerm =
+      !filters.searchTerm ||
+      node.name.toLowerCase().includes(filters.searchTerm.toLowerCase());
+    const matchesPeopleInvolved =
+      !filters.peopleInvolved ||
+      node.participants.some((p) =>
+        p.toLowerCase().includes(filters.peopleInvolved.toLowerCase()),
+      );
+    const matchesEmotions = node.emotions.some((emotion) => filters[emotion]);
+
     const visible =
       node.name === 'Myself' ||
-      (node.emotions.some((emotion) => filters[emotion]) &&
-        node.impact >= filters.impactRange[0] &&
-        node.impact <= filters.impactRange[1] &&
-        (!filters.searchTerm ||
-          node.name.toLowerCase().includes(filters.searchTerm.toLowerCase())) &&
-        (!filters.peopleInvolved ||
-          node.participants.some((p) =>
-            p.toLowerCase().includes(filters.peopleInvolved.toLowerCase()),
-          )) &&
+      (matchesEmotions &&
+        matchesImpactRange &&
+        matchesSearchTerm &&
+        matchesPeopleInvolved &&
         isDateInRange);
+
     return { ...node, visible };
   });
 
