@@ -1,9 +1,9 @@
 import { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
+import { Dialog } from '@mui/material';
 import ChartLegend from './../../components/ChartLegend';
 import CreateEventForm from './CreateEventForm';
 import EditEventForm from './EditEventForm';
-import { Dialog } from '@mui/material';
 import emotionList from '../../contants/emotions.json';
 
 const EmotionalChart = ({ events }) => {
@@ -20,7 +20,7 @@ const EmotionalChart = ({ events }) => {
     const svgElement = d3.select(ref.current);
     loadChart(svgElement);
     return () => d3.select(ref.current).selectAll('*').remove();
-  }, []);
+  }, [events]);
 
   const handleOpenCreateEvent = () => {
     setOpenCreateEvent(true);
@@ -92,19 +92,26 @@ const EmotionalChart = ({ events }) => {
           eventR.relationships.followed_by.some((eventF) => eventF === e.id),
       ),
     );
-    const suits = filteredEvents.reduce((acc, curr) => {
+
+    const nodes = filteredEvents;
+
+    const nodeIds = new Set(nodes.map((node) => node.id));
+
+    const links = nodes.reduce((acc, curr) => {
       curr.relationships.followed_by.forEach((event) => {
-        acc.push({ source: curr.id, target: event, type: 'cause' });
+        if (nodeIds.has(event)) {
+          acc.push({ source: curr.id, target: event, type: 'cause' });
+        }
       });
       curr.relationships.preceded_by.forEach((event) => {
-        acc.push({ source: event, target: curr.id, type: 'result' });
+        if (nodeIds.has(event)) {
+          acc.push({ source: event, target: curr.id, type: 'result' });
+        }
       });
       return acc;
     }, []);
 
-    const types = Array.from(new Set(suits.map((d) => d.type)));
-    const nodes = filteredEvents;
-    const links = suits;
+    const types = Array.from(new Set(links.map((d) => d.type)));
 
     const color = d3.scaleOrdinal(types, d3.schemeCategory10);
 

@@ -20,10 +20,15 @@ const EmotionalGraphPage = () => {
     setEvents(JSON.parse(localStorage.getItem('events')) ?? []);
   }, []);
 
+  const filteredEvents = events.filter((event) => {
+    if (event.name === 'Myself') return true;
+    return event.emotions.some((emotion) => filters[emotion]);
+  });
+
   return (
     <div>
       <DrawerFilter filters={filters} setFilters={setFilters} />
-      <EmotionalChart events={events} />
+      <EmotionalChart events={filteredEvents} />
     </div>
   );
 };
