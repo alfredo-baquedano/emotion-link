@@ -26,12 +26,10 @@ const EmotionalGraphPage = () => {
     setEvents(JSON.parse(localStorage.getItem('events')) ?? []);
   }, []);
 
-<<<<<<< HEAD
   const filteredEvents = events.filter((event) => {
     if (event.name === 'Myself') return true;
     return event.emotions.some((emotion) => filters[emotion]);
   });
-=======
   const handleOpenCreateEvent = () => {
     setOpenCreateEvent(true);
   };
@@ -58,7 +56,6 @@ const EmotionalGraphPage = () => {
     setEvents([...events, event]);
     setOpenCreateEvent(false);
   };
->>>>>>> 106464c795521e572d2b644f6061fbd4821bf4dc
 
   return (
     <div>
