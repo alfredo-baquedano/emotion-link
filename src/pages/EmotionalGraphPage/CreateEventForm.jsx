@@ -13,7 +13,7 @@ import {
   DialogContent,
   DialogActions,
   Typography,
-  Divider
+  Divider,
 } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -24,24 +24,24 @@ const CreateEventForm = ({ onCreate, onClose, relatedEvent, emotionsList }) => {
     location: '',
     participants: '',
     impact: 5,
-    emotions: []
+    emotions: [],
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setEventData({
       ...eventData,
-      [name]: value
+      [name]: value,
     });
   };
 
   const handleEmotionsChange = (event) => {
     const {
-      target: { value }
+      target: { value },
     } = event;
     setEventData({
       ...eventData,
-      emotions: typeof value === 'string' ? value.split(',') : value
+      emotions: typeof value === 'string' ? value.split(',') : value,
     });
   };
 
@@ -50,8 +50,8 @@ const CreateEventForm = ({ onCreate, onClose, relatedEvent, emotionsList }) => {
     const newEvent = {
       ...eventData,
       id: uuidv4(),
-      participants: eventData.participants.split(',').map(p => p.trim()),
-      impact: parseInt(eventData.impact)
+      participants: eventData.participants.split(',').map((p) => p.trim()),
+      impact: parseInt(eventData.impact),
     };
     onCreate(newEvent);
     setEventData({
@@ -62,41 +62,37 @@ const CreateEventForm = ({ onCreate, onClose, relatedEvent, emotionsList }) => {
       impact: '',
       emotions: [],
       relationship: {
-        preceded_by: [relatedEvent]
+        preceded_by: [relatedEvent],
       },
     });
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit} sx={{ p: 4 }}>
-      <DialogTitle id="alert-dialog-title">
-        Create Related Event
-      </DialogTitle>
+    <Box component='form' onSubmit={handleSubmit} sx={{ p: 4 }}>
+      <DialogTitle id='alert-dialog-title'>Create Related Event</DialogTitle>
       <DialogContent>
         <TextField
           sx={{ mt: 2 }}
-          name="name"
-          label="Event Name"
+          name='name'
+          label='Event Name'
           fullWidth
           value={eventData.name}
           onChange={handleChange}
         />
         <TextField
           sx={{ mt: 2 }}
-          name="date"
-          label="Date"
-          type="date"
+          name='date'
+          label='Date'
+          type='date'
           fullWidth
           value={eventData.date}
           onChange={handleChange}
           InputLabelProps={{
-            shrink: true
+            shrink: true,
           }}
         />
-        <FormControl
-          sx={{ mt: 2 }}
-          fullWidth>
-          <Typography id="impact-label" gutterBottom>
+        <FormControl sx={{ mt: 2 }} fullWidth>
+          <Typography id='impact-label' gutterBottom>
             Impact
           </Typography>
           <Slider
@@ -105,7 +101,7 @@ const CreateEventForm = ({ onCreate, onClose, relatedEvent, emotionsList }) => {
             defaultValue={5}
             onChange={handleChange}
             value={eventData.impact}
-            valueLabelDisplay="auto"
+            valueLabelDisplay='auto'
             shiftStep={1}
             step={1}
             marks
@@ -113,13 +109,11 @@ const CreateEventForm = ({ onCreate, onClose, relatedEvent, emotionsList }) => {
             max={10}
           />
         </FormControl>
-        <FormControl
-          sx={{ mt: 2 }}
-          fullWidth>
-          <InputLabel id="emotions-label">Emotions</InputLabel>
+        <FormControl sx={{ mt: 2 }} fullWidth>
+          <InputLabel id='emotions-label'>Emotions</InputLabel>
           <Select
-            labelId="emotions-label"
-            name="emotions"
+            labelId='emotions-label'
+            name='emotions'
             multiple
             value={eventData.emotions}
             onChange={handleEmotionsChange}
@@ -141,26 +135,31 @@ const CreateEventForm = ({ onCreate, onClose, relatedEvent, emotionsList }) => {
         <Divider />
         <TextField
           sx={{ mt: 2 }}
-          name="location"
-          label="Location"
+          name='location'
+          label='Location'
           fullWidth
           value={eventData.location}
           onChange={handleChange}
         />
         <TextField
           sx={{ mt: 2 }}
-          name="participants"
-          label="Participants (comma separated)"
+          name='participants'
+          label='Participants (comma separated)'
           fullWidth
           value={eventData.participants}
           onChange={handleChange}
         />
       </DialogContent>
       <DialogActions>
-        <Button variant="outlined" color="secondary" onClick={onClose}>
+        <Button variant='outlined' color='secondary' onClick={onClose}>
           Cancel
         </Button>
-        <Button type="submit" variant="contained" color="primary" sx={{ ml: 2 }}>
+        <Button
+          type='submit'
+          variant='contained'
+          color='primary'
+          sx={{ ml: 2 }}
+        >
           Create Event
         </Button>
       </DialogActions>
