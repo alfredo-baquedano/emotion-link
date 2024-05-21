@@ -8,7 +8,7 @@ import ListItem from '@mui/material/ListItem';
 import Chip from '@mui/material/Chip';
 import SearchIcon from '@mui/icons-material/Search';
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography'; // Importa Typography
+import Typography from '@mui/material/Typography';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
