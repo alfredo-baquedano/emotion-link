@@ -60,18 +60,7 @@ const EmotionalChart = ({
     const width = 1628;
     const height = 800;
 
-    const nodes = events.map((node) => {
-      const visible =
-        node.name === 'Myself' ||
-        (node.emotions.some((emotion) => filters[emotion]) &&
-          node.impact >= filters.impactRange[0] &&
-          node.impact <= filters.impactRange[1] &&
-          (!filters.searchTerm ||
-            node.name
-              .toLowerCase()
-              .includes(filters.searchTerm.toLowerCase())));
-      return { ...node, visible };
-    });
+    const nodes = events;
 
     const nodeIds = new Set(nodes.map((node) => node.id));
 
@@ -254,7 +243,7 @@ const EmotionalChart = ({
       .attr('transform', `translate(20, 20)`)
       .style('cursor', 'pointer')
       .style('display', 'none')
-      .on('click', onClickDelete);
+      .on('click', (d) => onClickDelete(d));
 
     deleteButton.append('circle').attr('r', 10).attr('fill', 'white');
 

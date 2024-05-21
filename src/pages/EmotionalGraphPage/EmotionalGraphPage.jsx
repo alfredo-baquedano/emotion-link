@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import DrawerFilter from './DrawerFilter';
 import EmotionalChart from './EmotionalChart';
-import staticEvents from './testData.json';
 import CreateEventForm from './CreateEventForm';
 import EditEventForm from './EditEventForm';
 import { Dialog } from '@mui/material';
@@ -78,6 +77,17 @@ const EmotionalGraphPage = () => {
     setOpenDeleteEvent(false);
   };
 
+  const filteredEvents = events.map((node) => {
+    const visible =
+      node.name === 'Myself' ||
+      (node.emotions.some((emotion) => filters[emotion]) &&
+        node.impact >= filters.impactRange[0] &&
+        node.impact <= filters.impactRange[1] &&
+        (!filters.searchTerm ||
+          node.name.toLowerCase().includes(filters.searchTerm.toLowerCase())));
+    return { ...node, visible };
+  });
+
   return (
     <div>
       <DrawerFilter filters={filters} setFilters={setFilters} />
@@ -105,7 +115,7 @@ const EmotionalGraphPage = () => {
         />
       </Dialog>
       <EmotionalChart
-        events={events}
+        events={filteredEvents}
         filters={filters}
         onClickCreate={handleOpenCreateEvent}
         onClickEdit={handleOpenEditEvent}
