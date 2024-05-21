@@ -21,6 +21,7 @@ const EmotionalGraphPage = () => {
     love: true,
   });
   const [events, setEvents] = useState([]);
+  const [selectedEvent, setSelectedEvent] = useState();
 
   useEffect(() => {
     setEvents(JSON.parse(localStorage.getItem('events')) ?? []);
@@ -30,7 +31,9 @@ const EmotionalGraphPage = () => {
     if (event.name === 'Myself') return true;
     return event.emotions.some((emotion) => filters[emotion]);
   });
-  const handleOpenCreateEvent = () => {
+
+  const handleOpenCreateEvent = (e) => {
+    setSelectedEvent(e.target.__data__);
     setOpenCreateEvent(true);
   };
 
@@ -40,6 +43,7 @@ const EmotionalGraphPage = () => {
 
   const handleOpenEditEvent = (e) => {
     e.stopPropagation();
+    setSelectedEvent(e.target.__data__);
     setOpenEditEvent(true);
   };
 
@@ -48,6 +52,7 @@ const EmotionalGraphPage = () => {
   };
 
   const handleCreateEvent = (event) => {
+    console.log('event', event);
     setEvents([...events, event]);
     setOpenCreateEvent(false);
   };
@@ -62,7 +67,7 @@ const EmotionalGraphPage = () => {
       <DrawerFilter filters={filters} setFilters={setFilters} />
       <Dialog open={openCreateEvent} onClose={handleCloseCreateEvent}>
         <CreateEventForm
-          relatedEvent={''}
+          relatedEvent={selectedEvent}
           onCreate={handleCreateEvent}
           emotionsList={emotionList}
           onClose={handleCloseCreateEvent}
@@ -70,14 +75,14 @@ const EmotionalGraphPage = () => {
       </Dialog>
       <Dialog open={openEditEvent} onClose={handleCloseEditEvent}>
         <EditEventForm
-          event={'currentEvent'}
+          event={selectedEvent}
           emotionsList={emotionList}
           onEdit={handleEditEvent}
           onClose={handleCloseEditEvent}
         />
       </Dialog>
       <EmotionalChart
-        events={filteredEvents}
+        events={events}
         onClickCreate={handleOpenCreateEvent}
         onClickEdit={handleOpenEditEvent}
       />

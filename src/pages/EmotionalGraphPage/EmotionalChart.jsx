@@ -15,7 +15,7 @@ const EmotionalChart = ({ events, onClickCreate, onClickEdit }) => {
     const svgElement = d3.select(ref.current);
     loadChart(svgElement);
     return () => d3.select(ref.current).selectAll('*').remove();
-  }, []);
+  }, [events]);
 
   const linkArc = (d) => {
     const r = Math.hypot(d.target.x - d.source.x, d.target.y - d.source.y);
@@ -53,22 +53,15 @@ const EmotionalChart = ({ events, onClickCreate, onClickEdit }) => {
   const loadChart = (svg) => {
     const width = 1628;
     const height = 800;
-    const filteredEvents = events.filter((e) =>
-      events.some(
-        (eventR) =>
-          e.name === 'Myself' ||
-          eventR.relationships.followed_by.some((eventF) => eventF === e.id),
-      ),
-    );
 
-    const nodes = filteredEvents;
+    const nodes = events;
 
     const nodeIds = new Set(nodes.map((node) => node.id));
 
     const links = nodes.reduce((acc, curr) => {
       curr.relationships.followed_by.forEach((event) => {
         if (nodeIds.has(event)) {
-          acc.push({ source: curr.id, target: event, type: 'cause' });
+          acc.push({ source: curr.id, target: event, type: 'result' });
         }
       });
       curr.relationships.preceded_by.forEach((event) => {

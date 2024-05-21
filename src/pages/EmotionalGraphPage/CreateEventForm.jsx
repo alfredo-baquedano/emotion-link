@@ -25,6 +25,10 @@ const CreateEventForm = ({ onCreate, onClose, relatedEvent, emotionsList }) => {
     participants: '',
     impact: 5,
     emotions: [],
+    relationships: {
+      preceded_by: [relatedEvent?.id],
+      followed_by: [],
+    },
   });
 
   const handleChange = (e) => {
@@ -41,7 +45,7 @@ const CreateEventForm = ({ onCreate, onClose, relatedEvent, emotionsList }) => {
     } = event;
     setEventData({
       ...eventData,
-      emotions: typeof value === 'string' ? value.split(',') : value,
+      emotions: value.map((event) => event.name),
     });
   };
 
