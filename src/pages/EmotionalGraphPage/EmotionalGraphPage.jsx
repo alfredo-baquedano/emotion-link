@@ -2,10 +2,16 @@ import React, { useState, useEffect } from 'react';
 import DrawerFilter from './DrawerFilter';
 import EmotionalChart from './EmotionalChart';
 import staticEvents from './testData.json';
+import CreateEventForm from './CreateEventForm';
+import EditEventForm from './EditEventForm';
+import { Dialog } from '@mui/material';
+import emotionList from '../../contants/emotions.json';
 
 localStorage.setItem('events', JSON.stringify(staticEvents));
 
 const EmotionalGraphPage = () => {
+  const [openCreateEvent, setOpenCreateEvent] = useState(false);
+  const [openEditEvent, setOpenEditEvent] = useState(false);
   const [filters, setFilters] = useState({
     joy: true,
     surprise: true,
@@ -20,15 +26,68 @@ const EmotionalGraphPage = () => {
     setEvents(JSON.parse(localStorage.getItem('events')) ?? []);
   }, []);
 
+<<<<<<< HEAD
   const filteredEvents = events.filter((event) => {
     if (event.name === 'Myself') return true;
     return event.emotions.some((emotion) => filters[emotion]);
   });
+=======
+  const handleOpenCreateEvent = () => {
+    setOpenCreateEvent(true);
+  };
+
+  const handleCloseCreateEvent = () => {
+    setOpenCreateEvent(false);
+  };
+
+  const handleOpenEditEvent = (e) => {
+    e.stopPropagation();
+    setOpenEditEvent(true);
+  };
+
+  const handleCloseEditEvent = () => {
+    setOpenEditEvent(false);
+  };
+
+  const handleCreateEvent = (event) => {
+    setEvents([...events, event]);
+    setOpenCreateEvent(false);
+  };
+
+  const handleEditEvent = (event) => {
+    setEvents([...events, event]);
+    setOpenCreateEvent(false);
+  };
+>>>>>>> 106464c795521e572d2b644f6061fbd4821bf4dc
 
   return (
     <div>
       <DrawerFilter filters={filters} setFilters={setFilters} />
+<<<<<<< HEAD
       <EmotionalChart events={filteredEvents} />
+=======
+      <Dialog open={openCreateEvent} onClose={handleCloseCreateEvent}>
+        <CreateEventForm
+          relatedEvent={''}
+          onCreate={handleCreateEvent}
+          emotionsList={emotionList}
+          onClose={handleCloseCreateEvent}
+        />
+      </Dialog>
+      <Dialog open={openEditEvent} onClose={handleCloseEditEvent}>
+        <EditEventForm
+          event={'currentEvent'}
+          emotionsList={emotionList}
+          onEdit={handleEditEvent}
+          onClose={handleCloseEditEvent}
+        />
+      </Dialog>
+      <EmotionalChart
+        events={events}
+        onClickCreate={handleOpenCreateEvent}
+        onClickEdit={handleOpenEditEvent}
+      />
+>>>>>>> 106464c795521e572d2b644f6061fbd4821bf4dc
     </div>
   );
 };
