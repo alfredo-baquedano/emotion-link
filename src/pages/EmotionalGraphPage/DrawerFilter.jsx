@@ -173,8 +173,11 @@ export default function DrawerFilter({ filters, setFilters }) {
         valueLabelDisplay='auto'
         sx={{ mt: 2, mb: 2, mr: 3, ml: 3, width: '80%' }}
       />
-      <Divider />
-      <List>
+      <Divider sx={{ mb: 3 }} />
+      <Typography variant='h8' sx={{ ml: 3, mt: 3 }}>
+        Filter by emotions:
+      </Typography>
+      <List sx={{ mt: 2 }}>
         {Object.keys(emotions).map((key) => {
           const emotion = emotions[key];
           return (
