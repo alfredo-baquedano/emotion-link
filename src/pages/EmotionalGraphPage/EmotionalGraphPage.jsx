@@ -21,6 +21,8 @@ const EmotionalGraphPage = () => {
     impactRange: [1, 10],
     searchTerm: '',
     peopleInvolved: '',
+    startDate: null,
+    endDate: null,
   });
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState();
@@ -62,7 +64,6 @@ const EmotionalGraphPage = () => {
   };
 
   const handleCreateEvent = (event) => {
-    console.log('event', event);
     setEvents([...events, event]);
     setOpenCreateEvent(false);
   };
@@ -79,6 +80,10 @@ const EmotionalGraphPage = () => {
   };
 
   const filteredEvents = events.map((node) => {
+    const eventDate = new Date(node.date);
+    const isDateInRange =
+      (!filters.startDate || eventDate >= new Date(filters.startDate)) &&
+      (!filters.endDate || eventDate <= new Date(filters.endDate));
     const visible =
       node.name === 'Myself' ||
       (node.emotions.some((emotion) => filters[emotion]) &&
@@ -89,7 +94,8 @@ const EmotionalGraphPage = () => {
         (!filters.peopleInvolved ||
           node.participants.some((p) =>
             p.toLowerCase().includes(filters.peopleInvolved.toLowerCase()),
-          )));
+          )) &&
+        isDateInRange);
     return { ...node, visible };
   });
 

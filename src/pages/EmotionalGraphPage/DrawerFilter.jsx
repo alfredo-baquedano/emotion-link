@@ -53,8 +53,8 @@ export default function DrawerFilter({ filters, setFilters }) {
   const [peopleInvolved, setPeopleInvolved] = useState(
     filters.peopleInvolved || '',
   );
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const [startDate, setStartDate] = useState(filters.startDate || null);
+  const [endDate, setEndDate] = useState(filters.endDate || null);
   const [impactRange, setImpactRange] = useState(filters.impactRange);
 
   const toggleDrawer = (newOpen) => () => {
@@ -89,6 +89,22 @@ export default function DrawerFilter({ filters, setFilters }) {
     setFilters((prevFilters) => ({
       ...prevFilters,
       peopleInvolved: e.target.value,
+    }));
+  };
+
+  const handleStartDateChange = (date) => {
+    setStartDate(date);
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      startDate: date,
+    }));
+  };
+
+  const handleEndDateChange = (date) => {
+    setEndDate(date);
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      endDate: date,
     }));
   };
 
@@ -127,7 +143,7 @@ export default function DrawerFilter({ filters, setFilters }) {
         <DatePicker
           label='Start Date'
           value={startDate}
-          onChange={(date) => setStartDate(date)}
+          onChange={handleStartDateChange}
           renderInput={(params) => <TextField {...params} />}
           fullWidth
           sx={{ mt: 2, mb: 2, mr: 3, ml: 3, width: '80%' }}
@@ -137,7 +153,7 @@ export default function DrawerFilter({ filters, setFilters }) {
         <DatePicker
           label='End Date'
           value={endDate}
-          onChange={(date) => setEndDate(date)}
+          onChange={handleEndDateChange}
           renderInput={(params) => <TextField {...params} />}
           fullWidth
           sx={{ mt: 2, mb: 2, mr: 3, ml: 3, width: '80%' }}
