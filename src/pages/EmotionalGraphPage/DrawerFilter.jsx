@@ -53,7 +53,7 @@ export default function DrawerFilter({ filters, setFilters }) {
   const [peopleInvolved, setPeopleInvolved] = useState('');
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const [value, setValue] = useState(5);
+  const [impactRange, setImpactRange] = useState(filters.impactRange);
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
@@ -66,8 +66,12 @@ export default function DrawerFilter({ filters, setFilters }) {
     }));
   };
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const handleImpactChange = (event, newValue) => {
+    setImpactRange(newValue);
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      impactRange: newValue,
+    }));
   };
 
   const DrawerList = (
@@ -127,11 +131,8 @@ export default function DrawerFilter({ filters, setFilters }) {
         Filter by impact:
       </Typography>
       <Slider
-        aria-label='Restricted values'
-        defaultValue={5}
-        getAriaValueText={(value) => `${value}`}
-        value={value}
-        onChange={handleChange}
+        value={impactRange}
+        onChange={handleImpactChange}
         step={1}
         marks
         min={1}

@@ -57,7 +57,9 @@ const EmotionalChart = ({ events, filters, onClickCreate, onClickEdit }) => {
     const nodes = events.map((node) => {
       const visible =
         node.name === 'Myself' ||
-        node.emotions.some((emotion) => filters[emotion]);
+        (node.emotions.some((emotion) => filters[emotion]) &&
+          node.impact >= filters.impactRange[0] &&
+          node.impact <= filters.impactRange[1]);
       return { ...node, visible };
     });
 

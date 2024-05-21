@@ -19,6 +19,7 @@ const EmotionalGraphPage = () => {
     anger: true,
     fear: true,
     love: true,
+    impactRange: [1, 10],
   });
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState();
