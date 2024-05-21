@@ -1,23 +1,23 @@
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState } from 'react';
 import * as d3 from "d3";
-import ChartLegend from './../../components/ChartLegend'
-import CreateEventForm from './CreateEventForm'
-import EditEventForm from './EditEventForm'
+import ChartLegend from './../../components/ChartLegend';
+import CreateEventForm from './CreateEventForm';
+import EditEventForm from './EditEventForm';
 import { Dialog } from '@mui/material';
-import emotionList from '../../contants/emotions.json'
-
-const emotions = emotionList.reduce((acc, curr) => ({ ...acc, [curr.name]: curr}), {}) 
+import emotionList from '../../contants/emotions.json';
 
 const EmotionalChart = ({ events }) => {
   const [openCreateEvent, setOpenCreateEvent] = useState(false);
   const [openEditEvent, setOpenEditEvent] = useState(false);
   const ref = useRef();
 
+  const emotions = emotionList.reduce((acc, curr) => ({ ...acc, [curr.name]: curr}), {});
+
   useEffect(() => {
     const svgElement = d3.select(ref.current)
     loadChart(svgElement);
     return () => d3.select(ref.current).selectAll('*').remove();
-  }, [])
+  }, []);
 
   const handleOpenCreateEvent = () => {
     setOpenCreateEvent(true);
@@ -250,6 +250,7 @@ const EmotionalChart = ({ events }) => {
       link.attr('d', linkArc);
       node.attr('transform', (d) => `translate(${d.x},${d.y})`);
     });
+  }
 
   return (
     <>
@@ -273,6 +274,6 @@ const EmotionalChart = ({ events }) => {
       <svg ref={ref} />
     </>
   );
-};
+}
 
 export default EmotionalChart;
