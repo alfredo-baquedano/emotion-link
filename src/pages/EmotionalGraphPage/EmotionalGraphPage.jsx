@@ -27,11 +27,6 @@ const EmotionalGraphPage = () => {
     setEvents(JSON.parse(localStorage.getItem('events')) ?? []);
   }, []);
 
-  const filteredEvents = events.filter((event) => {
-    if (event.name === 'Myself') return true;
-    return event.emotions.some((emotion) => filters[emotion]);
-  });
-
   const handleOpenCreateEvent = (e) => {
     setSelectedEvent(e.target.__data__);
     setOpenCreateEvent(true);
@@ -83,6 +78,7 @@ const EmotionalGraphPage = () => {
       </Dialog>
       <EmotionalChart
         events={events}
+        filters={filters}
         onClickCreate={handleOpenCreateEvent}
         onClickEdit={handleOpenEditEvent}
       />

@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 import ChartLegend from './../../components/ChartLegend';
 import emotionList from '../../contants/emotions.json';
 
-const EmotionalChart = ({ events, onClickCreate, onClickEdit }) => {
+const EmotionalChart = ({ events, filters, onClickCreate, onClickEdit }) => {
   const ref = useRef();
 
   const emotions = emotionList.reduce(
@@ -15,7 +15,7 @@ const EmotionalChart = ({ events, onClickCreate, onClickEdit }) => {
     const svgElement = d3.select(ref.current);
     loadChart(svgElement);
     return () => d3.select(ref.current).selectAll('*').remove();
-  }, [events]);
+  }, [events, filters]);
 
   const linkArc = (d) => {
     const r = Math.hypot(d.target.x - d.source.x, d.target.y - d.source.y);
@@ -54,7 +54,12 @@ const EmotionalChart = ({ events, onClickCreate, onClickEdit }) => {
     const width = 1628;
     const height = 800;
 
-    const nodes = events;
+    const nodes = events.map((node) => {
+      const visible =
+        node.name === 'Myself' ||
+        node.emotions.some((emotion) => filters[emotion]);
+      return { ...node, visible };
+    });
 
     const nodeIds = new Set(nodes.map((node) => node.id));
 
@@ -157,14 +162,16 @@ const EmotionalChart = ({ events, onClickCreate, onClickEdit }) => {
     nodeCircle
       .append('circle')
       .attr('r', 25)
-      .attr('fill', (d) => emotions[d?.emotions[0]]?.color ?? 'white');
+      .attr('fill', (d) => emotions[d?.emotions[0]]?.color ?? 'white')
+      .attr('opacity', (d) => (d.visible ? 1 : 0.2));
 
     nodeCircle
       .append('path')
       .data(nodes)
       .attr('d', 'M-25,0 a1,1 0 0,0 50,0')
       .attr('transform', 'rotate(-45)')
-      .attr('fill', (d) => emotions[d?.emotions[1]]?.color ?? 'transparent');
+      .attr('fill', (d) => emotions[d?.emotions[1]]?.color ?? 'transparent')
+      .attr('opacity', (d) => (d.visible ? 1 : 0.2));
 
     node
       .append('text')
@@ -176,6 +183,7 @@ const EmotionalChart = ({ events, onClickCreate, onClickEdit }) => {
       .attr('stroke-linecap', 'round')
       .attr('stroke-linejoin', 'round')
       .attr('stroke-width', 0.4)
+      .attr('opacity', (d) => (d.visible ? 1 : 0.2))
       .text((d) => d.name);
 
     const editButton = node
