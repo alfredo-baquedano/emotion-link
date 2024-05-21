@@ -17,33 +17,6 @@ const EmotionalChart = ({ events, onClickCreate, onClickEdit }) => {
     return () => d3.select(ref.current).selectAll('*').remove();
   }, []);
 
-  const handleOpenCreateEvent = () => {
-    setOpenCreateEvent(true);
-  };
-
-  const handleCloseCreateEvent = () => {
-    setOpenCreateEvent(false);
-  };
-
-  const handleOpenEditEvent = (e) => {
-    e.stopPropagation();
-    setOpenEditEvent(true);
-  };
-
-  const handleCloseEditEvent = () => {
-    setOpenEditEvent(false);
-  };
-
-  const handleCreateEvent = (event) => {
-    setEvents([...events, event]);
-    setOpenCreateEvent(false);
-  };
-
-  const handleEditEvent = (event) => {
-    setEvents([...events, event]);
-    setOpenCreateEvent(false);
-  };
-
   const linkArc = (d) => {
     const r = Math.hypot(d.target.x - d.source.x, d.target.y - d.source.y);
     return `
