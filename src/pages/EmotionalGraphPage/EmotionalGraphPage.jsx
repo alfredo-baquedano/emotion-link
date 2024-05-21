@@ -18,12 +18,12 @@ const EmotionalGraphPage = () => {
 
   useEffect(() => {
     setEvents(JSON.parse(localStorage.getItem('events')) ?? []);
-  }, [])
+  }, []);
 
   return (
     <div>
       <DrawerFilter filters={filters} setFilters={setFilters} />
-      <EmotionalChart events={events}/>
+      <EmotionalChart events={events} />
     </div>
   );
 };

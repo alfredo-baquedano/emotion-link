@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
-import * as d3 from "d3";
+import * as d3 from 'd3';
 import ChartLegend from './../../components/ChartLegend';
 import CreateEventForm from './CreateEventForm';
 import EditEventForm from './EditEventForm';
@@ -11,10 +11,13 @@ const EmotionalChart = ({ events }) => {
   const [openEditEvent, setOpenEditEvent] = useState(false);
   const ref = useRef();
 
-  const emotions = emotionList.reduce((acc, curr) => ({ ...acc, [curr.name]: curr}), {});
+  const emotions = emotionList.reduce(
+    (acc, curr) => ({ ...acc, [curr.name]: curr }),
+    {},
+  );
 
   useEffect(() => {
-    const svgElement = d3.select(ref.current)
+    const svgElement = d3.select(ref.current);
     loadChart(svgElement);
     return () => d3.select(ref.current).selectAll('*').remove();
   }, []);
@@ -250,7 +253,7 @@ const EmotionalChart = ({ events }) => {
       link.attr('d', linkArc);
       node.attr('transform', (d) => `translate(${d.x},${d.y})`);
     });
-  }
+  };
 
   return (
     <>
@@ -274,6 +277,6 @@ const EmotionalChart = ({ events }) => {
       <svg ref={ref} />
     </>
   );
-}
+};
 
 export default EmotionalChart;
