@@ -4,18 +4,18 @@ import EmotionalChart from './EmotionalChart';
 
 const EmotionalGraphPage = () => {
   const [filters, setFilters] = useState({
-    Joy: true,
-    Surprise: true,
-    Sadness: true,
-    Anger: true,
-    Fear: true,
-    Love: true,
+    joy: true,
+    surprise: true,
+    sadness: true,
+    anger: true,
+    fear: true,
+    love: true,
   });
 
   return (
     <div>
       <DrawerFilter filters={filters} setFilters={setFilters} />
-      <EmotionalChart />
+      <EmotionalChart filters={filters} />
     </div>
   );
 };

@@ -11,9 +11,8 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
-import { SingleInputDateRangeField } from '@mui/x-date-pickers-pro/SingleInputDateRangeField';
 import Slider from '@mui/material/Slider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 const emotions = {
   joy: {
@@ -52,6 +51,8 @@ export default function DrawerFilter({ filters, setFilters }) {
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [peopleInvolved, setPeopleInvolved] = useState('');
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [value, setValue] = useState(5);
 
   const toggleDrawer = (newOpen) => () => {
@@ -102,9 +103,22 @@ export default function DrawerFilter({ filters, setFilters }) {
         Filter by date:
       </Typography>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DateRangePicker
-          slots={{ field: SingleInputDateRangeField }}
-          name='allowedRange'
+        <DatePicker
+          label='Start Date'
+          value={startDate}
+          onChange={(date) => setStartDate(date)}
+          renderInput={(params) => <TextField {...params} />}
+          fullWidth
+          sx={{ mt: 2, mb: 2, mr: 3, ml: 3, width: '80%' }}
+        />
+      </LocalizationProvider>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DatePicker
+          label='End Date'
+          value={endDate}
+          onChange={(date) => setEndDate(date)}
+          renderInput={(params) => <TextField {...params} />}
+          fullWidth
           sx={{ mt: 2, mb: 2, mr: 3, ml: 3, width: '80%' }}
         />
       </LocalizationProvider>
