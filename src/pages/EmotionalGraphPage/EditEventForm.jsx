@@ -16,6 +16,7 @@ import {
   Divider
 } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
+import EmotionSelect from './../../components/EmotionSelect';
 
 const EditEventForm = ({ onCreate, onClose, relatedEvent, emotionsList }) => {
   const [eventData, setEventData] = useState({
@@ -155,6 +156,7 @@ const EditEventForm = ({ onCreate, onClose, relatedEvent, emotionsList }) => {
           value={eventData.participants}
           onChange={handleChange}
         />
+        <EmotionSelect/>
       </DialogContent>
       <DialogActions>
         <Button variant="outlined" color="secondary" onClick={onClose}>
