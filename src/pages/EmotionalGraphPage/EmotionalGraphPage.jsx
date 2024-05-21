@@ -23,11 +23,7 @@ const EmotionalGraphPage = () => {
   return (
     <div>
       <DrawerFilter filters={filters} setFilters={setFilters} />
-<<<<<<< HEAD
-      <EmotionalChart filters={filters} />
-=======
       <EmotionalChart events={events}/>
->>>>>>> 73f27883888d93750927ca5d8d2bb257add9b1b0
     </div>
   );
 };
