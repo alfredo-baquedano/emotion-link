@@ -25,7 +25,9 @@
     "name": "Got a GF",
     "date": "2024-05-01",
     "location": "Park",
-    "participants": [],
+    "participants": [
+      "gf"
+    ],
     "relationships": {
       "preceded_by": [],
       "followed_by": [
@@ -59,7 +61,9 @@
     "name": "GF died",
     "date": "2024-05-07",
     "location": "Hospital",
-    "participants": [],
+    "participants": [
+      "gf"
+    ],
     "relationships": {
       "preceded_by": [],
       "followed_by": [
@@ -96,7 +100,9 @@
     "name": "Playing LoL",
     "date": "2024-05-15",
     "location": "Home",
-    "participants": [],
+    "participants": [
+      "Pipe"
+    ],
     "relationships": {
       "preceded_by": [],
       "followed_by": [

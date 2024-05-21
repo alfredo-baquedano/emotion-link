@@ -50,7 +50,9 @@ const emotions = {
 export default function DrawerFilter({ filters, setFilters }) {
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState(filters.searchTerm || '');
-  const [peopleInvolved, setPeopleInvolved] = useState('');
+  const [peopleInvolved, setPeopleInvolved] = useState(
+    filters.peopleInvolved || '',
+  );
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [impactRange, setImpactRange] = useState(filters.impactRange);
@@ -82,11 +84,19 @@ export default function DrawerFilter({ filters, setFilters }) {
     }));
   };
 
+  const handlePeopleInvolvedChange = (e) => {
+    setPeopleInvolved(e.target.value);
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      peopleInvolved: e.target.value,
+    }));
+  };
+
   const DrawerList = (
     <Box sx={{ width: 300 }} role='presentation'>
       <Typography variant='h6' gutterBottom sx={{ ml: 3, mt: 2 }}>
         Filters:
-      </Typography>{' '}
+      </Typography>
       <TextField
         autoFocus
         label='Search by event'
@@ -100,10 +110,9 @@ export default function DrawerFilter({ filters, setFilters }) {
       />
       <Divider />
       <TextField
-        autoFocus
         label='Search by People Involved'
         value={peopleInvolved}
-        onChange={(e) => setPeopleInvolved(e.target.value)}
+        onChange={handlePeopleInvolvedChange}
         InputProps={{
           startAdornment: <SearchIcon />,
         }}

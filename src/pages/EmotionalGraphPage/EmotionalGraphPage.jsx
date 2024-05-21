@@ -20,6 +20,7 @@ const EmotionalGraphPage = () => {
     love: true,
     impactRange: [1, 10],
     searchTerm: '',
+    peopleInvolved: '',
   });
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState();
@@ -67,13 +68,13 @@ const EmotionalGraphPage = () => {
   };
 
   const handleEditEvent = (event) => {
-    setEvents([...events, event]);
-    setOpenCreateEvent(false);
+    setEvents(events.map((e) => (e.id === event.id ? event : e)));
+    setOpenEditEvent(false);
   };
 
   const handleDeleteEvent = (event) => {
     const index = events.findIndex((e) => event.id === e.id);
-    if (index > -1) setEvents(events.toSpliced(index, 1));
+    if (index > -1) setEvents(events.filter((_, i) => i !== index));
     setOpenDeleteEvent(false);
   };
 
@@ -84,7 +85,11 @@ const EmotionalGraphPage = () => {
         node.impact >= filters.impactRange[0] &&
         node.impact <= filters.impactRange[1] &&
         (!filters.searchTerm ||
-          node.name.toLowerCase().includes(filters.searchTerm.toLowerCase())));
+          node.name.toLowerCase().includes(filters.searchTerm.toLowerCase())) &&
+        (!filters.peopleInvolved ||
+          node.participants.some((p) =>
+            p.toLowerCase().includes(filters.peopleInvolved.toLowerCase()),
+          )));
     return { ...node, visible };
   });
 
