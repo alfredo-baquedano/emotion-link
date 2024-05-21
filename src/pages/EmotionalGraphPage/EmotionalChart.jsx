@@ -1,10 +1,6 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
-import { Dialog } from '@mui/material';
 import ChartLegend from './../../components/ChartLegend';
-import CreateEventForm from './CreateEventForm';
-import EditEventForm from './EditEventForm';
-import { Dialog } from '@mui/material';
 import emotionList from '../../contants/emotions.json';
 
 const EmotionalChart = ({ events, onClickCreate, onClickEdit }) => {
