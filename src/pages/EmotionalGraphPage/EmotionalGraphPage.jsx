@@ -6,12 +6,12 @@ import CreateEventForm from './CreateEventForm';
 import EditEventForm from './EditEventForm';
 import { Dialog } from '@mui/material';
 import emotionList from '../../contants/emotions.json';
-
-localStorage.setItem('events', JSON.stringify(staticEvents));
+import ConfirmDeleteEvent from './ConfirmDeleteEvent';
 
 const EmotionalGraphPage = () => {
   const [openCreateEvent, setOpenCreateEvent] = useState(false);
   const [openEditEvent, setOpenEditEvent] = useState(false);
+  const [openDeleteEvent, setOpenDeleteEvent] = useState(false);
   const [filters, setFilters] = useState({
     joy: true,
     surprise: true,
@@ -28,9 +28,22 @@ const EmotionalGraphPage = () => {
     setEvents(JSON.parse(localStorage.getItem('events')) ?? []);
   }, []);
 
+  useEffect(() => {
+    if (events.length) localStorage.setItem('events', JSON.stringify(events));
+  }, [events]);
+
   const handleOpenCreateEvent = (e) => {
     setSelectedEvent(e.target.__data__);
     setOpenCreateEvent(true);
+  };
+
+  const handleCloseDeleteEvent = () => {
+    setOpenDeleteEvent(false);
+  };
+
+  const handleOpenDeleteEvent = (e) => {
+    setSelectedEvent(e.target.__data__);
+    setOpenDeleteEvent(true);
   };
 
   const handleCloseCreateEvent = () => {
@@ -58,6 +71,12 @@ const EmotionalGraphPage = () => {
     setOpenCreateEvent(false);
   };
 
+  const handleDeleteEvent = (event) => {
+    const index = events.findIndex((e) => event.id === e.id);
+    if (index > -1) setEvents(events.toSpliced(index, 1));
+    setOpenDeleteEvent(false);
+  };
+
   return (
     <div>
       <DrawerFilter filters={filters} setFilters={setFilters} />
@@ -77,11 +96,19 @@ const EmotionalGraphPage = () => {
           onClose={handleCloseEditEvent}
         />
       </Dialog>
+      <Dialog open={openDeleteEvent} onClose={handleCloseDeleteEvent}>
+        <ConfirmDeleteEvent
+          event={selectedEvent}
+          onDelete={handleDeleteEvent}
+          onClose={handleCloseDeleteEvent}
+        />
+      </Dialog>
       <EmotionalChart
         events={events}
         filters={filters}
         onClickCreate={handleOpenCreateEvent}
         onClickEdit={handleOpenEditEvent}
+        onClickDelete={handleOpenDeleteEvent}
       />
     </div>
   );

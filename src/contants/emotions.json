@@ -369,8 +369,8 @@
     ]
   },
   {
-    "name": "disgust",
-    "displayName": "Disgust",
+    "name": "love",
+    "displayName": "Love",
     "color": "#DA70D6",
     "children": [
       {

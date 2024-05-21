@@ -3,7 +3,13 @@ import * as d3 from 'd3';
 import ChartLegend from './../../components/ChartLegend';
 import emotionList from '../../contants/emotions.json';
 
-const EmotionalChart = ({ events, filters, onClickCreate, onClickEdit }) => {
+const EmotionalChart = ({
+  events,
+  filters,
+  onClickCreate,
+  onClickEdit,
+  onClickDelete,
+}) => {
   const ref = useRef();
 
   const emotions = emotionList.reduce(
@@ -102,6 +108,11 @@ const EmotionalChart = ({ events, filters, onClickCreate, onClickEdit }) => {
       .attr('width', width)
       .attr('height', height)
       .attr('style', 'max-width: 100%; height: auto; font: 12px sans-serif;')
+      .call(
+        d3.zoom().on('zoom', (e) => {
+          svg.attr('transform', e.transform);
+        }),
+      )
       .transition()
       .duration(500);
 
@@ -151,12 +162,16 @@ const EmotionalChart = ({ events, filters, onClickCreate, onClickEdit }) => {
         d3.select(this).attr('stroke-width', 5);
         d3.select(`#edit-button-${data.id}`).style('display', 'block');
         d3.select(`#create-button-${data.id}`).style('display', 'block');
+        d3.select(`#delete-button-${data.id}`).style('display', 'block');
+        d3.select(`#view-button-${data.id}`).style('display', 'block');
       })
       .on('mouseout', function (e) {
         const data = e.target.__data__;
         d3.select(this).attr('stroke-width', 1);
         d3.select(`#edit-button-${data.id}`).style('display', 'none');
         d3.select(`#create-button-${data.id}`).style('display', 'none');
+        d3.select(`#delete-button-${data.id}`).style('display', 'none');
+        d3.select(`#view-button-${data.id}`).style('display', 'none');
       });
 
     const nodeCircle = node.append('g').attr('cursor', 'grab');
@@ -192,8 +207,7 @@ const EmotionalChart = ({ events, filters, onClickCreate, onClickEdit }) => {
       .append('g')
       .data(nodes)
       .attr('id', (d) => `edit-button-${d.id}`)
-      .attr('stroke-width', 0)
-      .attr('transform', `translate(20, -17)`)
+      .attr('transform', `translate(22, -19)`)
       .style('cursor', 'pointer')
       .style('display', 'none')
       .on('click', onClickEdit);
@@ -205,6 +219,7 @@ const EmotionalChart = ({ events, filters, onClickCreate, onClickEdit }) => {
       .attr('transform', `translate(-8, -8) scale(0.7)`)
       .attr('fill', 'gray')
       .attr('stroke', 'gray')
+      .attr('stroke-width', 0.3)
       .attr(
         'd',
         'M3 17.25V21h3.75L17.81 9.94l-3.75-3.75zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75z',
@@ -214,8 +229,7 @@ const EmotionalChart = ({ events, filters, onClickCreate, onClickEdit }) => {
       .append('g')
       .data(nodes)
       .attr('id', (d) => `create-button-${d.id}`)
-      .attr('stroke-width', 2)
-      .attr('transform', `translate(-18, 20)`)
+      .attr('transform', `translate(-20, 20)`)
       .style('cursor', 'pointer')
       .style('display', 'none')
       .on('click', onClickCreate);
@@ -228,6 +242,49 @@ const EmotionalChart = ({ events, filters, onClickCreate, onClickEdit }) => {
       .attr('fill', 'gray')
       .attr('stroke', 'gray')
       .attr('d', 'M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z');
+
+    const deleteButton = node
+      .append('g')
+      .data(nodes)
+      .attr('id', (d) => `delete-button-${d.id}`)
+      .attr('transform', `translate(20, 20)`)
+      .style('cursor', 'pointer')
+      .style('display', 'none')
+      .on('click', onClickDelete);
+
+    deleteButton.append('circle').attr('r', 10).attr('fill', 'white');
+
+    deleteButton
+      .append('path')
+      .attr('transform', `translate(-8, -8) scale(0.7)`)
+      .attr('fill', 'red')
+      .attr('stroke', 'red')
+      .attr(
+        'd',
+        'M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z',
+      );
+
+    const viewButton = node
+      .append('g')
+      .data(nodes)
+      .attr('id', (d) => `view-button-${d.id}`)
+      .attr('transform', `translate(-20, -19)`)
+      .style('cursor', 'pointer')
+      .style('display', 'none')
+      .on('click', onClickCreate);
+
+    viewButton.append('circle').attr('r', 10).attr('fill', 'white');
+
+    viewButton
+      .append('path')
+      .attr('transform', `translate(-9, -8) scale(0.7)`)
+      .attr('fill', 'gray')
+      .attr('stroke', 'gray')
+      .attr('stroke-width', 0.3)
+      .attr(
+        'd',
+        'M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5M12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5m0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3',
+      );
 
     simulation.on('tick', () => {
       link.attr('d', linkArc);
