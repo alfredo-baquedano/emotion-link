@@ -60,9 +60,7 @@ const EmotionalGraphPage = () => {
   return (
     <div>
       <DrawerFilter filters={filters} setFilters={setFilters} />
-<<<<<<< HEAD
       <EmotionalChart events={filteredEvents} />
-=======
       <Dialog open={openCreateEvent} onClose={handleCloseCreateEvent}>
         <CreateEventForm
           relatedEvent={''}
@@ -84,7 +82,6 @@ const EmotionalGraphPage = () => {
         onClickCreate={handleOpenCreateEvent}
         onClickEdit={handleOpenEditEvent}
       />
->>>>>>> 106464c795521e572d2b644f6061fbd4821bf4dc
     </div>
   );
 };
