@@ -1,10 +1,41 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState, useId } from 'react';
 import emotions from './../contants/emotions.json';
 import * as d3 from 'd3';
+import {
+  Autocomplete,
+  Chip,
+  IconButton,
+  Popper,
+  Paper,
+  Fade,
+  Typography,
+  TextField,
+} from '@mui/material';
+import DonutSmallIcon from '@mui/icons-material/DonutSmall';
 
-const EmotionSelect = () => {
-  const width = 928;
-  const height = width;
+const EmotionSelect = ({ name, onChange, value }) => {
+  const popperId = useId();
+  const [popperAnchorEl, setPopperAnchorEl] = useState(false);
+  const openEmotionWheel = Boolean(popperAnchorEl);
+
+  const handleOpenEmotionWheel = () =>
+    setPopperAnchorEl(popperAnchorEl ? null : event.currentTarget);
+
+  const handleCloseEmotionWheel = () => setPopperAnchorEl(null);
+
+  const getEmotionArray = (obj) => {
+    const result = [];
+    const recurse = (currentObj) => {
+      result.push(currentObj);
+      if (currentObj.children && Array.isArray(currentObj.children)) {
+        currentObj.children.forEach((child) => recurse(child));
+      }
+    };
+    recurse(obj);
+    return result;
+  };
+
+  const width = 800;
   const radius = width / 6;
 
   const ref = useRef();
@@ -15,148 +46,165 @@ const EmotionSelect = () => {
     return () => d3.select(ref.current).selectAll('*').remove();
   }, []);
 
-  function arcVisible(d) {
-    return d.y1 <= 3 && d.y0 >= 1 && d.x1 > d.x0;
-  }
+  const partition = (data) =>
+    d3.partition().size([2 * Math.PI, radius])(
+      d3
+        .hierarchy(data)
+        .sum((d) => d.value)
+        .sort((a, b) => b.value - a.value),
+    );
 
-  function labelVisible(d) {
-    return d.y1 <= 3 && d.y0 >= 1 && (d.y1 - d.y0) * (d.x1 - d.x0) > 0.03;
-  }
+  const arc = d3
+    .arc()
+    .startAngle((d) => d.x0)
+    .endAngle((d) => d.x1)
+    .padAngle((d) => Math.min((d.x1 - d.x0) / 2, 0.005))
+    .padRadius(radius / 2)
+    .innerRadius((d) => d.y0)
+    .outerRadius((d) => d.y1 - 1);
 
-  function labelTransform(d) {
-    const x = (((d.x0 + d.x1) / 2) * 180) / Math.PI;
-    const y = ((d.y0 + d.y1) / 2) * radius;
-    return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`;
-  }
+  const autoBox = () => {
+    const { x, y, width, height } = ref.current.getBBox();
+    return [x, y, width, height];
+  };
 
   const loadChart = (svg) => {
-    const color = d3.scaleOrdinal(
-      d3.quantize(d3.interpolateRainbow, emotions.length + 1),
-    );
-
-    const hierarchy = d3
-      .hierarchy(emotions)
-      .sum((d) => d.value)
-      .sort((a, b) => b.value - a.value);
-    const root = d3.partition().size([2 * Math.PI, hierarchy.height + 1])(
-      hierarchy,
-    );
-    root.each((d) => (d.current = d));
+    const root = partition(emotions);
+    const format = d3.format(',d');
 
     svg
-      .attr('viewBox', [-width / 2, -height / 2, width, height])
-      .attr('width', width)
-      .attr('height', height)
-      .attr('style', 'max-width: 100%; height: auto; font: 12px sans-serif;');
-
-    const arc = d3
-      .arc()
-      .startAngle((d) => d.x0)
-      .endAngle((d) => d.x1)
-      .padAngle((d) => Math.min((d.x1 - d.x0) / 2, 0.005))
-      .padRadius(radius * 1.5)
-      .innerRadius((d) => d.y0 * radius)
-      .outerRadius((d) => Math.max(d.y0 * radius, d.y1 * radius - 1));
-
-    const path = svg
+      .attr('style', 'max-width: 100%; height: auto; font: 8px sans-serif;')
       .append('g')
+      .attr('fill-opacity', 0.6)
       .selectAll('path')
-      .data(root.descendants().slice(1))
+      .data(root.descendants().filter((d) => d.depth))
       .join('path')
       .attr('fill', (d) => {
         while (d.depth > 1) d = d.parent;
-        return color(d.data.name);
+        return d.data.color;
       })
-      .attr('fill-opacity', (d) =>
-        arcVisible(d.current) ? (d.children ? 0.6 : 0.4) : 0,
-      )
-      .attr('pointer-events', (d) => (arcVisible(d.current) ? 'auto' : 'none'))
-      .attr('d', (d) => arc(d.current));
+      .attr('d', arc)
+      .append('title')
+      .text(
+        (d) =>
+          `${d
+            .ancestors()
+            .map((d) => d.data.displayName)
+            .reverse()
+            .join('/')}\n${format(d.value)}`,
+      );
 
-    path
-      .filter((d) => d.children)
-      .style('cursor', 'pointer')
-      .on('click', clicked);
-
-    const format = d3.format(',d');
-    path.append('title').text(
-      (d) =>
-        `${d
-          .ancestors()
-          .map((d) => d.data.name)
-          .reverse()
-          .join('/')}\n${format(d.value)}`,
-    );
-
-    const label = svg
+    svg
       .append('g')
       .attr('pointer-events', 'none')
       .attr('text-anchor', 'middle')
-      .style('user-select', 'none')
+      .attr('font-size', 5)
+      .attr('font-family', 'sans-serif')
       .selectAll('text')
-      .data(root.descendants().slice(1))
+      .data(
+        root
+          .descendants()
+          .filter((d) => d.depth && ((d.y0 + d.y1) / 2) * (d.x1 - d.x0) > 10),
+      )
       .join('text')
+      .attr('transform', function (d) {
+        const x = (((d.x0 + d.x1) / 2) * 180) / Math.PI;
+        const y = (d.y0 + d.y1) / 2;
+        return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`;
+      })
       .attr('dy', '0.35em')
-      .attr('fill-opacity', (d) => +labelVisible(d.current))
-      .attr('transform', (d) => labelTransform(d.current))
-      .text((d) => d.data.name);
+      .text((d) => d.data.displayName);
 
-    const parent = svg
-      .append('circle')
-      .datum(root)
-      .attr('r', radius)
-      .attr('fill', 'none')
-      .attr('pointer-events', 'all')
-      .on('click', clicked);
+    svg.attr('viewBox', autoBox).node();
   };
 
-  function clicked(event, p) {
-    parent.datum(p.parent || root);
+  const emotionList = getEmotionArray(emotions);
 
-    root.each(
-      (d) =>
-        (d.target = {
-          x0:
-            Math.max(0, Math.min(1, (d.x0 - p.x0) / (p.x1 - p.x0))) *
-            2 *
-            Math.PI,
-          x1:
-            Math.max(0, Math.min(1, (d.x1 - p.x0) / (p.x1 - p.x0))) *
-            2 *
-            Math.PI,
-          y0: Math.max(0, d.y0 - p.depth),
-          y1: Math.max(0, d.y1 - p.depth),
-        }),
-    );
-
-    const t = svg.transition().duration(750);
-
-    path
-      .transition(t)
-      .tween('data', (d) => {
-        const i = d3.interpolate(d.current, d.target);
-        return (t) => (d.current = i(t));
-      })
-      .filter(function (d) {
-        return +this.getAttribute('fill-opacity') || arcVisible(d.target);
-      })
-      .attr('fill-opacity', (d) =>
-        arcVisible(d.target) ? (d.children ? 0.6 : 0.4) : 0,
-      )
-      .attr('pointer-events', (d) => (arcVisible(d.target) ? 'auto' : 'none'))
-
-      .attrTween('d', (d) => () => arc(d.current));
-
-    label
-      .filter(function (d) {
-        return +this.getAttribute('fill-opacity') || labelVisible(d.target);
-      })
-      .transition(t)
-      .attr('fill-opacity', (d) => +labelVisible(d.target))
-      .attrTween('transform', (d) => () => labelTransform(d.current));
-  }
-
-  return <svg ref={ref} />;
+  return (
+    <>
+      <Autocomplete
+        sx={{ mt: 2 }}
+        multiple
+        fullWidth
+        value={value}
+        options={emotionList}
+        popupIcon={false}
+        onChange={(event, newValue) => {
+          event.target.name = name;
+          event.target.value = newValue;
+          onChange(event);
+        }}
+        getOptionLabel={(option) => option.displayName}
+        renderTags={(tagValue, getTagProps) =>
+          tagValue.map((option, index) => (
+            <Chip
+              key={option.name}
+              label={option.displayName}
+              style={{
+                backgroundColor: option.color,
+                color: '#000',
+              }}
+              {...getTagProps({ index })}
+            />
+          ))
+        }
+        renderOption={(props, option) => (
+          <Chip
+            {...props}
+            key={option.name}
+            label={option.displayName}
+            style={{
+              margin: '3px',
+              borderWidth: 1,
+              display: 'inline-block',
+              backgroundColor: option.color,
+              color: '#000',
+            }}
+          />
+        )}
+        renderInput={(params) => (
+          <>
+            <TextField
+              {...params}
+              label='Emotions'
+              name={name}
+              inputProps={{
+                ...params.inputProps,
+                endadornment: (
+                  <IconButton onClick={handleOpenEmotionWheel}>
+                    <DonutSmallIcon />
+                  </IconButton>
+                ),
+              }}
+            ></TextField>
+            <IconButton
+              aria-describedby={popperId}
+              onClick={handleOpenEmotionWheel}
+            >
+              <DonutSmallIcon />
+            </IconButton>
+          </>
+        )}
+      />
+      <Popper
+        id={popperId}
+        anchorEl={popperAnchorEl}
+        open={openEmotionWheel}
+        placement='top'
+        transition
+        style={{ zIndex: 10000 }}
+      >
+        {({ TransitionProps }) => (
+          <Fade {...TransitionProps} timeout={350}>
+            <Paper>
+              <Typography sx={{ p: 2 }}>Select your emotion</Typography>
+              <svg width='400' height='400' ref={ref} />
+            </Paper>
+          </Fade>
+        )}
+      </Popper>
+    </>
+  );
 };
 
 export default EmotionSelect;

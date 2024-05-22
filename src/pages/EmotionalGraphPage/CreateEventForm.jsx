@@ -2,11 +2,7 @@ import React, { useState } from 'react';
 import {
   TextField,
   Button,
-  MenuItem,
   FormControl,
-  Select,
-  InputLabel,
-  Chip,
   Box,
   Slider,
   DialogTitle,
@@ -14,10 +10,18 @@ import {
   DialogActions,
   Typography,
   Divider,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
 } from '@mui/material';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { v4 as uuidv4 } from 'uuid';
+import EmotionSelect from './../../components/EmotionSelect';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-const CreateEventForm = ({ onCreate, onClose, relatedEvent, emotionsList }) => {
+const CreateEventForm = ({ onCreate, onClose, relatedEvent }) => {
   const [eventData, setEventData] = useState({
     name: '',
     date: '',
@@ -39,14 +43,8 @@ const CreateEventForm = ({ onCreate, onClose, relatedEvent, emotionsList }) => {
     });
   };
 
-  const handleEmotionsChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setEventData({
-      ...eventData,
-      emotions: value.map((event) => event.name),
-    });
+  const handleEmotionsChange = (emotions) => {
+    setEventData({ ...eventData, emotions });
   };
 
   const handleSubmit = (e) => {
@@ -54,8 +52,8 @@ const CreateEventForm = ({ onCreate, onClose, relatedEvent, emotionsList }) => {
     const newEvent = {
       ...eventData,
       id: uuidv4(),
+      emotions: eventData.emotions.map((emotion) => emotion.name),
       participants: eventData.participants.split(',').map((p) => p.trim()),
-      impact: parseInt(eventData.impact),
     };
     onCreate(newEvent);
     setEventData({
@@ -83,18 +81,20 @@ const CreateEventForm = ({ onCreate, onClose, relatedEvent, emotionsList }) => {
           value={eventData.name}
           onChange={handleChange}
         />
-        <TextField
-          sx={{ mt: 2 }}
-          name='date'
-          label='Date'
-          type='date'
-          fullWidth
-          value={eventData.date}
-          onChange={handleChange}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            label='Event Date'
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                name='date'
+                value={eventData.date}
+                onChange={handleChange}
+              />
+            )}
+            sx={{ mt: 2, width: '100%' }}
+          />
+        </LocalizationProvider>
         <FormControl sx={{ mt: 2 }} fullWidth>
           <Typography id='impact-label' gutterBottom>
             Impact
@@ -113,46 +113,45 @@ const CreateEventForm = ({ onCreate, onClose, relatedEvent, emotionsList }) => {
             max={10}
           />
         </FormControl>
-        <FormControl sx={{ mt: 2 }} fullWidth>
-          <InputLabel id='emotions-label'>Emotions</InputLabel>
-          <Select
-            labelId='emotions-label'
-            name='emotions'
-            multiple
-            value={eventData.emotions}
-            onChange={handleEmotionsChange}
-            renderValue={(selected) => (
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                {selected.map((value) => (
-                  <Chip key={value.name} label={value.display_name} />
-                ))}
-              </Box>
-            )}
-          >
-            {emotionsList.map((emotion) => (
-              <MenuItem key={emotion.name} value={emotion}>
-                {emotion.display_name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <EmotionSelect name='emotions' onChange={handleChange} />
         <Divider />
-        <TextField
-          sx={{ mt: 2 }}
-          name='location'
-          label='Location'
-          fullWidth
-          value={eventData.location}
-          onChange={handleChange}
-        />
-        <TextField
-          sx={{ mt: 2 }}
-          name='participants'
-          label='Participants (comma separated)'
-          fullWidth
-          value={eventData.participants}
-          onChange={handleChange}
-        />
+        <Accordion
+          disableGutters
+          sx={{
+            m: -1,
+            mt: 2,
+            backgroundColor: 'transparent',
+            boxShadow: 'unset',
+            backgroundImage: 'unset',
+          }}
+        >
+          <AccordionSummary
+            sx={{ m: -1, backgroundColor: 'transparent' }}
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls='panel1-content'
+            id='panel1-header'
+          >
+            Show more options
+          </AccordionSummary>
+          <AccordionDetails sx={{ m: -1, backgroundColor: 'transparent' }}>
+            <TextField
+              sx={{ mt: 2 }}
+              name='location'
+              label='Location'
+              fullWidth
+              value={eventData.location}
+              onChange={handleChange}
+            />
+            <TextField
+              sx={{ mt: 2 }}
+              name='participants'
+              label='Participants (comma separated)'
+              fullWidth
+              value={eventData.participants}
+              onChange={handleChange}
+            />
+          </AccordionDetails>
+        </Accordion>
       </DialogContent>
       <DialogActions>
         <Button variant='outlined' color='secondary' onClick={onClose}>

@@ -13,7 +13,7 @@ const EmotionalChart = ({
 }) => {
   const ref = useRef();
 
-  const emotions = emotionList.reduce(
+  const emotions = emotionList.children.reduce(
     (acc, curr) => ({ ...acc, [curr.name]: curr }),
     {},
   );
@@ -301,7 +301,7 @@ const EmotionalChart = ({
 
   return (
     <>
-      <ChartLegend emotionList={emotionList} />
+      <ChartLegend emotionList={emotionList.children} />
       <svg ref={ref} />
     </>
   );
