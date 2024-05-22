@@ -5,6 +5,21 @@ import ErrorPage from './pages/ErrorPage/ErrorPage';
 import ToggleColorMode from './ToggleColorMode';
 import { ThemeContextProvider } from './contexts/ThemeContext';
 import { SnackbarContextProvider } from './contexts/SnackbarContext';
+import { createHashRouter, RouterProvider } from 'react-router-dom';
+
+const router = createHashRouter([
+  {
+    path: '/',
+    element: <EmotionalGraphPage />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: '/*',
+        element: <NotFound />,
+      },
+    ],
+  },
+]);
 
 function App() {
   const isDev = import.meta.env.DEV;
@@ -13,14 +28,7 @@ function App() {
       <SnackbarContextProvider>
         <div className='App'>
           {isDev && <ToggleColorMode />}
-          <Routes>
-            <Route
-              path='/'
-              element={<EmotionalGraphPage />}
-            />
-            <Route path='/error' element={<ErrorPage />} />
-            <Route path='/*' element={<NotFound />} />
-          </Routes>
+          <RouterProvider router={router} />
         </div>
       </SnackbarContextProvider>
     </ThemeContextProvider>
