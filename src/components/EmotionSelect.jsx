@@ -180,12 +180,6 @@ const EmotionSelect = ({ name, onChange, value = [] }) => {
                 ),
               }}
             ></TextField>
-            <IconButton
-              aria-describedby={popperId}
-              onClick={handleOpenEmotionWheel}
-            >
-              <DonutSmallIcon />
-            </IconButton>
           </>
         )}
       />

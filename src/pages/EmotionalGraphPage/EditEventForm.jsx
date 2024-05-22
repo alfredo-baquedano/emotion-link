@@ -83,6 +83,11 @@ const EditEventForm = ({ onEdit, onClose, currentEvent, events }) => {
             sx={{ mt: 2, width: '100%' }}
           />
         </LocalizationProvider>
+        <EmotionSelect
+          name='emotions'
+          value={eventData.emotions}
+          onChange={handleChange}
+        />
         <FormControl sx={{ mt: 2 }} fullWidth>
           <Typography id='impact-label' gutterBottom>
             Impact
@@ -101,11 +106,6 @@ const EditEventForm = ({ onEdit, onClose, currentEvent, events }) => {
             max={10}
           />
         </FormControl>
-        <EmotionSelect
-          name='emotions'
-          value={eventData.emotions}
-          onChange={handleChange}
-        />
         <Accordion
           disableGutters
           sx={{

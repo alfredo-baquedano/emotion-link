@@ -12,6 +12,8 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  Autocomplete,
+  Chip,
 } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -19,14 +21,17 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { v4 as uuidv4 } from 'uuid';
 import EmotionSelect from './../../components/EmotionSelect';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import dayjs from 'dayjs';
 
-const CreateEventForm = ({ onCreate, onClose, relatedEvent }) => {
+const CreateEventForm = ({ events, onCreate, onClose, relatedEvent }) => {
   const [eventData, setEventData] = useState({
     name: '',
-    date: '',
+    date: dayjs(),
     location: '',
     participants: [],
+    customTags: [],
     impact: 5,
+    details: '',
     emotions: [],
     relationships: {
       preceded_by: [relatedEvent?.id],
@@ -47,18 +52,20 @@ const CreateEventForm = ({ onCreate, onClose, relatedEvent }) => {
     const newEvent = {
       ...eventData,
       id: uuidv4(),
-      participants: eventData.participants.split(',').map((p) => p.trim()),
     };
     onCreate(newEvent);
     setEventData({
       name: '',
       date: '',
       location: '',
-      participants: '',
-      impact: '',
+      participants: [],
+      customTags: [],
+      impact: 5,
+      details: '',
       emotions: [],
       relationship: {
         preceded_by: [],
+        followed_by: [],
       },
     });
   };
@@ -78,13 +85,15 @@ const CreateEventForm = ({ onCreate, onClose, relatedEvent }) => {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
             label='Event Date'
+            name='date'
+            value={dayjs(eventData.date)}
+            onChange={(v) =>
+              handleChange({
+                target: { name: 'date', value: v.format('MM/DD/YYYY') },
+              })
+            }
             renderInput={(params) => (
-              <TextField
-                {...params}
-                name='date'
-                value={eventData.date}
-                onChange={handleChange}
-              />
+              <TextField {...params} name='date' value={eventData.date} />
             )}
             sx={{ mt: 2, width: '100%' }}
           />
@@ -139,12 +148,104 @@ const CreateEventForm = ({ onCreate, onClose, relatedEvent }) => {
               value={eventData.location}
               onChange={handleChange}
             />
+            <Autocomplete
+              sx={{ mt: 2 }}
+              multiple
+              freeSolo
+              value={eventData.participants}
+              name='participants'
+              onChange={(event, newValue) => {
+                handleChange({
+                  ...event,
+                  target: {
+                    ...event.target,
+                    name: 'participants',
+                    value: newValue,
+                  },
+                });
+              }}
+              options={events.reduce((acc, curr) => {
+                acc.push(
+                  ...[...curr.participants, ...eventData.participants].sort(
+                    (a, b) => a.localeCompare(b),
+                  ),
+                );
+                return [...new Set(acc)];
+              }, [])}
+              renderTags={(value, getTagProps) => {
+                return value.map((option, index) => (
+                  <Chip
+                    {...getTagProps({ index })}
+                    variant='outlined'
+                    label={option}
+                  />
+                ));
+              }}
+              renderOption={(props, option) => {
+                return (
+                  <li {...props} key={option}>
+                    {option}
+                  </li>
+                );
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label='Participants'
+                  placeholder='Participant'
+                />
+              )}
+            />
+            <Autocomplete
+              sx={{ mt: 2 }}
+              multiple
+              freeSolo
+              value={eventData.customTags ?? []}
+              name='customTags'
+              onChange={(event, newValue) => {
+                handleChange({
+                  ...event,
+                  target: {
+                    ...event.target,
+                    name: 'customTags',
+                    value: newValue,
+                  },
+                });
+              }}
+              options={events.reduce((acc, curr) => {
+                acc.push(
+                  ...[
+                    ...(curr.customTags ?? []),
+                    ...(eventData.customTags ?? []),
+                  ].sort((a, b) => a.localeCompare(b)),
+                );
+                return [...new Set(acc)];
+              }, [])}
+              renderTags={(value, getTagProps) => {
+                return value.map((option, index) => (
+                  <Chip
+                    {...getTagProps({ index })}
+                    variant='outlined'
+                    label={option}
+                  />
+                ));
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label='Custom Tags'
+                  placeholder='Add Custom Tag'
+                />
+              )}
+            />
             <TextField
               sx={{ mt: 2 }}
-              name='participants'
-              label='Participants (comma separated)'
+              name='details'
+              label='Detalles'
+              multiline
+              maxRows={4}
               fullWidth
-              value={eventData.participants}
+              value={eventData.details}
               onChange={handleChange}
             />
           </AccordionDetails>
