@@ -102,11 +102,11 @@ const EmotionalChart = ({
       .attr('width', width)
       .attr('height', height)
       .attr('style', 'max-width: 100%; height: auto; font: 12px sans-serif;')
-      .call(
-        d3.zoom().on('zoom', (e) => {
-          svg.attr('transform', e.transform);
-        }),
-      )
+      // .call(
+      //   d3.zoom().on('zoom', (e) => {
+      //     svg.attr('transform', e.transform);
+      //   }),
+      // )
       .transition()
       .duration(500);
 
