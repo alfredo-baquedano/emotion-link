@@ -4,15 +4,43 @@
     "requiredExp" : 0,
     "missions": [
       {
-        "description": "-Create your first event (any Emotion!).",
+        "description": "-Drink 1 lt of water .",
         "exp": 200
       },
       {
-        "description": "-Create 3 new events with different Emotions.",
+        "description": "-Stretch your back and limbs.",
         "exp": 150
       },
       {
-        "description": "-Connect 3 events in a row.",
+        "description": "-Talk to a friend.",
+        "exp": 150
+      },
+      {
+        "description": "-Write how you feel during the day.",
+        "exp": 150
+      },
+      {
+        "description": "-Listen to your favorite band/song.",
+        "exp": 150
+      },
+      {
+        "description": "-Clean your room/workspace.",
+        "exp": 150
+      },
+      {
+        "description": "-Eat at least one fruit.",
+        "exp": 150
+      },
+      {
+        "description": "-Do at least 10 minutes of exercises.",
+        "exp": 150
+      },
+      {
+        "description": "-Take a break to meditate.",
+        "exp": 150
+      },
+      {
+        "description": "-Research about your hobbies.",
         "exp": 150
       }
     ]
