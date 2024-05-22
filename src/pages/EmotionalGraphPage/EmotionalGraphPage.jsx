@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import DrawerFilter from './DrawerFilter';
+import MissionsDrawer from './MissionsDrawer';
 import EmotionalChart from './EmotionalChart';
 import CreateEventForm from './CreateEventForm';
 import EditEventForm from './EditEventForm';
@@ -111,6 +112,7 @@ const EmotionalGraphPage = () => {
   return (
     <div>
       <DrawerFilter filters={filters} setFilters={setFilters} />
+      <MissionsDrawer filters={filters} setFilters={setFilters} />
       <Dialog open={openCreateEvent} onClose={handleCloseCreateEvent}>
         <CreateEventForm
           relatedEvent={selectedEvent}
