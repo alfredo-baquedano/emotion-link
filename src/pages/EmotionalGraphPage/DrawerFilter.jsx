@@ -103,9 +103,9 @@ export default function DrawerFilter({
   );
 
   const DrawerList = (
-    <Box sx={{ width: 360 }} role='presentation'>
-      <Typography variant='h6' gutterBottom sx={{ ml: 3, mt: 2 }}>
-        Filters:
+    <Box sx={{ width: 330, p: 3 }} role='presentation'>
+      <Typography variant='h6' gutterBottom>
+        Search
       </Typography>
       <TextField
         autoFocus
@@ -116,7 +116,7 @@ export default function DrawerFilter({
           startAdornment: <SearchIcon />,
         }}
         fullWidth
-        sx={{ mt: 2, mb: 2, mr: 3, ml: 3, width: '80%' }}
+        sx={{ mt: 2 }}
       />
       <Divider />
       <TextField
@@ -127,11 +127,11 @@ export default function DrawerFilter({
           startAdornment: <SearchIcon />,
         }}
         fullWidth
-        sx={{ mt: 2, mb: 2, mr: 3, ml: 3, width: '80%' }}
+        sx={{ mt: 2 }}
       />
       <Divider sx={{ mb: 2 }} />
-      <Typography variant='h8' sx={{ ml: 3, mt: 3 }}>
-        Filter by date:
+      <Typography variant='h6' sx={{ mt: 3 }}>
+        Filter by date
       </Typography>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DatePicker
@@ -139,8 +139,7 @@ export default function DrawerFilter({
           value={startDate}
           onChange={handleStartDateChange}
           renderInput={(params) => <TextField {...params} />}
-          fullWidth
-          sx={{ mt: 2, mb: 2, mr: 3, ml: 3, width: '80%' }}
+          sx={{ mt: 2, width: '100%' }}
         />
       </LocalizationProvider>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -149,13 +148,12 @@ export default function DrawerFilter({
           value={endDate}
           onChange={handleEndDateChange}
           renderInput={(params) => <TextField {...params} />}
-          fullWidth
-          sx={{ mt: 2, mb: 2, mr: 3, ml: 3, width: '80%' }}
+          sx={{ mt: 2, width: '100%' }}
         />
       </LocalizationProvider>
       <Divider sx={{ mb: 3 }} />
-      <Typography variant='h8' sx={{ ml: 3, mt: 3 }}>
-        Filter by impact:
+      <Typography variant='h6' sx={{ mt: 3 }}>
+        Filter by impact
       </Typography>
       <Slider
         value={impactRange}
@@ -165,13 +163,14 @@ export default function DrawerFilter({
         min={1}
         max={10}
         valueLabelDisplay='auto'
-        sx={{ mt: 2, mb: 2, mr: 3, ml: 3, width: '80%' }}
+        sx={{ mt: 2 }}
       />
-      <Divider sx={{ mb: 3 }} />
-      <Typography variant='h8' sx={{ ml: 3, mt: 3 }}>
-        Filter by emotions:
+      <Divider sx={{ my: 2 }} />
+      <Typography variant='h6' sx={{ mt: 3 }}>
+        Filter by emotions
       </Typography>
       <EmotionSelect
+        sx={{ mt: 3 }}
         options={filteredEmotions}
         name='emotions'
         value={
