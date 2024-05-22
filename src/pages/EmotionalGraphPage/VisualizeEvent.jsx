@@ -4,7 +4,6 @@ import {
   Card,
   CardContent,
   Typography,
-  DialogTitle,
   DialogContent,
 } from '@mui/material';
 
@@ -22,7 +21,6 @@ const VisualizeEvent = ({ event, onClose }) => {
 
   return (
     <Dialog open={Boolean(event)} onClose={onClose}>
-      <DialogTitle>Event:</DialogTitle>
       <DialogContent>
         <Card sx={{ minWidth: 275 }}>
           <CardContent>
