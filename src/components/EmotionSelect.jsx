@@ -1,27 +1,35 @@
-import { useRef, useEffect, useState, useId } from 'react';
+import { useRef, useEffect, useState, useId, forwardRef } from 'react';
 import emotions from './../contants/emotions.json';
 import * as d3 from 'd3';
 import {
   Autocomplete,
   Chip,
   IconButton,
-  Popper,
-  Paper,
-  Fade,
+  Dialog,
+  DialogContent,
+  AppBar,
+  Toolbar,
   Typography,
   TextField,
+  Slide,
+  Button,
+  Box,
 } from '@mui/material';
 import DonutSmallIcon from '@mui/icons-material/DonutSmall';
+import CloseIcon from '@mui/icons-material/Close';
 
 const EmotionSelect = ({ name, onChange, value = [], options }) => {
-  const popperId = useId();
-  const [popperAnchorEl, setPopperAnchorEl] = useState(false);
-  const openEmotionWheel = Boolean(popperAnchorEl);
+  const [openEmotionWheel, setOpenEmotionWheel] = useState(false);
+  const handleOpenEmotionWheel = () => setOpenEmotionWheel(true);
+  const handleCloseEmotionWheel = () => setOpenEmotionWheel(false);
 
-  const handleOpenEmotionWheel = () =>
-    setPopperAnchorEl(popperAnchorEl ? null : event.currentTarget);
-
-  const handleCloseEmotionWheel = () => setPopperAnchorEl(null);
+  const handleClearEmotions = () =>
+    onChange({
+      target: {
+        name,
+        value: [],
+      },
+    });
 
   const getEmotionArray = (obj) => {
     const result = [];
@@ -35,6 +43,12 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
     return result;
   };
 
+  const emotionList = getEmotionArray(emotions);
+  const getCurrentEmotions = (emotions, value) =>
+    getEmotionArray(emotions).filter((emotion) => {
+      return value.find((v) => v === emotion.name);
+    });
+
   const width = 800;
   const radius = width / 6;
 
@@ -43,8 +57,12 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
   useEffect(() => {
     const svgElement = d3.select(ref.current);
     loadChart(svgElement);
+    svgElement.selectAll('*').remove();
+    setTimeout(() => {
+      loadChart(svgElement);
+    }, 1000);
     return () => d3.select(ref.current).selectAll('*').remove();
-  }, []);
+  }, [value, options, openEmotionWheel]);
 
   const partition = (data) =>
     d3.partition().size([2 * Math.PI, radius])(
@@ -71,18 +89,43 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
 
   const loadChart = (svg) => {
     const root = partition(emotions);
-    const format = d3.format(',d');
+    const currentEmotions = getCurrentEmotions(emotions, value);
 
+    svg.attr('viewBox', autoBox).node();
     svg
-      .attr('style', 'max-width: 100%; height: auto; font: 8px sans-serif;')
+      .attr('style', 'font: 8px sans-serif;')
       .append('g')
-      .attr('fill-opacity', 0.6)
       .selectAll('path')
       .data(root.descendants().filter((d) => d.depth))
       .join('path')
-      .attr('fill', (d) => {
-        while (d.depth > 1) d = d.parent;
-        return d.data.color;
+      .attr('fill-opacity', (d) =>
+        currentEmotions.find((e) => e.name === d.data.name) ? 1 : 0.6,
+      )
+      .attr('fill', (d) => d.data.color)
+      .attr('id', (d) => d.data.name)
+      .on('click', function () {
+        const emotionName =
+          d3.select(this)._groups?.[0]?.[0]?.__data__?.data?.name ?? '';
+        const index = currentEmotions.findIndex(
+          (emotion) => emotion.name === emotionName,
+        );
+        let value = [];
+        if (index === -1) {
+          value = [
+            ...currentEmotions.map((emotions) => emotions.name),
+            emotionName,
+          ];
+        } else {
+          value = currentEmotions
+            .filter((_, i) => i !== index)
+            .map((emotions) => emotions.name);
+        }
+        onChange({
+          target: {
+            name,
+            value,
+          },
+        });
       })
       .attr('d', arc)
       .append('title')
@@ -92,7 +135,7 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
             .ancestors()
             .map((d) => d.data.displayName)
             .reverse()
-            .join('/')}\n${format(d.value)}`,
+            .join('/')}`,
       );
 
     svg
@@ -119,18 +162,13 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
     svg.attr('viewBox', autoBox).node();
   };
 
-  const emotionList = getEmotionArray(emotions);
-  const currentEmotions = emotionList.filter((emotion) =>
-    value.find((v) => v === emotion.name),
-  );
-
   return (
     <>
       <Autocomplete
         sx={{ mt: 2 }}
         multiple
         fullWidth
-        value={currentEmotions}
+        value={getCurrentEmotions(emotions, value)}
         options={options ?? emotionList}
         popupIcon={false}
         onChange={(event, newValue) => {
@@ -170,40 +208,56 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
           />
         )}
         renderInput={(params) => (
-          <>
+          <Box sx={{ position: 'relative' }}>
             <TextField
               {...params}
               label='Emotions'
               name={name}
               inputProps={{
                 ...params.inputProps,
-                endadornment: (
-                  <IconButton onClick={handleOpenEmotionWheel}>
-                    <DonutSmallIcon />
-                  </IconButton>
-                ),
               }}
             ></TextField>
-          </>
+            <IconButton
+              sx={{ position: 'absolute', right: 4, top: 8 }}
+              onClick={handleOpenEmotionWheel}
+            >
+              <DonutSmallIcon />
+            </IconButton>
+          </Box>
         )}
       />
-      <Popper
-        id={popperId}
-        anchorEl={popperAnchorEl}
+      <Dialog
+        fullScreen
         open={openEmotionWheel}
-        placement='top'
-        transition
-        style={{ zIndex: 10000 }}
+        onClose={handleCloseEmotionWheel}
       >
-        {({ TransitionProps }) => (
-          <Fade {...TransitionProps} timeout={350}>
-            <Paper>
-              <Typography sx={{ p: 2 }}>Select your emotion</Typography>
-              <svg width='400' height='400' ref={ref} />
-            </Paper>
-          </Fade>
-        )}
-      </Popper>
+        <AppBar>
+          <Toolbar>
+            <IconButton
+              edge='start'
+              color='inherit'
+              onClick={handleCloseEmotionWheel}
+              aria-label='close'
+            >
+              <CloseIcon />
+            </IconButton>
+            <Typography sx={{ ml: 2, flex: 1 }} variant='h6' component='div'>
+              Select Emotions
+            </Typography>
+            <Button onClick={handleClearEmotions}>Clear</Button>
+            <Button onClick={handleCloseEmotionWheel}>Save</Button>
+          </Toolbar>
+        </AppBar>
+        <DialogContent
+          sx={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            display: 'flex',
+          }}
+        >
+          <svg width='600' height='600' ref={ref}></svg>
+        </DialogContent>
+      </Dialog>
     </>
   );
 };
