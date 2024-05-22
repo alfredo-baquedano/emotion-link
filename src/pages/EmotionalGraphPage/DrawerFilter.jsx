@@ -13,41 +13,23 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import Slider from '@mui/material/Slider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import emotionsData from '../../contants/emotions.json';
 
-const emotions = {
-  joy: {
-    name: 'joy',
-    display_name: 'Joy',
-    color: '#87D37C',
-  },
-  surprise: {
-    name: 'surprise',
-    display_name: 'Surprise',
-    color: '#FFCC99',
-  },
-  sadness: {
-    name: 'sadness',
-    display_name: 'Sadness',
-    color: '#99CCFF',
-  },
-  anger: {
-    name: 'anger',
-    display_name: 'Anger',
-    color: '#ff4d4d',
-  },
-  fear: {
-    name: 'fear',
-    display_name: 'Fear',
-    color: '#8E44AD',
-  },
-  love: {
-    name: 'love',
-    display_name: 'Love',
-    color: '#FFBDFF',
-  },
+const getEmotionArray = (obj) => {
+  const result = [];
+  const recurse = (currentObj) => {
+    if (currentObj.name !== 'none') result.push(currentObj);
+    if (currentObj.children && Array.isArray(currentObj.children)) {
+      currentObj.children.forEach((child) => recurse(child));
+    }
+  };
+  recurse(obj);
+  return result;
 };
 
-export default function DrawerFilter({ filters, setFilters }) {
+const emotions = getEmotionArray(emotionsData);
+
+export default function DrawerFilter({ filters, setFilters, events = [] }) {
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState(filters.searchTerm || '');
   const [peopleInvolved, setPeopleInvolved] = useState(
@@ -107,6 +89,19 @@ export default function DrawerFilter({ filters, setFilters }) {
       endDate: date,
     }));
   };
+
+  const usedEmotions = new Set();
+  events.forEach((event) => {
+    if (event.emotions) {
+      event.emotions.forEach((emotion) => {
+        usedEmotions.add(emotion);
+      });
+    }
+  });
+
+  const filteredEmotions = emotions.filter((emotion) =>
+    usedEmotions.has(emotion.name),
+  );
 
   const DrawerList = (
     <Box sx={{ width: 300 }} role='presentation'>
@@ -177,25 +172,22 @@ export default function DrawerFilter({ filters, setFilters }) {
       <Typography variant='h8' sx={{ ml: 3, mt: 3 }}>
         Filter by emotions:
       </Typography>
-      <List sx={{ mt: 2 }}>
-        {Object.keys(emotions).map((key) => {
-          const emotion = emotions[key];
-          return (
-            <ListItem key={emotion.name} disablePadding>
-              <Chip
-                label={emotion.display_name}
-                style={{
-                  backgroundColor: filters[emotion.name]
-                    ? emotion.color
-                    : '#E0E0E0',
-                  color: filters[emotion.name] ? '#000' : '#000',
-                }}
-                onClick={handleToggle(emotion.name)}
-                sx={{ margin: '5px' }}
-              />
-            </ListItem>
-          );
-        })}
+      <List sx={{ display: 'flex', flexWrap: 'wrap', gap: '5px', mt: 2 }}>
+        {filteredEmotions.map((emotion) => (
+          <ListItem key={emotion.name} disablePadding>
+            <Chip
+              label={emotion.displayName}
+              style={{
+                backgroundColor: filters[emotion.name]
+                  ? emotion.color
+                  : '#E0E0E0',
+                color: filters[emotion.name] ? '#000' : '#000',
+              }}
+              onClick={handleToggle(emotion.name)}
+              sx={{ margin: '5px' }}
+            />
+          </ListItem>
+        ))}
       </List>
     </Box>
   );
