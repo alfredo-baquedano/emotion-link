@@ -131,6 +131,7 @@ const EditEventForm = ({ onEdit, onClose, currentEvent, events }) => {
               onChange={handleChange}
             />
             <Autocomplete
+              sx={{ mt: 2 }}
               multiple
               freeSolo
               name='participants'
