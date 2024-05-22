@@ -5,23 +5,23 @@
     {
       "name": "joy",
       "displayName": "Joy",
-      "color": "#B2FF66",
+      "color": "#87D37C",
       "children": [
         {
           "name": "content",
           "displayName": "Content",
-          "color": "#CCFF99",
+          "color": "#a2e89b",
           "children": [
             {
               "name": "pleased",
               "displayName": "Pleased",
-              "color": "#E6FFCC",
+              "color": "#baf2b4",
               "value": 10
             },
             {
               "name": "satisfied",
               "displayName": "Satisfied",
-              "color": "#F2FFE6",
+              "color": "#c9f8c7",
               "value": 10
             }
           ]
@@ -29,18 +29,18 @@
         {
           "name": "happy",
           "displayName": "Happy",
-          "color": "#CCFF99",
+          "color": "#a2e89b",
           "children": [
             {
               "name": "amused",
               "displayName": "Amused",
-              "color": "#E6FFCC",
+              "color": "#baf2b4",
               "value": 10
             },
             {
               "name": "delighted",
               "displayName": "Delighted",
-              "color": "#F2FFE6",
+              "color": "#c9f8c7",
               "value": 10
             }
           ]
@@ -48,18 +48,18 @@
         {
           "name": "cheerful",
           "displayName": "Cheerful",
-          "color": "#CCFF99",
+          "color": "#a2e89b",
           "children": [
             {
               "name": "jovial",
               "displayName": "Jovial",
-              "color": "#E6FFCC",
+              "color": "#baf2b4",
               "value": 10
             },
             {
               "name": "blissful",
               "displayName": "Blissful",
-              "color": "#F2FFE6",
+              "color": "#c9f8c7",
               "value": 10
             }
           ]
@@ -67,18 +67,18 @@
         {
           "name": "proud",
           "displayName": "Proud",
-          "color": "#CCFF99",
+          "color": "#a2e89b",
           "children": [
             {
               "name": "triumphant",
               "displayName": "Triumphant",
-              "color": "#E6FFCC",
+              "color": "#baf2b4",
               "value": 10
             },
             {
               "name": "illustrious",
               "displayName": "Illustrious",
-              "color": "#F2FFE6",
+              "color": "#c9f8c7",
               "value": 10
             }
           ]
@@ -86,18 +86,18 @@
         {
           "name": "optimistic",
           "displayName": "Optimistic",
-          "color": "#CCFF99",
+          "color": "#a2e89b",
           "children": [
             {
               "name": "hopeful",
               "displayName": "Hopeful",
-              "color": "#E6FFCC",
+              "color": "#baf2b4",
               "value": 10
             },
             {
               "name": "eager",
               "displayName": "Eager",
-              "color": "#F2FFE6",
+              "color": "#c9f8c7",
               "value": 10
             }
           ]
@@ -105,18 +105,18 @@
         {
           "name": "enthusiastic",
           "displayName": "Enthusiastic",
-          "color": "#CCFF99",
+          "color": "#a2e89b",
           "children": [
             {
               "name": "zeal",
               "displayName": "Zeal",
-              "color": "#E6FFCC",
+              "color": "#baf2b4",
               "value": 10
             },
             {
               "name": "excited",
               "displayName": "Excited",
-              "color": "#F2FFE6",
+              "color": "#c9f8c7",
               "value": 10
             }
           ]
@@ -124,18 +124,18 @@
         {
           "name": "elation",
           "displayName": "Elation",
-          "color": "#CCFF99",
+          "color": "#a2e89b",
           "children": [
             {
               "name": "jubilation",
               "displayName": "Jubilation",
-              "color": "#E6FFCC",
+              "color": "#baf2b4",
               "value": 10
             },
             {
               "name": "euphoric",
               "displayName": "Euphoric",
-              "color": "#F2FFE6",
+              "color": "#c9f8c7",
               "value": 10
             }
           ]
@@ -143,18 +143,18 @@
         {
           "name": "enthralled",
           "displayName": "Enthralled",
-          "color": "#CCFF99",
+          "color": "#a2e89b",
           "children": [
             {
               "name": "rapture",
               "displayName": "Rapture",
-              "color": "#E6FFCC",
+              "color": "#baf2b4",
               "value": 10
             },
             {
               "name": "enchanted",
               "displayName": "Enchanted",
-              "color": "#F2FFE6",
+              "color": "#c9f8c7",
               "value": 10
             }
           ]
@@ -164,23 +164,23 @@
     {
       "name": "love",
       "displayName": "Love",
-      "color": "#FFFF99",
+      "color": "#FFCC99",
       "children": [
         {
           "name": "affectionate",
           "displayName": "Affectionate",
-          "color": "#FFFFCC",
+          "color": "#ffd4aa",
           "children": [
             {
               "name": "fondness",
               "displayName": "Fondness",
-              "color": "#FFFFE6",
+              "color": "#ffddb8",
               "value": 10
             },
             {
               "name": "romantic",
               "displayName": "Romantic",
-              "color": "#FFFFF2",
+              "color": "#ffe6c7",
               "value": 10
             }
           ]
@@ -188,18 +188,18 @@
         {
           "name": "longing",
           "displayName": "Longing",
-          "color": "#FFFFCC",
+          "color": "#ffd4aa",
           "children": [
             {
               "name": "attracted",
               "displayName": "Attracted",
-              "color": "#FFFFE6",
+              "color": "#ffddb8",
               "value": 10
             },
             {
               "name": "sentimental",
               "displayName": "Sentimental",
-              "color": "#FFFFF2",
+              "color": "#ffe6c7",
               "value": 10
             }
           ]
@@ -207,18 +207,18 @@
         {
           "name": "desire",
           "displayName": "Desire",
-          "color": "#FFFFCC",
+          "color": "#ffd4aa",
           "children": [
             {
               "name": "infatuation",
               "displayName": "Infatuation",
-              "color": "#FFFFE6",
+              "color": "#ffddb8",
               "value": 10
             },
             {
               "name": "passion",
               "displayName": "Passion",
-              "color": "#FFFFF2",
+              "color": "#ffe6c7",
               "value": 10
             }
           ]
@@ -226,18 +226,18 @@
         {
           "name": "tenderness",
           "displayName": "Tenderness",
-          "color": "#FFFFCC",
+          "color": "#ffd4aa",
           "children": [
             {
               "name": "compassionate",
               "displayName": "Compassionate",
-              "color": "#FFFFE6",
+              "color": "#ffddb8",
               "value": 10
             },
             {
               "name": "caring",
               "displayName": "Caring",
-              "color": "#FFFFF2",
+              "color": "#ffe6c7",
               "value": 10
             }
           ]
@@ -245,18 +245,18 @@
         {
           "name": "peaceful",
           "displayName": "Peaceful",
-          "color": "#FFFFCC",
+          "color": "#ffd4aa",
           "children": [
             {
               "name": "satisfied",
               "displayName": "Satisfied",
-              "color": "#FFFFE6",
+              "color": "#ffddb8",
               "value": 10
             },
             {
               "name": "relieved",
               "displayName": "Relieved",
-              "color": "#FFFFF2",
+              "color": "#ffe6c7",
               "value": 10
             }
           ]
@@ -266,23 +266,23 @@
     {
       "name": "fear",
       "displayName": "Fear",
-      "color": "#D2B48C",
+      "color": "#FF9966",
       "children": [
         {
           "name": "scared",
           "displayName": "Scared",
-          "color": "#DCC6A7",
+          "color": "#ffad80",
           "children": [
             {
               "name": "helpless",
               "displayName": "Helpless",
-              "color": "#E6D8C2",
+              "color": "#ffb997",
               "value": 10
             },
             {
               "name": "frightened",
               "displayName": "Frightened",
-              "color": "#F0EAD5",
+              "color": "#ffc3ac",
               "value": 10
             }
           ]
@@ -290,18 +290,18 @@
         {
           "name": "terror",
           "displayName": "Terror",
-          "color": "#DCC6A7",
+          "color": "#ffad80",
           "children": [
             {
               "name": "hysterical",
               "displayName": "Hysterical",
-              "color": "#E6D8C2",
+              "color": "#ffb997",
               "value": 10
             },
             {
               "name": "panic",
               "displayName": "Panic",
-              "color": "#F0EAD5",
+              "color": "#ffc3ac",
               "value": 10
             }
           ]
@@ -309,18 +309,18 @@
         {
           "name": "insecure",
           "displayName": "Insecure",
-          "color": "#DCC6A7",
+          "color": "#ffad80",
           "children": [
             {
               "name": "inadequate",
               "displayName": "Inadequate",
-              "color": "#E6D8C2",
+              "color": "#ffb997",
               "value": 10
             },
             {
               "name": "inferior",
               "displayName": "Inferior",
-              "color": "#F0EAD5",
+              "color": "#ffc3ac",
               "value": 10
             }
           ]
@@ -328,18 +328,18 @@
         {
           "name": "nervous",
           "displayName": "Nervous",
-          "color": "#DCC6A7",
+          "color": "#ffad80",
           "children": [
             {
               "name": "anxious",
               "displayName": "Anxious",
-              "color": "#E6D8C2",
+              "color": "#ffb997",
               "value": 10
             },
             {
               "name": "worried",
               "displayName": "Worried",
-              "color": "#F0EAD5",
+              "color": "#ffc3ac",
               "value": 10
             }
           ]
@@ -347,18 +347,18 @@
         {
           "name": "horror",
           "displayName": "Horror",
-          "color": "#DCC6A7",
+          "color": "#ffad80",
           "children": [
             {
               "name": "dread",
               "displayName": "Dread",
-              "color": "#E6D8C2",
+              "color": "#ffb997",
               "value": 10
             },
             {
               "name": "mortified",
               "displayName": "Mortified",
-              "color": "#F0EAD5",
+              "color": "#ffc3ac",
               "value": 10
             }
           ]
@@ -368,23 +368,23 @@
     {
       "name": "anger",
       "displayName": "Anger",
-      "color": "#FF99CC",
+      "color": "#FF6666",
       "children": [
         {
           "name": "rage",
           "displayName": "Rage",
-          "color": "#FFCCE6",
+          "color": "#ff7d7d",
           "children": [
             {
               "name": "hostile",
               "displayName": "Hostile",
-              "color": "#FFE6F2",
+              "color": "#ff8f8f",
               "value": 10
             },
             {
               "name": "hate",
               "displayName": "Hate",
-              "color": "#FFF2F7",
+              "color": "#ff9f9f",
               "value": 10
             }
           ]
@@ -392,18 +392,18 @@
         {
           "name": "exasperated",
           "displayName": "Exasperated",
-          "color": "#FFCCE6",
+          "color": "#ff7d7d",
           "children": [
             {
               "name": "frustrated",
               "displayName": "Frustrated",
-              "color": "#FFE6F2",
+              "color": "#ff8f8f",
               "value": 10
             },
             {
               "name": "agitated",
               "displayName": "Agitated",
-              "color": "#FFF2F7",
+              "color": "#ff9f9f",
               "value": 10
             }
           ]
@@ -411,18 +411,18 @@
         {
           "name": "irritable",
           "displayName": "Irritable",
-          "color": "#FFCCE6",
+          "color": "#ff7d7d",
           "children": [
             {
               "name": "aggravated",
               "displayName": "Aggravated",
-              "color": "#FFE6F2",
+              "color": "#ff8f8f",
               "value": 10
             },
             {
               "name": "annoyed",
               "displayName": "Annoyed",
-              "color": "#FFF2F7",
+              "color": "#ff9f9f",
               "value": 10
             }
           ]
@@ -430,18 +430,18 @@
         {
           "name": "envy",
           "displayName": "Envy",
-          "color": "#FFCCE6",
+          "color": "#ff7d7d",
           "children": [
             {
               "name": "resentful",
               "displayName": "Resentful",
-              "color": "#FFE6F2",
+              "color": "#ff8f8f",
               "value": 10
             },
             {
               "name": "jealous",
               "displayName": "Jealous",
-              "color": "#FFF2F7",
+              "color": "#ff9f9f",
               "value": 10
             }
           ]
@@ -449,18 +449,18 @@
         {
           "name": "disgust",
           "displayName": "Disgust",
-          "color": "#FFCCE6",
+          "color": "#ff7d7d",
           "children": [
             {
               "name": "contempt",
               "displayName": "Contempt",
-              "color": "#FFE6F2",
+              "color": "#ff8f8f",
               "value": 10
             },
             {
               "name": "revolted",
               "displayName": "Revolted",
-              "color": "#FFF2F7",
+              "color": "#ff9f9f",
               "value": 10
             }
           ]
@@ -475,18 +475,18 @@
         {
           "name": "suffering",
           "displayName": "Suffering",
-          "color": "#CCE5FF",
+          "color": "#a9d4ff",
           "children": [
             {
               "name": "agony",
               "displayName": "Agony",
-              "color": "#E6F2FF",
+              "color": "#b8ddff",
               "value": 10
             },
             {
               "name": "hurt",
               "displayName": "Hurt",
-              "color": "#F2F9FF",
+              "color": "#c5e4ff",
               "value": 10
             }
           ]
@@ -494,18 +494,18 @@
         {
           "name": "sadness2",
           "displayName": "Sadness2",
-          "color": "#CCE5FF",
+          "color": "#a9d4ff",
           "children": [
             {
               "name": "depressed",
               "displayName": "Depressed",
-              "color": "#E6F2FF",
+              "color": "#b8ddff",
               "value": 10
             },
             {
               "name": "sorrow",
               "displayName": "Sorrow",
-              "color": "#F2F9FF",
+              "color": "#c5e4ff",
               "value": 10
             }
           ]
@@ -513,18 +513,18 @@
         {
           "name": "disappointed",
           "displayName": "Disappointed",
-          "color": "#CCE5FF",
+          "color": "#a9d4ff",
           "children": [
             {
               "name": "dismayed",
               "displayName": "Dismayed",
-              "color": "#E6F2FF",
+              "color": "#b8ddff",
               "value": 10
             },
             {
               "name": "displeased",
               "displayName": "Displeased",
-              "color": "#F2F9FF",
+              "color": "#c5e4ff",
               "value": 10
             }
           ]
@@ -532,18 +532,18 @@
         {
           "name": "shameful",
           "displayName": "Shameful",
-          "color": "#CCE5FF",
+          "color": "#a9d4ff",
           "children": [
             {
               "name": "regretful",
               "displayName": "Regretful",
-              "color": "#E6F2FF",
+              "color": "#b8ddff",
               "value": 10
             },
             {
               "name": "guilty",
               "displayName": "Guilty",
-              "color": "#F2F9FF",
+              "color": "#c5e4ff",
               "value": 10
             }
           ]
@@ -551,18 +551,18 @@
         {
           "name": "neglected",
           "displayName": "Neglected",
-          "color": "#CCE5FF",
+          "color": "#a9d4ff",
           "children": [
             {
               "name": "isolated",
               "displayName": "Isolated",
-              "color": "#E6F2FF",
+              "color": "#b8ddff",
               "value": 10
             },
             {
               "name": "lonely",
               "displayName": "Lonely",
-              "color": "#F2F9FF",
+              "color": "#c5e4ff",
               "value": 10
             }
           ]
@@ -570,18 +570,18 @@
         {
           "name": "despair",
           "displayName": "Despair",
-          "color": "#CCE5FF",
+          "color": "#a9d4ff",
           "children": [
             {
               "name": "grief",
               "displayName": "Grief",
-              "color": "#E6F2FF",
+              "color": "#b8ddff",
               "value": 10
             },
             {
               "name": "powerless",
               "displayName": "Powerless",
-              "color": "#F2F9FF",
+              "color": "#c5e4ff",
               "value": 10
             }
           ]
