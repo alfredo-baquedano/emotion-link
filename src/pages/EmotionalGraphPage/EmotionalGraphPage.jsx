@@ -16,12 +16,7 @@ const EmotionalGraphPage = () => {
   const [openDeleteEvent, setOpenDeleteEvent] = useState(false);
   const [openViewEvent, setOpenViewEvent] = useState(false);
   const [filters, setFilters] = useState({
-    joy: true,
-    surprise: true,
-    sadness: true,
-    anger: true,
-    fear: true,
-    love: true,
+    emotions: null,
     impactRange: [1, 10],
     searchTerm: '',
     peopleInvolved: '',
@@ -126,7 +121,9 @@ const EmotionalGraphPage = () => {
       node.participants.some((p) =>
         p.toLowerCase().includes(filters.peopleInvolved.toLowerCase()),
       );
-    const matchesEmotions = node.emotions.some((emotion) => filters[emotion]);
+    const matchesEmotions =
+      !filters.emotions ||
+      node.emotions.some((emotion) => filters.emotions?.includes(emotion));
 
     const visible =
       node.name === 'Myself' ||

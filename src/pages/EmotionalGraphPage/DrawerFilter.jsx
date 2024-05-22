@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
-import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import Chip from '@mui/material/Chip';
 import SearchIcon from '@mui/icons-material/Search';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -14,6 +10,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import Slider from '@mui/material/Slider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import emotionsData from '../../contants/emotions.json';
+import EmotionSelect from '../../components/EmotionSelect';
 
 const getEmotionArray = (obj) => {
   const result = [];
@@ -39,14 +36,10 @@ export default function DrawerFilter({ filters, setFilters, events = [] }) {
   const [endDate, setEndDate] = useState(filters.endDate || null);
   const [impactRange, setImpactRange] = useState(filters.impactRange);
 
-  const toggleDrawer = (newOpen) => () => {
-    setOpen(newOpen);
-  };
-
-  const handleToggle = (emotion) => () => {
+  const handleEmotionChange = (event) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
-      [emotion]: !prevFilters[emotion],
+      emotions: event.target.value,
     }));
   };
 
@@ -172,23 +165,14 @@ export default function DrawerFilter({ filters, setFilters, events = [] }) {
       <Typography variant='h8' sx={{ ml: 3, mt: 3 }}>
         Filter by emotions:
       </Typography>
-      <List sx={{ display: 'flex', flexWrap: 'wrap', gap: '5px', mt: 2 }}>
-        {filteredEmotions.map((emotion) => (
-          <ListItem key={emotion.name} disablePadding>
-            <Chip
-              label={emotion.displayName}
-              style={{
-                backgroundColor: filters[emotion.name]
-                  ? emotion.color
-                  : '#E0E0E0',
-                color: filters[emotion.name] ? '#000' : '#000',
-              }}
-              onClick={handleToggle(emotion.name)}
-              sx={{ margin: '5px' }}
-            />
-          </ListItem>
-        ))}
-      </List>
+      <EmotionSelect
+        options={filteredEmotions}
+        name='emotions'
+        value={
+          filters.emotions ?? filteredEmotions.map((emotion) => emotion.name)
+        }
+        onChange={handleEmotionChange}
+      />
     </Box>
   );
 
