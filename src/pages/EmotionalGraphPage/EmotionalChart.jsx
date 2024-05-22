@@ -54,6 +54,27 @@ const EmotionalChart = ({
     `;
   };
 
+  function dragstarted() {
+    if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+    d3.event.subject.fx = d3.event.subject.x;
+    d3.event.subject.fy = d3.event.subject.y;
+  }
+
+  function dragged() {
+    d3.event.subject.fx = d3.event.x;
+    d3.event.subject.fy = d3.event.y;
+  }
+
+  function dragended() {
+    if (!d3.event.active) simulation.alphaTarget(0);
+    d3.event.subject.fx = null;
+    d3.event.subject.fy = null;
+  }
+
+  function dragsubject() {
+    return simulation.find(d3.event.x, d3.event.y);
+  }
+
   const drag = (simulation) => {
     function dragstarted(event, d) {
       if (!event.active) simulation.alphaTarget(0.3).restart();
@@ -155,10 +176,12 @@ const EmotionalChart = ({
         const data = e.target.__data__;
         d3.select(this).attr('stroke', 'white');
         d3.select(this).attr('stroke-width', 5);
-        d3.select(`#edit-button-${data.id}`).style('display', 'block');
+        if (e.target.__data__.name !== 'Myself') {
+          d3.select(`#edit-button-${data.id}`).style('display', 'block');
+          d3.select(`#delete-button-${data.id}`).style('display', 'block');
+          d3.select(`#view-button-${data.id}`).style('display', 'block');
+        }
         d3.select(`#create-button-${data.id}`).style('display', 'block');
-        d3.select(`#delete-button-${data.id}`).style('display', 'block');
-        d3.select(`#view-button-${data.id}`).style('display', 'block');
       })
       .on('mouseout', function (e) {
         const data = e.target.__data__;
