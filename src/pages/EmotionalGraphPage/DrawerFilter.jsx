@@ -10,8 +10,9 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import Slider from '@mui/material/Slider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import emotionsData from '../../contants/emotions.json';
-import { Toolbar } from '@mui/material';
+import { Toolbar, IconButton } from '@mui/material';
 import EmotionSelect from '../../components/EmotionSelect';
+import ReplayIcon from '@mui/icons-material/Replay';
 
 const getEmotionArray = (obj) => {
   const result = [];
@@ -46,6 +47,13 @@ export default function DrawerFilter({
     setFilters((prevFilters) => ({
       ...prevFilters,
       emotions: event.target.value,
+    }));
+  };
+
+  const handleEmotionReset = () => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      emotions: null,
     }));
   };
 
@@ -167,7 +175,10 @@ export default function DrawerFilter({
       />
       <Divider sx={{ my: 2 }} />
       <Typography variant='h6' sx={{ mt: 3 }}>
-        Filter by emotions
+        Filter by emotions{' '}
+        <IconButton onClick={handleEmotionReset}>
+          <ReplayIcon />
+        </IconButton>
       </Typography>
       <EmotionSelect
         sx={{ mt: 3 }}
