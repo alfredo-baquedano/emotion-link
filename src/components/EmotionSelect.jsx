@@ -134,9 +134,12 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
         options={options ?? emotionList}
         popupIcon={false}
         onChange={(event, newValue) => {
-          event.target.name = name;
-          event.target.value = newValue.map((emotion) => emotion.name);
-          onChange(event);
+          onChange({
+            target: {
+              name,
+              value: newValue.map((emotion) => emotion.name),
+            },
+          });
         }}
         getOptionLabel={(option) => option.displayName}
         renderTags={(tagValue, getTagProps) =>
