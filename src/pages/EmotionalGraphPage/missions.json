@@ -34,6 +34,10 @@
         "exp": 100
       }
     ]
+  },
+  {
+    "level": 3,
+    "requiredExp" : 3000,
+    "missions": []
   }
-
-] 
+]
