@@ -13,6 +13,7 @@ const adviceList = [
 
 const VirtualPet = ({ petImage }) => {
   const [advice, setAdvice] = useState('');
+  const zIndex = 1250;
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -31,7 +32,7 @@ const VirtualPet = ({ petImage }) => {
   };
 
   return (
-    <Box sx={{ position: 'fixed', right: 120, bottom: 20 }}>
+    <Box sx={{ position: 'fixed', right: 120, bottom: 20, zIndex }}>
       <Tooltip
         title={
           <Box
@@ -61,6 +62,7 @@ const VirtualPet = ({ petImage }) => {
             '.MuiTooltip-arrow': {
               color: 'white',
             },
+            zIndex,
           },
           modifiers: [
             {
@@ -79,6 +81,7 @@ const VirtualPet = ({ petImage }) => {
             width: 100,
             height: 100,
             cursor: 'pointer',
+            zIndex,
           }}
           onClick={handlePetClick}
         />
