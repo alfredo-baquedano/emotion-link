@@ -9,7 +9,6 @@ import {
   DialogContent,
   DialogActions,
   Typography,
-  Divider,
   Accordion,
   AccordionSummary,
   AccordionDetails,
@@ -26,7 +25,7 @@ const CreateEventForm = ({ onCreate, onClose, relatedEvent }) => {
     name: '',
     date: '',
     location: '',
-    participants: '',
+    participants: [],
     impact: 5,
     emotions: [],
     relationships: {
@@ -43,16 +42,11 @@ const CreateEventForm = ({ onCreate, onClose, relatedEvent }) => {
     });
   };
 
-  const handleEmotionsChange = (emotions) => {
-    setEventData({ ...eventData, emotions });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const newEvent = {
       ...eventData,
       id: uuidv4(),
-      emotions: eventData.emotions.map((emotion) => emotion.name),
       participants: eventData.participants.split(',').map((p) => p.trim()),
     };
     onCreate(newEvent);
@@ -64,7 +58,7 @@ const CreateEventForm = ({ onCreate, onClose, relatedEvent }) => {
       impact: '',
       emotions: [],
       relationship: {
-        preceded_by: [relatedEvent],
+        preceded_by: [],
       },
     });
   };
@@ -95,6 +89,11 @@ const CreateEventForm = ({ onCreate, onClose, relatedEvent }) => {
             sx={{ mt: 2, width: '100%' }}
           />
         </LocalizationProvider>
+        <EmotionSelect
+          name='emotions'
+          value={eventData.emotions}
+          onChange={handleChange}
+        />
         <FormControl sx={{ mt: 2 }} fullWidth>
           <Typography id='impact-label' gutterBottom>
             Impact
@@ -113,8 +112,6 @@ const CreateEventForm = ({ onCreate, onClose, relatedEvent }) => {
             max={10}
           />
         </FormControl>
-        <EmotionSelect name='emotions' onChange={handleChange} />
-        <Divider />
         <Accordion
           disableGutters
           sx={{

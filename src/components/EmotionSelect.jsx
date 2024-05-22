@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import DonutSmallIcon from '@mui/icons-material/DonutSmall';
 
-const EmotionSelect = ({ name, onChange, value }) => {
+const EmotionSelect = ({ name, onChange, value = [] }) => {
   const popperId = useId();
   const [popperAnchorEl, setPopperAnchorEl] = useState(false);
   const openEmotionWheel = Boolean(popperAnchorEl);
@@ -119,6 +119,9 @@ const EmotionSelect = ({ name, onChange, value }) => {
   };
 
   const emotionList = getEmotionArray(emotions);
+  const currentEmotions = emotionList.filter((emotion) =>
+    value.find((v) => v === emotion.name),
+  );
 
   return (
     <>
@@ -126,12 +129,12 @@ const EmotionSelect = ({ name, onChange, value }) => {
         sx={{ mt: 2 }}
         multiple
         fullWidth
-        value={value}
+        value={currentEmotions}
         options={emotionList}
         popupIcon={false}
         onChange={(event, newValue) => {
           event.target.name = name;
-          event.target.value = newValue;
+          event.target.value = newValue.map((emotion) => emotion.name);
           onChange(event);
         }}
         getOptionLabel={(option) => option.displayName}
