@@ -5,7 +5,6 @@ import EmotionalChart from './EmotionalChart';
 import CreateEventForm from './CreateEventForm';
 import EditEventForm from './EditEventForm';
 import { Dialog } from '@mui/material';
-import emotionList from '../../contants/emotions.json';
 import ConfirmDeleteEvent from './ConfirmDeleteEvent';
 import VirtualPet from './VirtualPet';
 import petImage from '../../../image/petImage.png';
@@ -132,14 +131,12 @@ const EmotionalGraphPage = () => {
         <CreateEventForm
           relatedEvent={selectedEvent}
           onCreate={handleCreateEvent}
-          emotionsList={emotionList}
           onClose={handleCloseCreateEvent}
         />
       </Dialog>
       <Dialog open={openEditEvent} onClose={handleCloseEditEvent}>
         <EditEventForm
-          event={selectedEvent}
-          emotionsList={emotionList}
+          currentEvent={selectedEvent}
           onEdit={handleEditEvent}
           onClose={handleCloseEditEvent}
         />
