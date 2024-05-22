@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, useId, forwardRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import emotions from './../contants/emotions.json';
 import * as d3 from 'd3';
 import {
@@ -11,7 +11,6 @@ import {
   Toolbar,
   Typography,
   TextField,
-  Slide,
   Button,
   Box,
 } from '@mui/material';
@@ -57,10 +56,6 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
   useEffect(() => {
     const svgElement = d3.select(ref.current);
     loadChart(svgElement);
-    svgElement.selectAll('*').remove();
-    setTimeout(() => {
-      loadChart(svgElement);
-    }, 1000);
     return () => d3.select(ref.current).selectAll('*').remove();
   }, [value, options, openEmotionWheel]);
 
@@ -82,7 +77,6 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
     .outerRadius((d) => d.y1 - 1);
 
   const autoBox = () => {
-    console.log('ref.current', ref.current);
     const { x, y, width, height } = ref.current.getBBox();
     return [x, y, width, height];
   };
