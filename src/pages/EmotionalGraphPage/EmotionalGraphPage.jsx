@@ -128,15 +128,17 @@ const EmotionalGraphPage = () => {
       <DrawerFilter filters={filters} setFilters={setFilters} />
       <Dialog open={openCreateEvent} onClose={handleCloseCreateEvent}>
         <CreateEventForm
+          events={events}
           relatedEvent={selectedEvent}
-          onCreate={handleCreateEvent}
           emotionsList={emotionList}
+          onCreate={handleCreateEvent}
           onClose={handleCloseCreateEvent}
         />
       </Dialog>
       <Dialog open={openEditEvent} onClose={handleCloseEditEvent}>
         <EditEventForm
-          event={selectedEvent}
+          events={events}
+          currentEvent={selectedEvent}
           emotionsList={emotionList}
           onEdit={handleEditEvent}
           onClose={handleCloseEditEvent}

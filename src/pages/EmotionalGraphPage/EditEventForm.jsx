@@ -9,10 +9,11 @@ import {
   DialogContent,
   DialogActions,
   Typography,
-  Divider,
+  Autocomplete,
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  Chip,
 } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -20,7 +21,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import EmotionSelect from './../../components/EmotionSelect';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-const EditEventForm = ({ onCreate, onClose, currentEvent }) => {
+const EditEventForm = ({ onEdit, onClose, currentEvent, events }) => {
   const [eventData, setEventData] = useState(currentEvent);
 
   const handleChange = (e) => {
@@ -31,33 +32,24 @@ const EditEventForm = ({ onCreate, onClose, currentEvent }) => {
     });
   };
 
-  const handleEmotionsChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setEventData({
-      ...eventData,
-      emotions: typeof value === 'string' ? value.split(',') : value,
-    });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const newEvent = {
       ...eventData,
-      participants: eventData.participants.split(',').map((p) => p.trim()),
       impact: parseInt(eventData.impact),
     };
-    onCreate(newEvent);
+    onEdit(newEvent);
     setEventData({
       name: '',
       date: '',
       location: '',
-      participants: '',
+      participants: [],
+      customTags: [],
       impact: '',
+      details: '',
       emotions: [],
       relationship: {
-        preceded_by: [relatedEvent],
+        preceded_by: [],
       },
     });
   };
@@ -106,8 +98,11 @@ const EditEventForm = ({ onCreate, onClose, currentEvent }) => {
             max={10}
           />
         </FormControl>
-        <EmotionSelect name='emotions' onChange={handleChange} />
-        <Divider />
+        <EmotionSelect
+          name='emotions'
+          value={eventData.emotions}
+          onChange={handleChange}
+        />
         <Accordion
           disableGutters
           sx={{
@@ -135,12 +130,45 @@ const EditEventForm = ({ onCreate, onClose, currentEvent }) => {
               value={eventData.location}
               onChange={handleChange}
             />
+            <Autocomplete
+              multiple
+              freeSolo
+              name='participants'
+              onChange={(event, newValue) => {
+                event.target.name = 'participants';
+                event.target.value = newValue.split(',');
+                handleChange(event);
+              }}
+              options={events.reduce((acc, curr) => {
+                acc.push(...curr.participants);
+                return acc;
+              }, [])}
+              renderTags={(value, getTagProps) =>
+                value.map((option, index) => (
+                  <Chip
+                    key={option}
+                    variant='outlined'
+                    label={option}
+                    {...getTagProps({ index })}
+                  />
+                ))
+              }
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label='Participants'
+                  placeholder='Favorites'
+                />
+              )}
+            />
             <TextField
               sx={{ mt: 2 }}
-              name='participants'
-              label='Participants (comma separated)'
+              name='details'
+              label='Detalles'
+              multiline
+              maxRows={4}
               fullWidth
-              value={eventData.participants}
+              value={eventData.details}
               onChange={handleChange}
             />
           </AccordionDetails>

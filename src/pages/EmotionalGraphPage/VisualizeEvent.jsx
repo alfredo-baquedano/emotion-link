@@ -70,9 +70,9 @@ const VisualizeEvent = ({ event }) => {
           {eventEmotions.map((emotion) => (
             <Chip
               key={emotion}
-              label={emotions[emotion].display_name}
+              label={emotions[emotion]?.display_name}
               sx={{
-                backgroundColor: emotions[emotion].color,
+                backgroundColor: emotions[emotion]?.color,
                 color: '#000',
                 m: 0.5,
               }}
