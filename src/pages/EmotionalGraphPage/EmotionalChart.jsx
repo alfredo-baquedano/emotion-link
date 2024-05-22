@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 import ChartLegend from './../../components/ChartLegend';
 import emotionList from '../../contants/emotions.json';
@@ -9,6 +9,7 @@ const EmotionalChart = ({
   onClickCreate,
   onClickEdit,
   onClickDelete,
+  onClickView,
 }) => {
   const ref = useRef();
 
@@ -203,7 +204,10 @@ const EmotionalChart = ({
       .attr('transform', `translate(22, -19)`)
       .style('cursor', 'pointer')
       .style('display', 'none')
-      .on('click', onClickEdit);
+      .on('click', (event) => {
+        event.stopPropagation();
+        onClickEdit(event);
+      });
 
     editButton.append('circle').attr('r', 10).attr('fill', 'white');
 
@@ -225,7 +229,10 @@ const EmotionalChart = ({
       .attr('transform', `translate(-20, 20)`)
       .style('cursor', 'pointer')
       .style('display', 'none')
-      .on('click', onClickCreate);
+      .on('click', (event) => {
+        event.stopPropagation();
+        onClickCreate(event);
+      });
 
     createButton.append('circle').attr('r', 10).attr('fill', 'white');
 
@@ -243,7 +250,10 @@ const EmotionalChart = ({
       .attr('transform', `translate(20, 20)`)
       .style('cursor', 'pointer')
       .style('display', 'none')
-      .on('click', (d) => onClickDelete(d));
+      .on('click', (event) => {
+        event.stopPropagation();
+        onClickDelete(event);
+      });
 
     deleteButton.append('circle').attr('r', 10).attr('fill', 'white');
 
@@ -252,6 +262,7 @@ const EmotionalChart = ({
       .attr('transform', `translate(-8, -8) scale(0.7)`)
       .attr('fill', 'red')
       .attr('stroke', 'red')
+      .attr('stroke-width', 0.3)
       .attr(
         'd',
         'M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z',
@@ -264,7 +275,10 @@ const EmotionalChart = ({
       .attr('transform', `translate(-20, -19)`)
       .style('cursor', 'pointer')
       .style('display', 'none')
-      .on('click', onClickCreate);
+      .on('click', (event) => {
+        event.stopPropagation();
+        onClickView(event);
+      });
 
     viewButton.append('circle').attr('r', 10).attr('fill', 'white');
 

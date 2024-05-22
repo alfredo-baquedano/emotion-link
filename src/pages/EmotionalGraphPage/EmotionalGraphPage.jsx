@@ -8,11 +8,13 @@ import emotionList from '../../contants/emotions.json';
 import ConfirmDeleteEvent from './ConfirmDeleteEvent';
 import VirtualPet from './VirtualPet';
 import petImage from '../../../image/petImage.png';
+import VisualizeEvent from './VisualizeEvent';
 
 const EmotionalGraphPage = () => {
   const [openCreateEvent, setOpenCreateEvent] = useState(false);
   const [openEditEvent, setOpenEditEvent] = useState(false);
   const [openDeleteEvent, setOpenDeleteEvent] = useState(false);
+  const [openViewEvent, setOpenViewEvent] = useState(false);
   const [filters, setFilters] = useState({
     joy: true,
     surprise: true,
@@ -27,7 +29,7 @@ const EmotionalGraphPage = () => {
     endDate: null,
   });
   const [events, setEvents] = useState([]);
-  const [selectedEvent, setSelectedEvent] = useState();
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
   useEffect(() => {
     setEvents(JSON.parse(localStorage.getItem('events')) ?? []);
@@ -42,15 +44,6 @@ const EmotionalGraphPage = () => {
     setOpenCreateEvent(true);
   };
 
-  const handleCloseDeleteEvent = () => {
-    setOpenDeleteEvent(false);
-  };
-
-  const handleOpenDeleteEvent = (e) => {
-    setSelectedEvent(e.target.__data__);
-    setOpenDeleteEvent(true);
-  };
-
   const handleCloseCreateEvent = () => {
     setOpenCreateEvent(false);
   };
@@ -63,6 +56,26 @@ const EmotionalGraphPage = () => {
 
   const handleCloseEditEvent = () => {
     setOpenEditEvent(false);
+  };
+
+  const handleOpenDeleteEvent = (e) => {
+    setSelectedEvent(e.target.__data__);
+    setOpenDeleteEvent(true);
+  };
+
+  const handleCloseDeleteEvent = () => {
+    setOpenDeleteEvent(false);
+  };
+
+  const handleOpenViewEvent = (e) => {
+    e.stopPropagation();
+    setSelectedEvent(e.target.__data__);
+    setOpenViewEvent(true);
+  };
+
+  const handleCloseViewEvent = () => {
+    setOpenViewEvent(false);
+    setSelectedEvent(null);
   };
 
   const handleCreateEvent = (event) => {
@@ -142,7 +155,11 @@ const EmotionalGraphPage = () => {
         onClickCreate={handleOpenCreateEvent}
         onClickEdit={handleOpenEditEvent}
         onClickDelete={handleOpenDeleteEvent}
+        onClickView={handleOpenViewEvent}
       />
+      <Dialog open={openViewEvent} onClose={handleCloseViewEvent}>
+        <VisualizeEvent event={selectedEvent} onClose={handleCloseViewEvent} />
+      </Dialog>
       <VirtualPet petImage={petImage} />
     </div>
   );
