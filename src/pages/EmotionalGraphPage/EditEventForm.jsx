@@ -46,6 +46,7 @@ const EditEventForm = ({ onEdit, onClose, currentEvent, events }) => {
       location: '',
       participants: [],
       customTags: [],
+      physicalFeelings: [],
       impact: '',
       details: '',
       emotions: [],
@@ -223,10 +224,92 @@ const EditEventForm = ({ onEdit, onClose, currentEvent, events }) => {
                 />
               )}
             />
+            <Autocomplete
+              sx={{ mt: 2 }}
+              multiple
+              freeSolo
+              value={eventData.physicalFeelings ?? []}
+              name='physicalFeelings'
+              onChange={(event, newValue) => {
+                handleChange({
+                  ...event,
+                  target: {
+                    ...event.target,
+                    name: 'physicalFeelings',
+                    value: newValue,
+                  },
+                });
+              }}
+              options={events.reduce((acc, curr) => {
+                acc.push(
+                  ...[
+                    ...(curr.physicalFeelings ?? []),
+                    ...(eventData.physicalFeelings ?? []),
+                  ].sort((a, b) => a.localeCompare(b)),
+                );
+                return [...new Set(acc)];
+              }, [])}
+              renderTags={(value, getTagProps) => {
+                return value.map((option, index) => (
+                  <Chip
+                    {...getTagProps({ index })}
+                    variant='outlined'
+                    label={option}
+                  />
+                ));
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label='Physical Feelings'
+                  placeholder='Add Physical Feeling'
+                />
+              )}
+            />
+            <TextField
+              sx={{ mt: 2 }}
+              name='whatYouDone'
+              label='What have you done?'
+              multiline
+              maxRows={4}
+              fullWidth
+              value={eventData.whatYouDone}
+              onChange={handleChange}
+            />
+            <TextField
+              sx={{ mt: 2 }}
+              name='wishedToDo'
+              label='What would you have wished to do?'
+              multiline
+              maxRows={4}
+              fullWidth
+              value={eventData.wishedToDo}
+              onChange={handleChange}
+            />
+            <TextField
+              sx={{ mt: 2 }}
+              name='cause'
+              label='What caused it?'
+              multiline
+              maxRows={4}
+              fullWidth
+              value={eventData.cause}
+              onChange={handleChange}
+            />
+            <TextField
+              sx={{ mt: 2 }}
+              name='whatDoesItMean'
+              label='What does that emotion tell you?'
+              multiline
+              maxRows={4}
+              fullWidth
+              value={eventData.whatDoesItMean}
+              onChange={handleChange}
+            />
             <TextField
               sx={{ mt: 2 }}
               name='details'
-              label='Detalles'
+              label='More Details'
               multiline
               maxRows={4}
               fullWidth
