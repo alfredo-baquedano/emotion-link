@@ -8,7 +8,7 @@ const adviceList = [
   'Talking to a friend can help you feel better.',
   'Regular exercise can reduce stress.',
   'Cheer up!',
-  'Poppi popii popipo',
+  'Poppi popii popipo 🎵',
 ];
 
 const VirtualPet = ({ petImage }) => {
