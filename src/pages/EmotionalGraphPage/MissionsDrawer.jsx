@@ -2,7 +2,6 @@ import { React, useState } from 'react';
 import {
   Button,
   Drawer,
-  List,
   Divider,
   Typography,
   Box,
@@ -30,12 +29,13 @@ export default function MissionsDrawer() {
         Nivel:
       </Typography>
       <Divider />
-      <Box variant='container'>
+      <Box variant='container' sx={{ position: 'relative' }}>
         {isLocked && (
           <Box
             sx={{
               position: 'absolute',
-              width: 300,
+              height: '100%',
+              width: '100%',
               backgroundColor: 'rgba(0, 0, 0, 0.4)',
               color: 'white',
               display: 'flex',
@@ -49,11 +49,10 @@ export default function MissionsDrawer() {
             </Typography>
           </Box>
         )}
-        <Box>
-          <Typography variant='h6' gutterBottom sx={{ ml: 3, mt: 2 }}>
-            waweaw waweawwaw
-          </Typography>
-        </Box>
+
+        <Typography variant='h6' gutterBottom sx={{ ml: 3, mt: 2 }}>
+          waweaw waweawwawwwwwwwwwwwwwww
+        </Typography>
       </Box>
       <Divider />
       <Box>
