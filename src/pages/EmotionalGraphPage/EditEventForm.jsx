@@ -20,6 +20,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import EmotionSelect from './../../components/EmotionSelect';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import dayjs from 'dayjs';
 
 const EditEventForm = ({ onEdit, onClose, currentEvent, events }) => {
   const [eventData, setEventData] = useState(currentEvent);
@@ -69,13 +70,15 @@ const EditEventForm = ({ onEdit, onClose, currentEvent, events }) => {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
             label='Event Date'
+            name='date'
+            value={dayjs(eventData.date)}
+            onChange={(v) =>
+              handleChange({
+                target: { name: 'date', value: v.format('MM/DD/YYYY') },
+              })
+            }
             renderInput={(params) => (
-              <TextField
-                {...params}
-                name='date'
-                value={eventData.date}
-                onChange={handleChange}
-              />
+              <TextField {...params} name='date' value={eventData.date} />
             )}
             sx={{ mt: 2, width: '100%' }}
           />
@@ -134,31 +137,89 @@ const EditEventForm = ({ onEdit, onClose, currentEvent, events }) => {
               sx={{ mt: 2 }}
               multiple
               freeSolo
+              value={eventData.participants}
               name='participants'
               onChange={(event, newValue) => {
-                event.target.name = 'participants';
-                event.target.value = newValue.split(',');
-                handleChange(event);
+                handleChange({
+                  ...event,
+                  target: {
+                    ...event.target,
+                    name: 'participants',
+                    value: newValue,
+                  },
+                });
               }}
               options={events.reduce((acc, curr) => {
-                acc.push(...curr.participants);
-                return acc;
+                acc.push(
+                  ...[...curr.participants, ...eventData.participants].sort(
+                    (a, b) => a.localeCompare(b),
+                  ),
+                );
+                return [...new Set(acc)];
               }, [])}
-              renderTags={(value, getTagProps) =>
-                value.map((option, index) => (
+              renderTags={(value, getTagProps) => {
+                return value.map((option, index) => (
                   <Chip
-                    key={option}
+                    {...getTagProps({ index })}
                     variant='outlined'
                     label={option}
-                    {...getTagProps({ index })}
                   />
-                ))
-              }
+                ));
+              }}
+              renderOption={(props, option) => {
+                return (
+                  <li {...props} key={option}>
+                    {option}
+                  </li>
+                );
+              }}
               renderInput={(params) => (
                 <TextField
                   {...params}
                   label='Participants'
-                  placeholder='Favorites'
+                  placeholder='Participant'
+                />
+              )}
+            />
+            <Autocomplete
+              sx={{ mt: 2 }}
+              multiple
+              freeSolo
+              value={eventData.customTags ?? []}
+              name='customTags'
+              onChange={(event, newValue) => {
+                handleChange({
+                  ...event,
+                  target: {
+                    ...event.target,
+                    name: 'customTags',
+                    value: newValue,
+                  },
+                });
+              }}
+              options={events.reduce((acc, curr) => {
+                acc.push(
+                  ...[
+                    ...(curr.customTags ?? []),
+                    ...(eventData.customTags ?? []),
+                  ].sort((a, b) => a.localeCompare(b)),
+                );
+                return [...new Set(acc)];
+              }, [])}
+              renderTags={(value, getTagProps) => {
+                return value.map((option, index) => (
+                  <Chip
+                    {...getTagProps({ index })}
+                    variant='outlined'
+                    label={option}
+                  />
+                ));
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label='Custom Tags'
+                  placeholder='Add Custom Tag'
                 />
               )}
             />
