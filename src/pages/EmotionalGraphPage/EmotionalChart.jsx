@@ -16,22 +16,42 @@ const EmotionalChart = ({
 }) => {
   const [zoom, setZoom] = useState(50);
   const ref = useRef();
+  const refNodes = useRef();
+  const refLinks = useRef();
 
-  const nodes = events;
+  const nodes = events.map((event) => ({
+    ...refNodes.current.find((node) => node.id === event.id),
+    ...event,
+  }));
   const nodeIds = new Set(nodes.map((node) => node.id));
   const links = nodes.reduce((acc, curr) => {
     curr.relationships.followed_by.forEach((event) => {
       if (nodeIds.has(event)) {
-        acc.push({ source: curr.id, target: event, type: 'result' });
+        acc.push({
+          ...refLinks.current.find(
+            (link) => link.source.id === curr.id && link.target.id === event,
+          ),
+          source: curr.id,
+          target: event,
+          type: 'result',
+        });
       }
     });
     curr.relationships.preceded_by.forEach((event) => {
       if (nodeIds.has(event)) {
-        acc.push({ source: event, target: curr.id, type: 'result' });
+        acc.push({
+          ...refLinks.current.find(
+            (link) => link.source.id === event && link.target.id === curr.id,
+          ),
+          source: event,
+          target: curr.id,
+          type: 'result',
+        });
       }
     });
     return acc;
   }, []);
+
   const types = Array.from(new Set(links.map((d) => d.type)));
   const color = d3.scaleOrdinal(types, d3.schemeCategory10);
 
@@ -53,27 +73,6 @@ const EmotionalChart = ({
       A${0},${0} 0 0,1 ${d.target.x},${d.target.y}
     `;
   };
-
-  function dragstarted() {
-    if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-    d3.event.subject.fx = d3.event.subject.x;
-    d3.event.subject.fy = d3.event.subject.y;
-  }
-
-  function dragged() {
-    d3.event.subject.fx = d3.event.x;
-    d3.event.subject.fy = d3.event.y;
-  }
-
-  function dragended() {
-    if (!d3.event.active) simulation.alphaTarget(0);
-    d3.event.subject.fx = null;
-    d3.event.subject.fy = null;
-  }
-
-  function dragsubject() {
-    return simulation.find(d3.event.x, d3.event.y);
-  }
 
   const drag = (simulation) => {
     function dragstarted(event, d) {
@@ -327,6 +326,8 @@ const EmotionalChart = ({
       );
 
     simulation.on('tick', () => {
+      refNodes.current = JSON.parse(JSON.stringify(nodes));
+      refLinks.current = JSON.parse(JSON.stringify(links));
       link.attr('d', linkArc);
       node.attr('transform', (d) => `translate(${d.x},${d.y})`);
     });
