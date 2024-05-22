@@ -1,5 +1,7 @@
 const ChartLegend = ({ emotionList }) => (
-  <div style={{ display: 'flex', flexDirection: 'row' }}>
+  <div
+    style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}
+  >
     {emotionList.map((emotion) => (
       <div
         key={emotion.name}

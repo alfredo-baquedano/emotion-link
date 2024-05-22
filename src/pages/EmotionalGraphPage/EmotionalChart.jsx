@@ -2,7 +2,9 @@ import React, { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import ChartLegend from './../../components/ChartLegend';
 import emotionList from '../../contants/emotions.json';
-import { Button } from '@mui/material';
+import { IconButton } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 const EmotionalChart = ({
   events,
@@ -43,11 +45,6 @@ const EmotionalChart = ({
     loadChart(svgElement);
     return () => d3.select(ref.current).selectAll('*').remove();
   }, [events, filters, zoom]);
-
-  const autoBox = () => {
-    const { x, y, width, height } = ref.current.getBBox();
-    return [x, y, width, height];
-  };
 
   const linkArc = (d) => {
     const r = Math.hypot(d.target.x - d.source.x, d.target.y - d.source.y);
@@ -322,10 +319,26 @@ const EmotionalChart = ({
           position: 'relative',
         }}
       >
-        <div style={{ position: 'absolute' }}>
+        <div style={{ position: 'absolute', left: 0, right: 0, top: 10 }}>
           <ChartLegend emotionList={emotionList.children} />
-          <Button onClick={() => setZoom(zoom + 10)}>Zoom +</Button>
-          <Button onClick={() => setZoom(zoom - 10)}>Zoom -</Button>
+        </div>
+        <div
+          style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            bottom: 10,
+            zIndex: 1000,
+            margin: 'auto',
+            textAlign: 'center',
+          }}
+        >
+          <IconButton color='primary' onClick={() => setZoom(zoom + 5)}>
+            <AddIcon />
+          </IconButton>
+          <IconButton color='primary' onClick={() => setZoom(zoom - 5)}>
+            <RemoveIcon />
+          </IconButton>
         </div>
         <svg ref={ref} style={{ height: '100%', width: '100%' }} />
       </div>
