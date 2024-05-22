@@ -7,7 +7,11 @@ import {
   Box,
   TextField,
   Toolbar,
+  Checkbox,
+  List,
+  ListItem,
 } from '@mui/material';
+import MissionsList from './MissionsList';
 
 export default function MissionsDrawer({ open, onClose }) {
   const [isLvl2Blocked, setisLvl2Blocked] = useState(true);
@@ -28,12 +32,7 @@ export default function MissionsDrawer({ open, onClose }) {
       </Typography>
       <Divider />
       <Box>
-        <Typography variant='h6' gutterBottom sx={{ ml: 3, mt: 2 }}>
-          LvL 1 Missions: <br />
-        </Typography>
-        <Typography>-Create your first event (any Emotion!).</Typography>
-        <Typography>-Create 3 new events with different Emotions.</Typography>
-        <Typography>-Connect 3 events in a row.</Typography>
+        <MissionsList width='100%'></MissionsList>
       </Box>
       <Divider />
       <Box variant='container' sx={{ position: 'relative', width: '100%' }}>
