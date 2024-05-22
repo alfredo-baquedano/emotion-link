@@ -26,7 +26,7 @@ const EmotionSelect = ({ name, onChange, value }) => {
   const getEmotionArray = (obj) => {
     const result = [];
     const recurse = (currentObj) => {
-      result.push(currentObj);
+      if (currentObj.name !== 'none') result.push(currentObj);
       if (currentObj.children && Array.isArray(currentObj.children)) {
         currentObj.children.forEach((child) => recurse(child));
       }
