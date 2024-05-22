@@ -22,7 +22,7 @@ const VisualizeEvent = ({ event, onClose }) => {
 
   return (
     <Dialog open={Boolean(event)} onClose={onClose}>
-      <DialogTitle>{name}</DialogTitle>
+      <DialogTitle>Event:</DialogTitle>
       <DialogContent>
         <Card sx={{ minWidth: 275 }}>
           <CardContent>
