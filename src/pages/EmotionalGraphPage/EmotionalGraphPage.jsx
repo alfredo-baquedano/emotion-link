@@ -7,6 +7,8 @@ import EditEventForm from './EditEventForm';
 import { Dialog } from '@mui/material';
 import emotionList from '../../contants/emotions.json';
 import ConfirmDeleteEvent from './ConfirmDeleteEvent';
+import VirtualPet from './VirtualPet';
+import petImage from '../../../image/petImage.png';
 
 const EmotionalGraphPage = () => {
   const [openCreateEvent, setOpenCreateEvent] = useState(false);
@@ -143,6 +145,7 @@ const EmotionalGraphPage = () => {
         onClickEdit={handleOpenEditEvent}
         onClickDelete={handleOpenDeleteEvent}
       />
+      <VirtualPet petImage={petImage} />
     </div>
   );
 };
