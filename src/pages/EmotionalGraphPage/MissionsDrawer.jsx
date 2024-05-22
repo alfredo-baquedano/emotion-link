@@ -8,8 +8,11 @@ import {
   TextField,
   Toolbar,
 } from '@mui/material';
+import useUser from '../../contexts/UserContext';
 
 export default function MissionsDrawer({ open, onClose }) {
+  const { user, setUser, getLevel } = useUser();
+
   const [isLvl2Blocked, setisLvl2Blocked] = useState(true);
   const handleLock2 = () => {
     setisLvl2Blocked(!isLvl2Blocked);
@@ -24,7 +27,17 @@ export default function MissionsDrawer({ open, onClose }) {
     >
       <TextField id='filled-basic' label='User Name' variant='filled' />
       <Typography variant='h6' gutterBottom sx={{ ml: 3, mt: 2 }}>
-        Level:
+        Level: {getLevel()} Exp: {user.experience}{' '}
+        <Button
+          onClick={() =>
+            setUser((prevUser) => ({
+              ...prevUser,
+              experience: prevUser.experience + 100,
+            }))
+          }
+        >
+          Gain exp
+        </Button>
       </Typography>
       <Divider />
       <Box>

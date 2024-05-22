@@ -11,7 +11,9 @@ const useUser = () => {
 
   const getLevel = () => {
     return (
-      missions.find((level) => user.experience < level.requiredExp).level - 1
+      missions
+        .reverse()
+        .findLast((level) => user.experience >= level.requiredExp)?.level ?? 0
     );
   };
 
