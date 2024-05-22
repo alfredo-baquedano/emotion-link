@@ -10,6 +10,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import Slider from '@mui/material/Slider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import emotionsData from '../../contants/emotions.json';
+import { Toolbar } from '@mui/material';
 import EmotionSelect from '../../components/EmotionSelect';
 
 const getEmotionArray = (obj) => {
@@ -26,8 +27,13 @@ const getEmotionArray = (obj) => {
 
 const emotions = getEmotionArray(emotionsData);
 
-export default function DrawerFilter({ filters, setFilters, events = [] }) {
-  const [open, setOpen] = useState(false);
+export default function DrawerFilter({
+  open,
+  onClose,
+  filters,
+  setFilters,
+  events = [],
+}) {
   const [searchTerm, setSearchTerm] = useState(filters.searchTerm || '');
   const [peopleInvolved, setPeopleInvolved] = useState(
     filters.peopleInvolved || '',
@@ -97,7 +103,7 @@ export default function DrawerFilter({ filters, setFilters, events = [] }) {
   );
 
   const DrawerList = (
-    <Box sx={{ width: 300 }} role='presentation'>
+    <Box sx={{ width: 360 }} role='presentation'>
       <Typography variant='h6' gutterBottom sx={{ ml: 3, mt: 2 }}>
         Filters:
       </Typography>
@@ -178,8 +184,8 @@ export default function DrawerFilter({ filters, setFilters, events = [] }) {
 
   return (
     <div>
-      <Button onClick={toggleDrawer(true)}>Open Filter</Button>
-      <Drawer anchor='left' open={open} onClose={toggleDrawer(false)}>
+      <Drawer variant='persistent' anchor='left' open={open} onClose={onClose}>
+        <Toolbar variant='dense' />
         {DrawerList}
       </Drawer>
     </div>

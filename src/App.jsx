@@ -1,8 +1,6 @@
-import { Route, Routes } from 'react-router';
 import NotFound from './pages/NotFoundPage/NotFoundPage';
 import EmotionalGraphPage from './pages/EmotionalGraphPage/EmotionalGraphPage';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
-import ToggleColorMode from './ToggleColorMode';
 import { ThemeContextProvider } from './contexts/ThemeContext';
 import { SnackbarContextProvider } from './contexts/SnackbarContext';
 import { createHashRouter, RouterProvider } from 'react-router-dom';
@@ -27,7 +25,6 @@ function App() {
     <ThemeContextProvider>
       <SnackbarContextProvider>
         <div className='App'>
-          {isDev && <ToggleColorMode />}
           <RouterProvider router={router} />
         </div>
       </SnackbarContextProvider>

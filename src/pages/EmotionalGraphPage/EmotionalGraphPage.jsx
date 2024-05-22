@@ -3,12 +3,15 @@ import DrawerFilter from './DrawerFilter';
 import EmotionalChart from './EmotionalChart';
 import CreateEventForm from './CreateEventForm';
 import EditEventForm from './EditEventForm';
-import { Dialog } from '@mui/material';
+import { Dialog, AppBar, Toolbar, Typography, IconButton } from '@mui/material';
 import emotionList from '../../contants/emotions.json';
 import ConfirmDeleteEvent from './ConfirmDeleteEvent';
 import VirtualPet from './VirtualPet';
 import petImage from '../../../image/petImage.png';
 import VisualizeEvent from './VisualizeEvent';
+import { Star, Tune } from '@mui/icons-material';
+import MissionsDrawer from './MissionsDrawer';
+import ToggleColorMode from './../../components/ToggleColorMode';
 
 const EmotionalGraphPage = () => {
   const [openCreateEvent, setOpenCreateEvent] = useState(false);
@@ -25,6 +28,8 @@ const EmotionalGraphPage = () => {
   });
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [openFilters, setOpenFilters] = useState(false);
+  const [openMissions, setOpenMissions] = useState(false);
 
   useEffect(() => {
     setEvents(
@@ -137,8 +142,50 @@ const EmotionalGraphPage = () => {
   });
 
   return (
-    <div>
-      <DrawerFilter filters={filters} setFilters={setFilters} events={events} />
+    <div style={{ height: 'calc(100vh - 48px)' }}>
+      <AppBar sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+        <Toolbar variant='dense'>
+          <Typography
+            sx={{ marginRight: 'auto' }}
+            variant='h6'
+            color='inherit'
+            component='div'
+          >
+            Emotional Link
+          </Typography>
+          <IconButton
+            edge='start'
+            color='inherit'
+            aria-label='menu'
+            sx={{ mr: 2 }}
+            onClick={() => setOpenFilters((open) => !open)}
+          >
+            <Tune />
+          </IconButton>
+          <IconButton
+            edge='start'
+            color='inherit'
+            aria-label='menu'
+            sx={{ mr: 2 }}
+            onClick={() => setOpenMissions((open) => !open)}
+          >
+            <Star />
+          </IconButton>
+          <ToggleColorMode />
+        </Toolbar>
+      </AppBar>
+      <DrawerFilter
+        open={openFilters}
+        onClose={() => setOpenFilters(false)}
+        filters={filters}
+        setFilters={setFilters}
+        events={events}
+      />
+      <MissionsDrawer
+        open={openMissions}
+        onClose={() => setOpenMissions(false)}
+      />
+      <Toolbar variant='dense' />
       <Dialog open={openCreateEvent} onClose={handleCloseCreateEvent}>
         <CreateEventForm
           events={events}

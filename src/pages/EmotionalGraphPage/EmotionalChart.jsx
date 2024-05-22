@@ -1,7 +1,8 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import ChartLegend from './../../components/ChartLegend';
 import emotionList from '../../contants/emotions.json';
+import { Button } from '@mui/material';
 
 const EmotionalChart = ({
   events,
@@ -11,7 +12,26 @@ const EmotionalChart = ({
   onClickDelete,
   onClickView,
 }) => {
+  const [zoom, setZoom] = useState(50);
   const ref = useRef();
+
+  const nodes = events;
+  const nodeIds = new Set(nodes.map((node) => node.id));
+  const links = nodes.reduce((acc, curr) => {
+    curr.relationships.followed_by.forEach((event) => {
+      if (nodeIds.has(event)) {
+        acc.push({ source: curr.id, target: event, type: 'result' });
+      }
+    });
+    curr.relationships.preceded_by.forEach((event) => {
+      if (nodeIds.has(event)) {
+        acc.push({ source: event, target: curr.id, type: 'result' });
+      }
+    });
+    return acc;
+  }, []);
+  const types = Array.from(new Set(links.map((d) => d.type)));
+  const color = d3.scaleOrdinal(types, d3.schemeCategory10);
 
   const emotions = emotionList.children.reduce(
     (acc, curr) => ({ ...acc, [curr.name]: curr }),
@@ -22,7 +42,12 @@ const EmotionalChart = ({
     const svgElement = d3.select(ref.current);
     loadChart(svgElement);
     return () => d3.select(ref.current).selectAll('*').remove();
-  }, [events, filters]);
+  }, [events, filters, zoom]);
+
+  const autoBox = () => {
+    const { x, y, width, height } = ref.current.getBBox();
+    return [x, y, width, height];
+  };
 
   const linkArc = (d) => {
     const r = Math.hypot(d.target.x - d.source.x, d.target.y - d.source.y);
@@ -60,29 +85,6 @@ const EmotionalChart = ({
   const loadChart = (svg) => {
     const width = 1628;
     const height = 800;
-
-    const nodes = events;
-
-    const nodeIds = new Set(nodes.map((node) => node.id));
-
-    const links = nodes.reduce((acc, curr) => {
-      curr.relationships.followed_by.forEach((event) => {
-        if (nodeIds.has(event)) {
-          acc.push({ source: curr.id, target: event, type: 'result' });
-        }
-      });
-      curr.relationships.preceded_by.forEach((event) => {
-        if (nodeIds.has(event)) {
-          acc.push({ source: event, target: curr.id, type: 'result' });
-        }
-      });
-      return acc;
-    }, []);
-
-    const types = Array.from(new Set(links.map((d) => d.type)));
-
-    const color = d3.scaleOrdinal(types, d3.schemeCategory10);
-
     const simulation = d3
       .forceSimulation(nodes)
       .force(
@@ -101,14 +103,13 @@ const EmotionalChart = ({
       .attr('viewBox', [-width / 2, -height / 2, width, height])
       .attr('width', width)
       .attr('height', height)
-      .attr('style', 'max-width: 100%; height: auto; font: 12px sans-serif;')
-      // .call(
-      //   d3.zoom().on('zoom', (e) => {
-      //     svg.attr('transform', e.transform);
-      //   }),
-      // )
-      .transition()
-      .duration(500);
+      .attr('style', 'font: 12px sans-serif;')
+      .attr('transform', `scale(${zoom / 50})`);
+    // .call(
+    //   d3.zoom().on('zoom', (e) => {
+    //     svg.attr('transform', e.transform);
+    //   }),
+    // )
 
     svg
       .append('defs')
@@ -143,16 +144,19 @@ const EmotionalChart = ({
       .append('g')
       .attr('stroke-linecap', 'round')
       .attr('stroke-linejoin', 'round')
-      .attr('stroke', 'white')
-      .attr('stroke-width', 1)
+      .attr('stroke', 'gray')
+      .attr('stroke-width', 0.4)
       .selectAll('g')
       .data(nodes)
+      .attr('cx', (d) => d.x)
+      .attr('cy', (d) => console.log('d', d))
       .join('g')
       .call(drag(simulation));
 
     node
       .on('mouseover', function (e) {
         const data = e.target.__data__;
+        d3.select(this).attr('stroke', 'white');
         d3.select(this).attr('stroke-width', 5);
         d3.select(`#edit-button-${data.id}`).style('display', 'block');
         d3.select(`#create-button-${data.id}`).style('display', 'block');
@@ -161,7 +165,8 @@ const EmotionalChart = ({
       })
       .on('mouseout', function (e) {
         const data = e.target.__data__;
-        d3.select(this).attr('stroke-width', 1);
+        d3.select(this).attr('stroke', 'gray');
+        d3.select(this).attr('stroke-width', 0.4);
         d3.select(`#edit-button-${data.id}`).style('display', 'none');
         d3.select(`#create-button-${data.id}`).style('display', 'none');
         d3.select(`#delete-button-${data.id}`).style('display', 'none');
@@ -204,6 +209,8 @@ const EmotionalChart = ({
       .attr('transform', `translate(22, -19)`)
       .style('cursor', 'pointer')
       .style('display', 'none')
+      .attr('stroke', 'gray')
+      .attr('stroke-width', 0.4)
       .on('click', (event) => {
         event.stopPropagation();
         onClickEdit(event);
@@ -229,6 +236,8 @@ const EmotionalChart = ({
       .attr('transform', `translate(-20, 20)`)
       .style('cursor', 'pointer')
       .style('display', 'none')
+      .attr('stroke', 'gray')
+      .attr('stroke-width', 0.4)
       .on('click', (event) => {
         event.stopPropagation();
         onClickCreate(event);
@@ -250,6 +259,8 @@ const EmotionalChart = ({
       .attr('transform', `translate(20, 20)`)
       .style('cursor', 'pointer')
       .style('display', 'none')
+      .attr('stroke', 'gray')
+      .attr('stroke-width', 0.4)
       .on('click', (event) => {
         event.stopPropagation();
         onClickDelete(event);
@@ -275,6 +286,8 @@ const EmotionalChart = ({
       .attr('transform', `translate(-20, -19)`)
       .style('cursor', 'pointer')
       .style('display', 'none')
+      .attr('stroke', 'gray')
+      .attr('stroke-width', 0.4)
       .on('click', (event) => {
         event.stopPropagation();
         onClickView(event);
@@ -301,8 +314,21 @@ const EmotionalChart = ({
 
   return (
     <>
-      <ChartLegend emotionList={emotionList.children} />
-      <svg ref={ref} />
+      <div
+        style={{
+          width: '100%',
+          height: '100%',
+          overflow: 'hidden',
+          position: 'relative',
+        }}
+      >
+        <div style={{ position: 'absolute' }}>
+          <ChartLegend emotionList={emotionList.children} />
+          <Button onClick={() => setZoom(zoom + 10)}>Zoom +</Button>
+          <Button onClick={() => setZoom(zoom - 10)}>Zoom -</Button>
+        </div>
+        <svg ref={ref} style={{ height: '100%', width: '100%' }} />
+      </div>
     </>
   );
 };

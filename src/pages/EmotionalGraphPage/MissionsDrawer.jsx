@@ -6,16 +6,13 @@ import {
   Typography,
   Box,
   TextField,
+  Toolbar,
 } from '@mui/material';
 
-export default function MissionsDrawer() {
-  const [open, setOpen] = useState(false);
+export default function MissionsDrawer({ open, onClose }) {
   const [isLocked, setIsLocked] = useState(true);
   const handleLock = () => {
     setIsLocked(!isLocked);
-  };
-  const toggleDrawer = (newOpen) => () => {
-    setOpen(newOpen);
   };
   const DrawerList = (
     <Box
@@ -74,8 +71,8 @@ export default function MissionsDrawer() {
 
   return (
     <div>
-      <Button onClick={toggleDrawer(true)}>Open Missions</Button>
-      <Drawer anchor='right' open={open} onClose={toggleDrawer(false)}>
+      <Drawer variant='persistent' anchor='right' open={open} onClose={onClose}>
+        <Toolbar variant='dense' />
         {DrawerList}
       </Drawer>
     </div>
