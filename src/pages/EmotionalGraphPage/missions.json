@@ -1,0 +1,39 @@
+[
+  {
+    "level": 1,
+    "requiredExp" : 0,
+    "missions": [
+      {
+        "description": "-Create your first event (any Emotion!).",
+        "exp": 200
+      },
+      {
+        "description": "-Create 3 new events with different Emotions.",
+        "exp": 150
+      },
+      {
+        "description": "-Connect 3 events in a row.",
+        "exp": 150
+      }
+    ]
+  },
+  {
+    "level": 2,
+    "requiredExp" : 1000,
+    "missions": [
+      {
+        "description": "-Create 10 events.",
+        "exp": 100
+      },
+      {
+        "description": "-Create 2 events of each different initial Emotion.",
+        "exp": 100
+      },
+      {
+        "description": "-Create 5 events with lvl 2 Emotions.",
+        "exp": 100
+      }
+    ]
+  }
+
+] 

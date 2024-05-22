@@ -10,24 +10,34 @@ import {
 } from '@mui/material';
 
 export default function MissionsDrawer({ open, onClose }) {
-  const [isLocked, setIsLocked] = useState(true);
-  const handleLock = () => {
-    setIsLocked(!isLocked);
+  const [isLvl2Blocked, setisLvl2Blocked] = useState(true);
+  const handleLock2 = () => {
+    setisLvl2Blocked(!isLvl2Blocked);
   };
+
   const DrawerList = (
     <Box
-      sx={{ width: 300 }}
+      sx={{ width: 400, wordWrap: 'break-word' }}
       role='presentation'
       display='flex'
       flexDirection='column'
     >
       <TextField id='filled-basic' label='User Name' variant='filled' />
       <Typography variant='h6' gutterBottom sx={{ ml: 3, mt: 2 }}>
-        Nivel:
+        Level:
       </Typography>
       <Divider />
-      <Box variant='container' sx={{ position: 'relative' }}>
-        {isLocked && (
+      <Box>
+        <Typography variant='h6' gutterBottom sx={{ ml: 3, mt: 2 }}>
+          LvL 1 Missions: <br />
+        </Typography>
+        <Typography>-Create your first event (any Emotion!).</Typography>
+        <Typography>-Create 3 new events with different Emotions.</Typography>
+        <Typography>-Connect 3 events in a row.</Typography>
+      </Box>
+      <Divider />
+      <Box variant='container' sx={{ position: 'relative', width: '100%' }}>
+        {isLvl2Blocked && (
           <Box
             sx={{
               position: 'absolute',
@@ -46,25 +56,22 @@ export default function MissionsDrawer({ open, onClose }) {
             </Typography>
           </Box>
         )}
-
         <Typography variant='h6' gutterBottom sx={{ ml: 3, mt: 2 }}>
-          waweaw waweawwawwwwwwwwwwwwwww
+          LvL 2 Missions:
         </Typography>
+        <Typography>-Create 10 events.</Typography>
+        <Typography>
+          -Create 2 events of each different initial Emotion.
+        </Typography>
+        <Typography>-Create 5 events with lvl 2 Emotions.</Typography>
       </Box>
       <Divider />
-      <Box>
-        <Typography variant='h6' gutterBottom sx={{ ml: 3, mt: 2 }}>
-          Nivel 2
-        </Typography>
-      </Box>
-      <Divider />
-      <Box>
-        <Typography variant='h6' gutterBottom sx={{ ml: 3, mt: 2 }}>
-          Nivel 3
-        </Typography>
-      </Box>
-      <Button variant='contained' onClick={handleLock} sx={{ marginBottom: 2 }}>
-        {isLocked ? 'Hide Message' : 'Show Message'}
+      <Button
+        variant='contained'
+        onClick={handleLock2}
+        sx={{ marginBottom: 2 }}
+      >
+        {isLvl2Blocked ? 'Hide Message' : 'Show Message'}
       </Button>
     </Box>
   );
