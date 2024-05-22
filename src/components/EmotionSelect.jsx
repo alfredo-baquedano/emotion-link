@@ -54,8 +54,10 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
   const ref = useRef();
 
   useEffect(() => {
-    const svgElement = d3.select(ref.current);
-    loadChart(svgElement);
+    setTimeout(() => {
+      const svgElement = d3.select(ref.current);
+      loadChart(svgElement);
+    }, 50);
     return () => d3.select(ref.current).selectAll('*').remove();
   }, [value, options, openEmotionWheel]);
 
@@ -242,15 +244,17 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
             <Button onClick={handleCloseEmotionWheel}>Save</Button>
           </Toolbar>
         </AppBar>
-        <DialogContent
-          sx={{
-            justifyContent: 'center',
-            alignItems: 'center',
-            display: 'flex',
-          }}
-        >
-          <svg width='600' height='600' ref={ref}></svg>
-        </DialogContent>
+        {openEmotionWheel && (
+          <DialogContent
+            sx={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              display: 'flex',
+            }}
+          >
+            <svg width='600' height='600' ref={ref}></svg>
+          </DialogContent>
+        )}
       </Dialog>
     </>
   );
