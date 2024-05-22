@@ -21,6 +21,72 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import EmotionSelect from './../../components/EmotionSelect';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import dayjs from 'dayjs';
+import emotionsData from '../../contants/emotions.json';
+
+const getEmotionArray = (obj) => {
+  const result = [];
+  const recurse = (currentObj) => {
+    if (currentObj.name !== 'none') result.push(currentObj);
+    if (currentObj.children && Array.isArray(currentObj.children)) {
+      currentObj.children.forEach((child) => recurse(child));
+    }
+  };
+  recurse(obj);
+  return result;
+};
+
+const emotions = getEmotionArray(emotionsData);
+
+const hexToRgb = (hex) => {
+  let r = 0,
+    g = 0,
+    b = 0;
+  if (hex.length === 4) {
+    r = parseInt(hex[1] + hex[1], 16);
+    g = parseInt(hex[2] + hex[2], 16);
+    b = parseInt(hex[3] + hex[3], 16);
+  } else if (hex.length === 7) {
+    r = parseInt(hex[1] + hex[2], 16);
+    g = parseInt(hex[3] + hex[4], 16);
+    b = parseInt(hex[5] + hex[6], 16);
+  }
+  return { r, g, b };
+};
+
+const rgbToHex = (r, g, b) => {
+  return (
+    '#' +
+    [r, g, b]
+      .map((x) => {
+        const hex = x.toString(16);
+        return hex.length === 1 ? '0' + hex : hex;
+      })
+      .join('')
+  );
+};
+
+const getAverageColor = (colors) => {
+  const total = colors.length;
+  const rgbValues = colors.map((color) => hexToRgb(color));
+  const avgR = Math.round(
+    rgbValues.reduce((acc, val) => acc + val.r, 0) / total,
+  );
+  const avgG = Math.round(
+    rgbValues.reduce((acc, val) => acc + val.g, 0) / total,
+  );
+  const avgB = Math.round(
+    rgbValues.reduce((acc, val) => acc + val.b, 0) / total,
+  );
+  return rgbToHex(avgR, avgG, avgB);
+};
+
+const getNeonBorderStyle = (colors) => {
+  const color = colors.length > 0 ? getAverageColor(colors) : '#fff';
+  return {
+    border: `2px solid ${color}`,
+    boxShadow: `0 0 5px ${color}, 0 0 10px ${color}, 0 0 15px ${color}, 0 0 20px ${color}`,
+  };
+};
 
 const EditEventForm = ({ onEdit, onClose, currentEvent, events }) => {
   const [eventData, setEventData] = useState(currentEvent);
@@ -56,8 +122,18 @@ const EditEventForm = ({ onEdit, onClose, currentEvent, events }) => {
     });
   };
 
+  const filteredEmotions = emotions.filter((emotion) =>
+    eventData.emotions.includes(emotion.name),
+  );
+
+  const emotionColors = filteredEmotions.map((emotion) => emotion.color);
+
   return (
-    <Box component='form' onSubmit={handleSubmit} sx={{ p: 4 }}>
+    <Box
+      component='form'
+      onSubmit={handleSubmit}
+      sx={{ p: 4, ...getNeonBorderStyle(emotionColors) }}
+    >
       <DialogTitle id='alert-dialog-title'>Edit Event</DialogTitle>
       <DialogContent>
         <TextField
@@ -265,7 +341,7 @@ const EditEventForm = ({ onEdit, onClose, currentEvent, events }) => {
                   placeholder='Add Physical Feeling'
                 />
               )}
-            />
+            />{' '}
             <TextField
               sx={{ mt: 2 }}
               name='whatYouDone'
