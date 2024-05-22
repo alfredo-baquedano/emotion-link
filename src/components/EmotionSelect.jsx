@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, forwardRef } from 'react';
 import emotions from './../contants/emotions.json';
 import * as d3 from 'd3';
 import {
@@ -13,11 +13,14 @@ import {
   TextField,
   Button,
   Box,
+  Tooltip,
 } from '@mui/material';
 import DonutSmallIcon from '@mui/icons-material/DonutSmall';
 import CloseIcon from '@mui/icons-material/Close';
+import useUser from '../contexts/UserContext';
 
 const EmotionSelect = ({ name, onChange, value = [], options }) => {
+  const { getLevel } = useUser();
   const [openEmotionWheel, setOpenEmotionWheel] = useState(false);
   const handleOpenEmotionWheel = () => setOpenEmotionWheel(true);
   const handleCloseEmotionWheel = () => setOpenEmotionWheel(false);
@@ -97,19 +100,23 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
       .attr('fill-opacity', (d) =>
         currentEmotions.find((e) => e.name === d.data.name) ? 1 : 0.6,
       )
+      .style('filter', (d) =>
+        d.data.level > getLevel() ? 'grayscale(1)' : 'grayscale(0)',
+      )
       .attr('fill', (d) => d.data.color)
       .attr('id', (d) => d.data.name)
       .on('click', function () {
-        const emotionName =
-          d3.select(this)._groups?.[0]?.[0]?.__data__?.data?.name ?? '';
+        const emotionData =
+          d3.select(this)._groups?.[0]?.[0]?.__data__?.data ?? '';
+        if (emotionData.level > getLevel()) return;
         const index = currentEmotions.findIndex(
-          (emotion) => emotion.name === emotionName,
+          (emotion) => emotion.name === emotionData.name,
         );
         let value = [];
         if (index === -1) {
           value = [
             ...currentEmotions.map((emotions) => emotions.name),
-            emotionName,
+            emotionData.name,
           ];
         } else {
           value = currentEmotions
@@ -125,14 +132,7 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
       })
       .attr('d', arc)
       .append('title')
-      .text(
-        (d) =>
-          `${d
-            .ancestors()
-            .map((d) => d.data.displayName)
-            .reverse()
-            .join('/')}`,
-      );
+      .text((d) => `${d.data.description}`);
 
     svg
       .append('g')
@@ -165,7 +165,9 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
         multiple
         fullWidth
         value={getCurrentEmotions(emotions, value)}
-        options={options ?? emotionList}
+        options={(options ?? emotionList).sort(
+          (a, b) => Number(a.level > getLevel()) - Number(b.level > getLevel()),
+        )}
         popupIcon={false}
         onChange={(event, newValue) => {
           onChange({
@@ -190,18 +192,25 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
           ))
         }
         renderOption={(props, option) => (
-          <Chip
-            {...props}
-            key={option.name}
-            label={option.displayName}
-            style={{
-              margin: '3px',
-              borderWidth: 1,
-              display: 'inline-block',
-              backgroundColor: option.color,
-              color: '#000',
-            }}
-          />
+          <Tooltip
+            title={`You need to get level ${option.level} to unlock this emotion`}
+            placement='top'
+            arrow
+          >
+            <Chip
+              {...props}
+              key={option.name}
+              label={option.displayName}
+              disabled={option.level > getLevel()}
+              style={{
+                margin: '3px',
+                borderWidth: 1,
+                display: 'inline-block',
+                backgroundColor: option.color,
+                color: '#000',
+              }}
+            />
+          </Tooltip>
         )}
         renderInput={(params) => (
           <Box sx={{ position: 'relative' }}>
@@ -226,6 +235,15 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
         fullScreen
         open={openEmotionWheel}
         onClose={handleCloseEmotionWheel}
+        // TransitionComponent={forwardRef((props2, transitionFef) => (
+        //   <Slide
+        //     {...props2}
+        //     direction='up'
+        //     ref={transitionFef}
+        //     mountOnEnter
+        //     unmountOnExit
+        //   />
+        // ))}
       >
         <AppBar>
           <Toolbar>

@@ -16,15 +16,21 @@
               "name": "pleased",
               "displayName": "Pleased",
               "color": "#D1FFCC",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Feeling or showing pleasure and satisfaction."
             },
             {
               "name": "satisfied",
               "displayName": "Satisfied",
               "color": "#E0FFE8",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Contented; pleased."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "A state of peaceful happiness."
         },
         {
           "name": "happy",
@@ -35,15 +41,21 @@
               "name": "amused",
               "displayName": "Amused",
               "color": "#D1FFCC",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Finding something funny or entertaining."
             },
             {
               "name": "delighted",
               "displayName": "Delighted",
               "color": "#E0FFE8",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Feeling or showing great pleasure."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "Feeling or showing pleasure or contentment."
         },
         {
           "name": "cheerful",
@@ -54,15 +66,21 @@
               "name": "jovial",
               "displayName": "Jovial",
               "color": "#D1FFCC",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Cheerful and friendly."
             },
             {
               "name": "blissful",
               "displayName": "Blissful",
               "color": "#E0FFE8",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Extremely happy; full of joy."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "Noticeably happy and optimistic."
         },
         {
           "name": "proud",
@@ -73,15 +91,21 @@
               "name": "triumphant",
               "displayName": "Triumphant",
               "color": "#D1FFCC",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Feeling or expressing jubilation after having won a victory or mastered a difficulty."
             },
             {
               "name": "illustrious",
               "displayName": "Illustrious",
               "color": "#E0FFE8",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Well known, respected, and admired for past achievements."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "Feeling deep pleasure or satisfaction as a result of achievements, qualities, or possessions."
         },
         {
           "name": "optimistic",
@@ -92,15 +116,21 @@
               "name": "hopeful",
               "displayName": "Hopeful",
               "color": "#D1FFCC",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Feeling or inspiring optimism about a future event."
             },
             {
               "name": "eager",
               "displayName": "Eager",
               "color": "#E0FFE8",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Wanting to do or have something very much."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "Hopeful and confident about the future."
         },
         {
           "name": "enthusiastic",
@@ -111,15 +141,21 @@
               "name": "zeal",
               "displayName": "Zeal",
               "color": "#D1FFCC",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Great energy or enthusiasm in pursuit of a cause or an objective."
             },
             {
               "name": "excited",
               "displayName": "Excited",
               "color": "#E0FFE8",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Very enthusiastic and eager."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "Having or showing intense and eager enjoyment, interest, or approval."
         },
         {
           "name": "elation",
@@ -130,15 +166,21 @@
               "name": "jubilation",
               "displayName": "Jubilation",
               "color": "#D1FFCC",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "A feeling of great happiness and triumph."
             },
             {
               "name": "euphoric",
               "displayName": "Euphoric",
               "color": "#E0FFE8",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Characterized by or feeling intense excitement and happiness."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "Great happiness and exhilaration."
         },
         {
           "name": "enthralled",
@@ -149,17 +191,25 @@
               "name": "rapture",
               "displayName": "Rapture",
               "color": "#D1FFCC",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "A feeling of intense pleasure or joy."
             },
             {
               "name": "enchanted",
               "displayName": "Enchanted",
               "color": "#E0FFE8",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Delighted greatly; charmed."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "Fascinated and spellbound."
         }
-      ]
+      ],
+      "level": 1,
+      "description": "A feeling of great pleasure and happiness."
     },
     {
       "name": "love",
@@ -175,15 +225,21 @@
               "name": "fondness",
               "displayName": "Fondness",
               "color": "#F6FDC0",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Affection or liking for someone or something."
             },
             {
               "name": "romantic",
               "displayName": "Romantic",
               "color": "#F9FDD9",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Conducive to or characterized by the expression of love."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "Readily feeling or showing fondness or tenderness."
         },
         {
           "name": "longing",
@@ -194,15 +250,21 @@
               "name": "attracted",
               "displayName": "Attracted",
               "color": "#F6FDC0",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Feeling a pull or draw towards something or someone."
             },
             {
               "name": "sentimental",
               "displayName": "Sentimental",
               "color": "#F9FDD9",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Of or prompted by feelings of tenderness, sadness, or nostalgia."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "A yearning desire."
         },
         {
           "name": "desire",
@@ -213,15 +275,21 @@
               "name": "infatuation",
               "displayName": "Infatuation",
               "color": "#F6FDC0",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "An intense but short-lived passion or admiration for someone or something."
             },
             {
               "name": "passion",
               "displayName": "Passion",
               "color": "#F9FDD9",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Strong and barely controllable emotion."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "A strong feeling of wanting to have something or wishing for something to happen."
         },
         {
           "name": "tenderness",
@@ -232,15 +300,21 @@
               "name": "compassionate",
               "displayName": "Compassionate",
               "color": "#F6FDC0",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Feeling or showing sympathy and concern for others."
             },
             {
               "name": "caring",
               "displayName": "Caring",
               "color": "#F9FDD9",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Displaying kindness and concern for others."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "Gentle and kind affection."
         },
         {
           "name": "peaceful",
@@ -251,17 +325,25 @@
               "name": "satisfied2",
               "displayName": "Satisfied",
               "color": "#F6FDC0",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Contented; pleased."
             },
             {
               "name": "relieved",
               "displayName": "Relieved",
               "color": "#F9FDD9",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "No longer feeling distressed or anxious; reassured."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "Free from disturbance; tranquil."
         }
-      ]
+      ],
+      "level": 1,
+      "description": "An intense feeling of deep affection."
     },
     {
       "name": "fear",
@@ -277,15 +359,21 @@
               "name": "helpless",
               "displayName": "Helpless",
               "color": "#FDD8D8",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Unable to defend oneself or to act without help."
             },
             {
               "name": "frightened",
               "displayName": "Frightened",
               "color": "#FEEAEA",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Afraid or anxious."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "Fearful; frightened."
         },
         {
           "name": "terror",
@@ -296,15 +384,21 @@
               "name": "hysterical",
               "displayName": "Hysterical",
               "color": "#FDD8D8",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Deriving from or affected by uncontrolled extreme emotion."
             },
             {
               "name": "panic",
               "displayName": "Panic",
               "color": "#FEEAEA",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Sudden uncontrollable fear or anxiety, often causing wildly unthinking behavior."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "Extreme fear."
         },
         {
           "name": "insecure",
@@ -315,15 +409,21 @@
               "name": "inadequate",
               "displayName": "Inadequate",
               "color": "#FDD8D8",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Lacking the quality or quantity required; insufficient for a purpose."
             },
             {
               "name": "inferior",
               "displayName": "Inferior",
               "color": "#FEEAEA",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Lower in rank, status, or quality."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "Not confident or assured; uncertain and anxious."
         },
         {
           "name": "nervous",
@@ -334,15 +434,21 @@
               "name": "anxious",
               "displayName": "Anxious",
               "color": "#FDD8D8",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Experiencing worry, unease, or nervousness."
             },
             {
               "name": "worried",
               "displayName": "Worried",
               "color": "#FEEAEA",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Anxious or troubled about actual or potential problems."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "Easily agitated or alarmed; tending to be anxious; highly strung."
         },
         {
           "name": "horror",
@@ -353,17 +459,25 @@
               "name": "dread",
               "displayName": "Dread",
               "color": "#FDD8D8",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Anticipate with great apprehension or fear."
             },
             {
               "name": "mortified",
               "displayName": "Mortified",
               "color": "#FEEAEA",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Cause (someone) to feel embarrassed, ashamed, or humiliated."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "An intense feeling of fear, shock, or disgust."
         }
-      ]
+      ],
+      "level": 1,
+      "description": "An unpleasant emotion caused by the threat of danger, pain, or harm."
     },
     {
       "name": "anger",
@@ -379,15 +493,21 @@
               "name": "hostile",
               "displayName": "Hostile",
               "color": "#F4A3F8",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Unfriendly; antagonistic."
             },
             {
               "name": "hate",
               "displayName": "Hate",
               "color": "#F7BEFB",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Intense dislike or ill will."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "Violent, uncontrollable anger."
         },
         {
           "name": "exasperated",
@@ -398,15 +518,21 @@
               "name": "frustrated",
               "displayName": "Frustrated",
               "color": "#F4A3F8",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Feeling or expressing distress and annoyance, especially because of inability to change or achieve something."
             },
             {
               "name": "agitated",
               "displayName": "Agitated",
               "color": "#F7BEFB",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Feeling or appearing troubled or nervous."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "Intensely irritated and frustrated."
         },
         {
           "name": "irritable",
@@ -417,15 +543,21 @@
               "name": "aggravated",
               "displayName": "Aggravated",
               "color": "#F4A3F8",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Made more serious by attendant circumstances."
             },
             {
               "name": "annoyed",
               "displayName": "Annoyed",
               "color": "#F7BEFB",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Slightly angry; irritated."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "Having or showing a tendency to be easily annoyed or made angry."
         },
         {
           "name": "envy",
@@ -436,15 +568,21 @@
               "name": "resentful",
               "displayName": "Resentful",
               "color": "#F4A3F8",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Feeling or expressing bitterness or indignation at having been treated unfairly."
             },
             {
               "name": "jealous",
               "displayName": "Jealous",
               "color": "#F7BEFB",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Feeling or showing envy of someone or their achievements and advantages."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "A feeling of discontented or resentful longing aroused by someone else's possessions, qualities, or luck."
         },
         {
           "name": "disgust",
@@ -455,17 +593,25 @@
               "name": "contempt",
               "displayName": "Contempt",
               "color": "#F4A3F8",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "The feeling that a person or a thing is beneath consideration, worthless, or deserving scorn."
             },
             {
               "name": "revolted",
               "displayName": "Revolted",
               "color": "#F7BEFB",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Cause to feel disgust."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "A feeling of revulsion or strong disapproval aroused by something unpleasant or offensive."
         }
-      ]
+      ],
+      "level": 1,
+      "description": "A strong feeling of annoyance, displeasure, or hostility."
     },
     {
       "name": "sadness",
@@ -481,15 +627,21 @@
               "name": "agony",
               "displayName": "Agony",
               "color": "#D5E2FF",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Extreme physical or mental suffering."
             },
             {
               "name": "hurt",
               "displayName": "Hurt",
               "color": "#E3EBFF",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Cause physical pain or injury to."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "The state of undergoing pain, distress, or hardship."
         },
         {
           "name": "sadness2",
@@ -500,15 +652,21 @@
               "name": "depressed",
               "displayName": "Depressed",
               "color": "#D5E2FF",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "In a state of general unhappiness or despondency."
             },
             {
               "name": "sorrow",
               "displayName": "Sorrow",
               "color": "#E3EBFF",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "A feeling of deep distress caused by loss, disappointment, or other misfortune suffered by oneself or others."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "The condition or quality of being sad."
         },
         {
           "name": "disappointed",
@@ -519,15 +677,21 @@
               "name": "dismayed",
               "displayName": "Dismayed",
               "color": "#D5E2FF",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Cause (someone) to feel consternation and distress."
             },
             {
               "name": "displeased",
               "displayName": "Displeased",
               "color": "#E3EBFF",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Feeling or showing annoyance and displeasure."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "Sad or displeased because someone or something has failed to fulfill one's hopes or expectations."
         },
         {
           "name": "shameful",
@@ -538,15 +702,21 @@
               "name": "regretful",
               "displayName": "Regretful",
               "color": "#D5E2FF",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Feeling or showing regret."
             },
             {
               "name": "guilty",
               "displayName": "Guilty",
               "color": "#E3EBFF",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Culpable of or responsible for a specified wrongdoing."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "Worthy of causing shame or disgrace."
         },
         {
           "name": "neglected",
@@ -557,15 +727,21 @@
               "name": "isolated",
               "displayName": "Isolated",
               "color": "#D5E2FF",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Far away from other places, buildings, or people; remote."
             },
             {
               "name": "lonely",
               "displayName": "Lonely",
               "color": "#E3EBFF",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Sad because one has no friends or company."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "Suffering a lack of proper care."
         },
         {
           "name": "despair",
@@ -576,17 +752,25 @@
               "name": "grief",
               "displayName": "Grief",
               "color": "#D5E2FF",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Deep sorrow, especially that caused by someone's death."
             },
             {
               "name": "powerless",
               "displayName": "Powerless",
               "color": "#E3EBFF",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Without ability, influence, or power."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "The complete loss or absence of hope."
         }
-      ]
+      ],
+      "level": 1,
+      "description": "The condition or quality of being sad."
     },
     {
       "name": "surprise",
@@ -602,15 +786,21 @@
               "name": "shocked",
               "displayName": "Shocked",
               "color": "#E6F5F2",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Cause (someone) to feel surprised and upset."
             },
             {
               "name": "dismayed",
               "displayName": "Dismayed",
               "color": "#F2FBF7",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Cause (someone) to feel consternation and distress."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "So shocked that one is temporarily unable to react."
         },
         {
           "name": "confused",
@@ -621,15 +811,21 @@
               "name": "disillusioned",
               "displayName": "Disillusioned",
               "color": "#E6F5F2",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Disappointed in someone or something that one discovers to be less good than one had believed."
             },
             {
               "name": "perplexed",
               "displayName": "Perplexed",
               "color": "#F2FBF7",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Completely baffled; very puzzled."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "Unable to think clearly; bewildered."
         },
         {
           "name": "amazed",
@@ -640,15 +836,21 @@
               "name": "astonished",
               "displayName": "Astonished",
               "color": "#E6F5F2",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Greatly surprised or impressed; amazed."
             },
             {
               "name": "awe-struck",
               "displayName": "Awe-struck",
               "color": "#F2FBF7",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Filled with awe or wonder."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "Greatly surprised; astonished."
         },
         {
           "name": "overcome",
@@ -659,15 +861,21 @@
               "name": "speechless",
               "displayName": "Speechless",
               "color": "#E6F5F2",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Unable to speak, especially as the temporary result of shock or some strong emotion."
             },
             {
               "name": "astounded",
               "displayName": "Astounded",
               "color": "#F2FBF7",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Shock or greatly surprise."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "Succeed in dealing with (a problem or difficulty)."
         },
         {
           "name": "moved",
@@ -678,17 +886,27 @@
               "name": "stimulated",
               "displayName": "Stimulated",
               "color": "#E6F5F2",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Encourage or arouse interest or enthusiasm in."
             },
             {
               "name": "touched",
               "displayName": "Touched",
               "color": "#F2FBF7",
-              "value": 10
+              "value": 10,
+              "level": 3,
+              "description": "Feeling gratitude or sympathy; moved."
             }
-          ]
+          ],
+          "level": 2,
+          "description": "Having strong feelings of sadness or sympathy, because of something someone has said or done."
         }
-      ]
+      ],
+      "level": 1,
+      "description": "A feeling of mild astonishment or shock caused by something unexpected."
     }
-  ]
+  ],
+  "level": 0,
+  "description": "Description not available"
 }
