@@ -32,7 +32,23 @@ const EmotionalGraphPage = () => {
   const [selectedEvent, setSelectedEvent] = useState(null);
 
   useEffect(() => {
-    setEvents(JSON.parse(localStorage.getItem('events')) ?? []);
+    setEvents(
+      JSON.parse(localStorage.getItem('events')) ?? [
+        {
+          id: 'be1a920a-d36a-4bdd-b360-13bb5c9b0800',
+          name: 'Myself',
+          date: Date.now(),
+          location: 'Home',
+          participants: [],
+          relationships: {
+            preceded_by: [],
+            followed_by: [],
+          },
+          impact: 0,
+          emotions: [],
+        },
+      ],
+    );
   }, []);
 
   useEffect(() => {
