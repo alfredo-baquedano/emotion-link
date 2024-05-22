@@ -1,8 +1,11 @@
-import { lime } from '@mui/material/colors';
+import { blueGrey } from '@mui/material/colors';
 
 const baseTheme = {
   primary: {
-    main: lime[50],
+    main: blueGrey[50],
+  },
+  secondary: {
+    main: blueGrey[50],
   },
 };
 
@@ -12,11 +15,17 @@ const getTheme = (mode) => ({
     mode,
     ...(mode === 'light'
       ? {
-          // palette values for light mode
-        }
+        primary: {
+          main: blueGrey[900],
+        },
+        secondary: {
+          main: blueGrey[900],
+        },
+        // palette values for light mode
+      }
       : {
-          // palette values for dark mode
-        }),
+        // palette values for dark mode
+      }),
   },
 });
 

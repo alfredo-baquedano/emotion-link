@@ -333,10 +333,10 @@ const EmotionalChart = ({
             textAlign: 'center',
           }}
         >
-          <IconButton color='primary' onClick={() => setZoom(zoom + 5)}>
+          <IconButton onClick={() => setZoom(zoom + 5)}>
             <AddIcon />
           </IconButton>
-          <IconButton color='primary' onClick={() => setZoom(zoom - 5)}>
+          <IconButton onClick={() => setZoom(zoom - 5)}>
             <RemoveIcon />
           </IconButton>
         </div>
