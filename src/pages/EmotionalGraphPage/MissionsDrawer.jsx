@@ -39,36 +39,7 @@ export default function MissionsDrawer({ open, onClose }) {
         <MissionsList width='100%'></MissionsList>
       </Box>
       <Divider />
-      <Box variant='container' sx={{ position: 'relative', width: '100%' }}>
-        {isLvl2Blocked && (
-          <Box
-            sx={{
-              position: 'absolute',
-              height: '100%',
-              width: '100%',
-              backgroundColor: 'rgba(0, 0, 0, 0.4)',
-              color: 'white',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              transition: 'background-color 0.3s',
-            }}
-          >
-            <Typography variant='h6' gutterBottom sx={{ ml: 3, mt: 2 }}>
-              Blocked!
-            </Typography>
-          </Box>
-        )}
-        <Typography variant='h6' gutterBottom sx={{ ml: 3, mt: 2 }}>
-          LvL 2 Missions:
-        </Typography>
-        <Typography>-Create 10 events.</Typography>
-        <Typography>
-          -Create 2 events of each different initial Emotion.
-        </Typography>
-        <Typography>-Create 5 events with lvl 2 Emotions.</Typography>
-      </Box>
-      <Divider />
+
       <Button
         variant='contained'
         onClick={handleLock2}
