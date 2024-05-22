@@ -34,12 +34,16 @@ const VisualizeEvent = ({ event, onClose }) => {
             <Typography variant='h5' component='div'>
               {name}
             </Typography>
-            <Typography sx={{ mb: 1.5 }} color='text.secondary'>
-              {location}
-            </Typography>
-            <Typography variant='body2'>
-              Participants: {participants.join(', ')}
-            </Typography>
+            {location && (
+              <Typography sx={{ mb: 1.5 }} color='text.secondary'>
+                {location}
+              </Typography>
+            )}
+            {participants.length > 0 && (
+              <Typography variant='body2'>
+                Participants: {participants.join(', ')}
+              </Typography>
+            )}
             <Typography variant='body2'>Impact: {impact}</Typography>
             <Typography variant='body2'>
               Emotions: {emotions.join(', ')}

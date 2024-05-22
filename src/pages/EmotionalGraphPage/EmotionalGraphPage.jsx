@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import DrawerFilter from './DrawerFilter';
-import MissionsDrawer from './MissionsDrawer';
 import EmotionalChart from './EmotionalChart';
 import CreateEventForm from './CreateEventForm';
 import EditEventForm from './EditEventForm';
 import { Dialog } from '@mui/material';
+import emotionList from '../../contants/emotions.json';
 import ConfirmDeleteEvent from './ConfirmDeleteEvent';
 import VirtualPet from './VirtualPet';
 import petImage from '../../../image/petImage.png';
@@ -126,17 +126,18 @@ const EmotionalGraphPage = () => {
   return (
     <div>
       <DrawerFilter filters={filters} setFilters={setFilters} />
-      <MissionsDrawer filters={filters} setFilters={setFilters} />
       <Dialog open={openCreateEvent} onClose={handleCloseCreateEvent}>
         <CreateEventForm
           relatedEvent={selectedEvent}
           onCreate={handleCreateEvent}
+          emotionsList={emotionList}
           onClose={handleCloseCreateEvent}
         />
       </Dialog>
       <Dialog open={openEditEvent} onClose={handleCloseEditEvent}>
         <EditEventForm
-          currentEvent={selectedEvent}
+          event={selectedEvent}
+          emotionsList={emotionList}
           onEdit={handleEditEvent}
           onClose={handleCloseEditEvent}
         />
