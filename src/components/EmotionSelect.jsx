@@ -193,23 +193,29 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
         }
         renderOption={(props, option) => (
           <Tooltip
-            title={`You need to get level ${option.level} to unlock this emotion`}
+            title={
+              option.level > getLevel()
+                ? `You need to get level ${option.level} to unlock this emotion`
+                : ''
+            }
             placement='top'
             arrow
           >
-            <Chip
-              {...props}
-              key={option.name}
-              label={option.displayName}
-              disabled={option.level > getLevel()}
-              style={{
-                margin: '3px',
-                borderWidth: 1,
-                display: 'inline-block',
-                backgroundColor: option.color,
-                color: '#000',
-              }}
-            />
+            <div style={{ display: 'inline-block' }}>
+              <Chip
+                {...props}
+                key={option.name}
+                label={option.displayName}
+                disabled={option.level > getLevel()}
+                style={{
+                  margin: '3px',
+                  borderWidth: 1,
+                  display: 'inline-block',
+                  backgroundColor: option.color,
+                  color: '#000',
+                }}
+              />
+            </div>
           </Tooltip>
         )}
         renderInput={(params) => (

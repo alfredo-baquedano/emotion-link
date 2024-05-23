@@ -1,47 +1,40 @@
-import * as React from 'react';
+import { useId } from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
-import Missions from './missions.json';
+import { Typography } from '@mui/material';
 
-export default function CheckboxList() {
-  const [checked, setChecked] = React.useState([]);
+const MissionList = ({ missions = [], onComplete = () => {} }) => {
+  const labelId = useId();
 
-  const handleToggle = (value) => () => {
-    if (checked.indexOf(value) === -1) {
-      setChecked([...checked, value]);
-    }
-  };
+  const handleComplete = (value) => onComplete(value);
 
   return (
-    <List sx={{ bgcolor: 'background.paper' }}>
-      {[0, 1, 2, 3].map((value) => {
-        const labelId = `checkbox-list-label-${value}`;
-
+    <List>
+      {missions.map((value) => {
         return (
-          <ListItem key={value} disablePadding>
-            <ListItemButton
-              role={undefined}
-              onClick={handleToggle(value)}
-              dense
-            >
+          <ListItem key={value.mission} disablePadding>
+            <ListItemButton role={undefined} disableRipple dense>
+              <ListItemText>{value.mission}</ListItemText>
               <ListItemIcon>
                 <Checkbox
-                  edge='start'
-                  checked={checked.indexOf(value) !== -1}
-                  tabIndex={-1}
-                  disableRipple
+                  edge='end'
+                  onClick={() => handleComplete(value)}
+                  disabled={value.completed}
+                  checked={value.completed}
                   inputProps={{ 'aria-labelledby': labelId }}
                 />
               </ListItemIcon>
-              <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+              <Typography variant='caption'>{value.experience} exp</Typography>
             </ListItemButton>
           </ListItem>
         );
       })}
     </List>
   );
-}
+};
+
+export default MissionList;
