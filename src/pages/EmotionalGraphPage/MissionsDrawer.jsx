@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react';
+import React from 'react';
 import {
   Button,
   Drawer,
@@ -8,9 +8,20 @@ import {
   Toolbar,
   LinearProgress,
 } from '@mui/material';
-import MissionsList from './MissionsList';
+import MissionList from './MissionsList';
 import useUser from '../../contexts/UserContext';
-import missions from './../../contants/missions.json';
+import missions from '../../contants/missions.json';
+import { styled } from '@mui/system';
+
+const StyledLinearProgress = styled(LinearProgress)({
+  height: 10,
+  borderRadius: 5,
+  backgroundColor: '#d3d3d3',
+  '& .MuiLinearProgress-bar': {
+    borderRadius: 5,
+    background: 'linear-gradient(45deg, #9c27b0, #8e24aa)',
+  },
+});
 
 export default function MissionsDrawer({ open, onClose }) {
   const { user, setUser, gainExp, getLevel, getDailyMissions } = useUser();
@@ -42,15 +53,19 @@ export default function MissionsDrawer({ open, onClose }) {
         <Button onClick={() => gainExp(100)}>Gain exp</Button>
       </Typography>
       {userLevel === 3 ? (
-        <LinearProgress variant='determinate' color='success' value={100} />
+        <StyledLinearProgress
+          variant='determinate'
+          color='success'
+          value={100}
+        />
       ) : (
-        <LinearProgress variant='determinate' value={getProgression()} />
+        <StyledLinearProgress variant='determinate' value={getProgression()} />
       )}
       <Divider />
-      <MissionsList
+      <MissionList
         missions={getDailyMissions()}
         onComplete={(m) => handleCompleteMission(m)}
-      ></MissionsList>
+      />
     </Box>
   );
 
