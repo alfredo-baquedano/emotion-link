@@ -18,6 +18,8 @@ import {
 import DonutSmallIcon from '@mui/icons-material/DonutSmall';
 import CloseIcon from '@mui/icons-material/Close';
 import useUser from '../contexts/UserContext';
+import RemoveDoneIcon from '@mui/icons-material/RemoveDone';
+import CheckIcon from '@mui/icons-material/Check';
 
 const EmotionSelect = ({ name, onChange, value = [], options }) => {
   const { getLevel } = useUser();
@@ -104,7 +106,11 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
       .data(root.descendants().filter((d) => d.depth))
       .join('path')
       .attr('fill-opacity', (d) =>
-        currentEmotions.find((e) => e.name === d.data.name) ? 1 : 0.6,
+        currentEmotions.find((e) => e.name === d.data.name) ? 1 : 0.3,
+      )
+      .attr('stroke', 'white')
+      .attr('stroke-width', (d) =>
+        currentEmotions.find((e) => e.name === d.data.name) ? 1 : 0,
       )
       .attr('fill', (d) => (d.data.level > userLevel ? 'gray' : d.data.color))
       .attr('id', (d) => d.data.name)
@@ -259,8 +265,21 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
             <Typography sx={{ ml: 2, flex: 1 }} variant='h6' component='div'>
               Select Emotions
             </Typography>
-            <Button onClick={handleClearEmotions}>Clear</Button>
-            <Button onClick={handleCloseEmotionWheel}>Save</Button>
+            <Button
+              sx={{ mr: 2 }}
+              variant='outlined'
+              startIcon={<RemoveDoneIcon />}
+              onClick={handleClearEmotions}
+            >
+              Clear
+            </Button>
+            <Button
+              variant='contained'
+              startIcon={<CheckIcon />}
+              onClick={handleCloseEmotionWheel}
+            >
+              Select {value.length > 0 ? `(${value.length + 1})` : ''}
+            </Button>
           </Toolbar>
         </AppBar>
         {openEmotionWheel && (
