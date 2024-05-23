@@ -1,5 +1,6 @@
 import { Card, CardContent, Typography, Chip, Box } from '@mui/material';
 import emotionsData from '../../contants/emotions.json';
+import dayjs from 'dayjs';
 
 const getEmotionArray = (obj) => {
   const result = [];
@@ -78,6 +79,8 @@ const VisualizeEvent = ({ event }) => {
     emotions: eventEmotions = [],
   } = event;
 
+  const formattedDate = dayjs(date).format('MM/DD/YYYY');
+
   const filteredEmotions = emotions.filter((emotion) =>
     eventEmotions.includes(emotion.name),
   );
@@ -88,7 +91,7 @@ const VisualizeEvent = ({ event }) => {
     <Card sx={{ minWidth: 275, ...getNeonBorderStyle(emotionColors) }}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color='text.secondary' gutterBottom>
-          {date}
+          {formattedDate}
         </Typography>
         <Typography variant='h5' component='div'>
           {name}

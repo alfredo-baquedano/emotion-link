@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import DrawerFilter from './DrawerFilter';
 import EmotionalChart from './EmotionalChart';
 import CreateEventForm from './CreateEventForm';
