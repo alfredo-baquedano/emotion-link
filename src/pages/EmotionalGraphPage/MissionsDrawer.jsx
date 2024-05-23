@@ -1,4 +1,4 @@
-import { Button, Drawer, Typography, Box, Toolbar } from '@mui/material';
+import { Drawer, Typography, Box, Toolbar } from '@mui/material';
 import useUser from '../../contexts/UserContext';
 import { styled } from '@mui/system';
 import LinearProgress from '@mui/material/LinearProgress';
@@ -16,7 +16,7 @@ const StyledLinearProgress = styled(LinearProgress)({
 });
 
 export default function MissionsDrawer({ open, onClose }) {
-  const { user, setUser, gainExp, getLevel, getDailyMissions } = useUser();
+  const { user, setUser, getLevel, getDailyMissions } = useUser();
   const userLevel = getLevel();
 
   const getProgression = () => {
@@ -35,22 +35,22 @@ export default function MissionsDrawer({ open, onClose }) {
         m.mission === mission.mission ? { ...m, completed: true } : m,
       ),
     }));
-    gainExp(mission.experience);
   };
 
   const DrawerList = (
     <Box sx={{ width: '100%', p: 3 }} display='flex' flexDirection='column'>
-      <Typography
-        variant='h6'
-        gutterBottom
-        sx={{ ml: 3, mt: 2 }}
-        style={{ color: '#fff' }}
-      >
-        Level {userLevel}
-        <Button onClick={() => gainExp(100)} style={{ color: '#9c27b0' }}>
-          Gain exp
-        </Button>
-      </Typography>
+      <Box sx={{ display: 'flex', alignItems: 'center', ml: 3, mt: 2 }}>
+        <Typography variant='h6' gutterBottom style={{ color: '#fff' }}>
+          Level {userLevel}
+        </Typography>
+        <Typography
+          variant='h6'
+          gutterBottom
+          style={{ color: '#ffeb3b', marginLeft: '10px' }}
+        >
+          Daily Missions
+        </Typography>
+      </Box>
       {userLevel === 3 ? (
         <StyledLinearProgress
           variant='determinate'
