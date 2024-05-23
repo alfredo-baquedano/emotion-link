@@ -9,6 +9,9 @@ const adviceList = [
   'Regular exercise can reduce stress.',
   'Cheer up!',
   'Poppi popii popipo 🎵',
+  'Remember that to unlock more emotions you can do your daily missions.',
+  'You can use the filters to search for specific events or emotions.',
+  'Your progress bar will fill up as you complete more missions.',
 ];
 
 const VirtualPet = ({ petImage }) => {

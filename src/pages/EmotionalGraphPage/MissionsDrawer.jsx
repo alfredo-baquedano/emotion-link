@@ -16,7 +16,7 @@ const StyledLinearProgress = styled(LinearProgress)({
 });
 
 export default function MissionsDrawer({ open, onClose }) {
-  const { user, setUser, getLevel, getDailyMissions } = useUser();
+  const { user, setUser, gainExp, getLevel, getDailyMissions } = useUser();
   const userLevel = getLevel();
 
   const getProgression = () => {
@@ -35,6 +35,7 @@ export default function MissionsDrawer({ open, onClose }) {
         m.mission === mission.mission ? { ...m, completed: true } : m,
       ),
     }));
+    gainExp(mission.experience);
   };
 
   const DrawerList = (
