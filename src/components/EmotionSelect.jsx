@@ -24,6 +24,7 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
   const [openEmotionWheel, setOpenEmotionWheel] = useState(false);
   const handleOpenEmotionWheel = () => setOpenEmotionWheel(true);
   const handleCloseEmotionWheel = () => setOpenEmotionWheel(false);
+  const userLevel = getLevel();
 
   const handleClearEmotions = () =>
     onChange({
@@ -34,8 +35,8 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
     });
 
   const getTooltipText = (emotion) =>
-    emotion.level > getLevel()
-      ? `You need to get level ${emotion.level} to unlock this emotion`
+    emotion.level > userLevel
+      ? `You need level ${emotion.level} to unlock this emotion`
       : '';
 
   const getEmotionArray = (obj) => {
@@ -105,15 +106,12 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
       .attr('fill-opacity', (d) =>
         currentEmotions.find((e) => e.name === d.data.name) ? 1 : 0.6,
       )
-      .style('filter', (d) =>
-        d.data.level > getLevel() ? 'grayscale(1)' : 'grayscale(0)',
-      )
-      .attr('fill', (d) => d.data.color)
+      .attr('fill', (d) => (d.data.level > userLevel ? 'gray' : d.data.color))
       .attr('id', (d) => d.data.name)
       .on('click', function () {
         const emotionData =
           d3.select(this)._groups?.[0]?.[0]?.__data__?.data ?? '';
-        if (emotionData.level > getLevel()) return;
+        if (emotionData.level > userLevel) return;
         const index = currentEmotions.findIndex(
           (emotion) => emotion.name === emotionData.name,
         );
@@ -137,7 +135,7 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
       })
       .attr('d', arc)
       .append('title')
-      .text((d) => `${getTooltipText(d.data)}\n${d.data.description}`);
+      .text((d) => `${d.data.description}\nNote: ${getTooltipText(d.data)}`);
 
     svg
       .append('g')
@@ -171,7 +169,7 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
         fullWidth
         value={getCurrentEmotions(emotions, value)}
         options={(options ?? emotionList).sort(
-          (a, b) => Number(a.level > getLevel()) - Number(b.level > getLevel()),
+          (a, b) => Number(a.level > userLevel) - Number(b.level > userLevel),
         )}
         popupIcon={false}
         onChange={(event, newValue) => {
@@ -203,7 +201,7 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
                 {...props}
                 key={option.name}
                 label={option.displayName}
-                disabled={option.level > getLevel()}
+                disabled={option.level > userLevel}
                 style={{
                   margin: '3px',
                   borderWidth: 1,
