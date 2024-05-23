@@ -1,17 +1,9 @@
-import React from 'react';
-import {
-  Button,
-  Drawer,
-  Divider,
-  Typography,
-  Box,
-  Toolbar,
-  LinearProgress,
-} from '@mui/material';
-import MissionList from './MissionsList';
+import { Button, Drawer, Typography, Box, Toolbar } from '@mui/material';
 import useUser from '../../contexts/UserContext';
-import missions from '../../contants/missions.json';
 import { styled } from '@mui/system';
+import LinearProgress from '@mui/material/LinearProgress';
+import missions from '../../contants/missions.json';
+import MissionList from './MissionsList';
 
 const StyledLinearProgress = styled(LinearProgress)({
   height: 10,
@@ -19,7 +11,7 @@ const StyledLinearProgress = styled(LinearProgress)({
   backgroundColor: '#d3d3d3',
   '& .MuiLinearProgress-bar': {
     borderRadius: 5,
-    background: 'linear-gradient(45deg, #9c27b0, #8e24aa)',
+    background: 'linear-gradient(45deg, #9c27b0, #7b1fa2)',
   },
 });
 
@@ -48,9 +40,16 @@ export default function MissionsDrawer({ open, onClose }) {
 
   const DrawerList = (
     <Box sx={{ width: '100%', p: 3 }} display='flex' flexDirection='column'>
-      <Typography variant='h6' gutterBottom sx={{ ml: 3, mt: 2 }}>
+      <Typography
+        variant='h6'
+        gutterBottom
+        sx={{ ml: 3, mt: 2 }}
+        style={{ color: '#fff' }}
+      >
         Level {userLevel}
-        <Button onClick={() => gainExp(100)}>Gain exp</Button>
+        <Button onClick={() => gainExp(100)} style={{ color: '#9c27b0' }}>
+          Gain exp
+        </Button>
       </Typography>
       {userLevel === 3 ? (
         <StyledLinearProgress
@@ -61,7 +60,6 @@ export default function MissionsDrawer({ open, onClose }) {
       ) : (
         <StyledLinearProgress variant='determinate' value={getProgression()} />
       )}
-      <Divider />
       <MissionList
         missions={getDailyMissions()}
         onComplete={(m) => handleCompleteMission(m)}
