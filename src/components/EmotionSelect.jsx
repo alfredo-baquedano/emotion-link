@@ -33,6 +33,11 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
       },
     });
 
+  const getTooltipText = (emotion) =>
+    emotion.level > getLevel()
+      ? `You need to get level ${emotion.level} to unlock this emotion`
+      : '';
+
   const getEmotionArray = (obj) => {
     const result = [];
     const recurse = (currentObj) => {
@@ -132,7 +137,7 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
       })
       .attr('d', arc)
       .append('title')
-      .text((d) => `${d.data.description}`);
+      .text((d) => `${getTooltipText(d.data)}\n${d.data.description}`);
 
     svg
       .append('g')
@@ -192,15 +197,7 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
           ))
         }
         renderOption={(props, option) => (
-          <Tooltip
-            title={
-              option.level > getLevel()
-                ? `You need to get level ${option.level} to unlock this emotion`
-                : ''
-            }
-            placement='top'
-            arrow
-          >
+          <Tooltip title={getTooltipText(option)} placement='top' arrow>
             <div style={{ display: 'inline-block' }}>
               <Chip
                 {...props}
