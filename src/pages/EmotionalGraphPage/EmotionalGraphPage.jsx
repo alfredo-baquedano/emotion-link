@@ -7,7 +7,7 @@ import { Dialog, AppBar, Toolbar, Typography, IconButton } from '@mui/material';
 import emotionList from '../../contants/emotions.json';
 import ConfirmDeleteEvent from './ConfirmDeleteEvent';
 import VirtualPet from './VirtualPet';
-import petImage from '../../../image/petImage.png';
+import petImage from '../../../assets/petImage.png';
 import VisualizeEvent from './VisualizeEvent';
 import { Star, Tune } from '@mui/icons-material';
 import MissionsDrawer from './MissionsDrawer';
