@@ -1,17 +1,18 @@
-import { Drawer, Typography, Box, Toolbar } from '@mui/material';
+import { Drawer, Typography, Box, Toolbar, Divider } from '@mui/material';
 import { useUser } from '../../contexts/UserContext';
 import { styled } from '@mui/system';
 import LinearProgress from '@mui/material/LinearProgress';
 import missions from '../../contants/missions.json';
 import MissionList from './MissionsList';
+import { blue, grey } from '@mui/material/colors';
 
 const StyledLinearProgress = styled(LinearProgress)({
   height: 10,
-  borderRadius: 5,
-  backgroundColor: '#d3d3d3',
+  borderRadius: 8,
+  backgroundColor: grey[400],
   '& .MuiLinearProgress-bar': {
-    borderRadius: 5,
-    background: 'linear-gradient(45deg, #9c27b0, #7b1fa2)',
+    borderRadius: 8,
+    background: blue[600],
   },
 });
 
@@ -39,28 +40,28 @@ export default function MissionsDrawer({ open, onClose }) {
   };
 
   const DrawerList = (
-    <Box sx={{ width: '100%', p: 3 }} display='flex' flexDirection='column'>
-      <Box sx={{ display: 'flex', alignItems: 'center', ml: 3, mt: 2 }}>
-        <Typography variant='h6' gutterBottom style={{ color: '#fff' }}>
+    <Box sx={{ width: 360, p: 3 }} display='flex' flexDirection='column'>
+      <Box sx={{ mt: 2 }}>
+        <Typography variant='h6' gutterBottom>
           Level {userLevel}
-        </Typography>
-        <Typography
-          variant='h6'
-          gutterBottom
-          style={{ color: '#ffeb3b', marginLeft: '10px' }}
-        >
-          Daily Missions
         </Typography>
       </Box>
       {userLevel === 3 ? (
+        <StyledLinearProgress variant='determinate' value={100} />
+      ) : (
         <StyledLinearProgress
           variant='determinate'
-          color='success'
-          value={100}
+          sx={{
+            color: blue[700],
+          }}
+          value={getProgression()}
         />
-      ) : (
-        <StyledLinearProgress variant='determinate' value={getProgression()} />
       )}
+
+      <Divider sx={{ my: 2 }} />
+      <Typography variant='h6' gutterBottom>
+        Daily Missions
+      </Typography>
       <MissionList
         missions={user.currentDailyMissions}
         onComplete={(m) => handleCompleteMission(m)}
