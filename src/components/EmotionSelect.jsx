@@ -21,7 +21,7 @@ import { useUser } from '../contexts/UserContext';
 import RemoveDoneIcon from '@mui/icons-material/RemoveDone';
 import CheckIcon from '@mui/icons-material/Check';
 
-const EmotionSelect = ({ name, onChange, value = [], options }) => {
+const EmotionSelect = ({ name, onChange, value = [], options, areaLabel }) => {
   const { getLevel } = useUser();
   const [openEmotionWheel, setOpenEmotionWheel] = useState(false);
   const handleOpenEmotionWheel = () => setOpenEmotionWheel(true);
@@ -173,6 +173,7 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
         sx={{ mt: 2 }}
         multiple
         fullWidth
+        aria-label={areaLabel ?? ''}
         value={getCurrentEmotions(emotions, value)}
         options={(options ?? emotionList).sort(
           (a, b) => Number(a.level > userLevel) - Number(b.level > userLevel),
@@ -230,6 +231,7 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
               }}
             ></TextField>
             <IconButton
+              areaLabel='Open emotion wheel'
               sx={{ position: 'absolute', right: 4, top: 8 }}
               onClick={handleOpenEmotionWheel}
             >

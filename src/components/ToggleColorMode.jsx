@@ -23,7 +23,12 @@ export default function ToggleColorMode({ showText = false }) {
             dark: 'Oscuro',
           }[theme.palette.mode]
         }`}
-      <IconButton sx={{ ml: 1 }} onClick={toggleColorMode} color='inherit'>
+      <IconButton
+        aria-label='Switch theme'
+        sx={{ ml: 1 }}
+        onClick={toggleColorMode}
+        color='inherit'
+      >
         {theme.palette.mode === 'dark' ? (
           <Brightness7Icon />
         ) : (

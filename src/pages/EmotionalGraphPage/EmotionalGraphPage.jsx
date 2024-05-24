@@ -156,7 +156,7 @@ const EmotionalGraphPage = () => {
           <IconButton
             edge='start'
             color='inherit'
-            aria-label='menu'
+            aria-label='Filters menu'
             sx={{ mr: 2 }}
             onClick={() => setOpenFilters((open) => !open)}
           >
@@ -165,7 +165,7 @@ const EmotionalGraphPage = () => {
           <IconButton
             edge='start'
             color='inherit'
-            aria-label='menu'
+            aria-label='Missions menu'
             sx={{ mr: 2 }}
             onClick={() => setOpenMissions((open) => !open)}
           >

@@ -24,14 +24,15 @@ const MissionList = ({ missions = [], onComplete = () => {} }) => {
 
   return (
     <List>
-      {missions.map((value) => (
+      {missions.map((value, index) => (
         <StyledListItem
           sx={{ mt: 2 }}
           key={value.mission}
+          ariaDescription={`Mission ${index + 1} ${value.mission}`}
           secondaryAction={
             <IconButton
               edge='end'
-              aria-label='complete'
+              aria-label='Complete mission'
               disabled={value.completed}
               onClick={() => handleComplete(value)}
             >

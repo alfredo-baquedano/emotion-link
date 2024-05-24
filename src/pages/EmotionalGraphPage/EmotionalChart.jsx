@@ -227,6 +227,8 @@ const EmotionalChart = ({
       .data(nodes)
       .attr('id', (d) => `edit-button-${d.id}`)
       .attr('transform', `translate(22, -19)`)
+      .attr('role', 'button')
+      .attr('area-label', 'Edit event')
       .style('cursor', 'pointer')
       .style('display', 'none')
       .attr('stroke', 'gray')
@@ -358,10 +360,10 @@ const EmotionalChart = ({
             textAlign: 'center',
           }}
         >
-          <IconButton onClick={() => setZoom(zoom + 5)}>
+          <IconButton aria-label='Zoom in' onClick={() => setZoom(zoom + 5)}>
             <AddIcon />
           </IconButton>
-          <IconButton onClick={() => setZoom(zoom - 5)}>
+          <IconButton aria-label='Zoom out' onClick={() => setZoom(zoom - 5)}>
             <RemoveIcon />
           </IconButton>
         </div>
