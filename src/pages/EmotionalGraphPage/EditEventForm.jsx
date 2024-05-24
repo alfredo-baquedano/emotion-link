@@ -116,8 +116,9 @@ const EditEventForm = ({ onEdit, onClose, currentEvent, events }) => {
       impact: '',
       details: '',
       emotions: [],
-      relationship: {
+      relationships: {
         preceded_by: [],
+        followed_by: [],
       },
     });
   };
@@ -202,6 +203,54 @@ const EditEventForm = ({ onEdit, onClose, currentEvent, events }) => {
             Show more options
           </AccordionSummary>
           <AccordionDetails sx={{ m: -1, backgroundColor: 'transparent' }}>
+            <Autocomplete
+              sx={{ mt: 2 }}
+              multiple
+              freeSolo
+              value={eventData.relationships.followed_by ?? []}
+              name='relationships'
+              onChange={(event, newValue) => {
+                handleChange({
+                  ...event,
+                  target: {
+                    ...event.target,
+                    name: 'relationships',
+                    value: {
+                      ...eventData.relationships,
+                      followed_by: newValue,
+                    },
+                  },
+                });
+              }}
+              options={events
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .filter((e) => e.name !== 'Myself')
+                .map((e) => e.id)}
+              getOptionLabel={(option) =>
+                events.find((event) => event.id === option)?.name
+              }
+              renderTags={(value, getTagProps) => {
+                console.log('value', value);
+                return value.map((option, index) => {
+                  const event = events.find((e) => e.id === option);
+                  console.log('event', event);
+                  return (
+                    <Chip
+                      {...getTagProps({ index })}
+                      variant='outlined'
+                      label={event.name}
+                    />
+                  );
+                });
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label='Related to'
+                  placeholder='Add related event'
+                />
+              )}
+            />
             <TextField
               sx={{ mt: 2 }}
               name='location'

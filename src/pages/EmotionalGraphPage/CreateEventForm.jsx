@@ -64,7 +64,7 @@ const CreateEventForm = ({ events, onCreate, onClose, relatedEvent }) => {
       impact: 5,
       details: '',
       emotions: [],
-      relationship: {
+      relationships: {
         preceded_by: [],
         followed_by: [],
       },
@@ -141,6 +141,55 @@ const CreateEventForm = ({ events, onCreate, onClose, relatedEvent }) => {
             Show more options
           </AccordionSummary>
           <AccordionDetails sx={{ m: -1, backgroundColor: 'transparent' }}>
+            <Autocomplete
+              sx={{ mt: 2 }}
+              multiple
+              freeSolo
+              value={eventData.relationships.followed_by ?? []}
+              name='relationships'
+              onChange={(event, newValue) => {
+                handleChange({
+                  ...event,
+                  target: {
+                    ...event.target,
+                    name: 'relationships',
+                    value: {
+                      ...eventData.relationships,
+                      followed_by: newValue,
+                    },
+                  },
+                });
+              }}
+              options={events
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .filter((e) => e.name !== 'Myself')
+                .map((e) => e.id)}
+              getOptionLabel={(option) =>
+                events.find((event) => event.id === option)?.name
+              }
+              renderTags={(value, getTagProps) => {
+                return value.map((option, index) => {
+                  const event = events.find((e) => e.id === option);
+                  return (
+                    <Chip
+                      {...getTagProps({ index })}
+                      // sx={{
+                      //   backgroundImage: `linear-gradient(to bottom right, ${event.emotions[0]}, ${event.emotions[1] ?? event.emotions[0]})`,
+                      // }}
+                      variant='outlined'
+                      label={event.name}
+                    />
+                  );
+                });
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label='Related to'
+                  placeholder='Add related event'
+                />
+              )}
+            />
             <TextField
               sx={{ mt: 2 }}
               name='location'
@@ -148,7 +197,7 @@ const CreateEventForm = ({ events, onCreate, onClose, relatedEvent }) => {
               fullWidth
               value={eventData.location}
               onChange={handleChange}
-            />
+            />{' '}
             <Autocomplete
               sx={{ mt: 2 }}
               multiple
