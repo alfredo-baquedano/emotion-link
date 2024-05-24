@@ -121,6 +121,8 @@ const EmotionalChart = ({
       .attr('viewBox', [-width / 2, -height / 2, width, height])
       .attr('width', width)
       .attr('height', height)
+      .attr('role', 'img')
+      .attr('area-label', 'Emotions node graph')
       .attr('style', 'font: 12px sans-serif;')
       .attr('transform', `scale(${zoom / 50})`);
     // .call(

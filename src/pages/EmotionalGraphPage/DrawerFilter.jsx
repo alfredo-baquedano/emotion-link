@@ -15,7 +15,6 @@ import EmotionSelect from '../../components/EmotionSelect';
 import ReplayIcon from '@mui/icons-material/Replay';
 
 const getEmotionArray = (obj) => {
-  const impactLabel = useId();
   const result = [];
   const recurse = (currentObj) => {
     if (currentObj.name !== 'none') result.push(currentObj);
@@ -43,6 +42,7 @@ export default function DrawerFilter({
   const [startDate, setStartDate] = useState(filters.startDate || null);
   const [endDate, setEndDate] = useState(filters.endDate || null);
   const [impactRange, setImpactRange] = useState(filters.impactRange);
+  const impactLabel = useId();
 
   const handleEmotionChange = (event) => {
     setFilters((prevFilters) => ({
