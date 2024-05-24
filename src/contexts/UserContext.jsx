@@ -38,17 +38,18 @@ export function UserContextProvider({ children }) {
   };
 
   const calculateDailyMissions = () => {
-    if (
-      user.missionExpiration &&
-      dayjs().isBefore(dayjs(user.missionExpiration))
-    )
-      return;
-    const currentDailyMissions = getRandomMissions(4);
-    setUser((prevUser) => ({
-      ...prevUser,
-      currentDailyMissions,
-      missionExpiration: dayjs().endOf('day').format(),
-    }));
+    setUser((prevUser) => {
+      if (
+        prevUser.missionExpiration &&
+        dayjs().isBefore(dayjs(prevUser.missionExpiration))
+      )
+        return prevUser;
+      return {
+        ...prevUser,
+        currentDailyMissions: getRandomMissions(4),
+        missionExpiration: dayjs().endOf('day').format(),
+      };
+    });
   };
 
   useEffect(() => {
