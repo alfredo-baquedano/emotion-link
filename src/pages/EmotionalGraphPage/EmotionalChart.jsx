@@ -19,6 +19,9 @@ const EmotionalChart = ({
   const refNodes = useRef();
   const refLinks = useRef();
 
+  const width = document.documentElement.clientWidth;
+  const height = document.documentElement.clientHeight - 48;
+
   const nodes = events.map((event) => ({
     ...refNodes.current.find((node) => node.id === event.id),
     ...event,
@@ -100,8 +103,6 @@ const EmotionalChart = ({
   };
 
   const loadChart = (svg) => {
-    const width = 1628;
-    const height = 800;
     const simulation = d3
       .forceSimulation(nodes)
       .force(
@@ -364,7 +365,12 @@ const EmotionalChart = ({
             <RemoveIcon />
           </IconButton>
         </div>
-        <svg ref={ref} style={{ height: '100%', width: '100%' }} />
+        <svg
+          ref={ref}
+          style={{ height: '100%', width: '100%' }}
+          width={width}
+          height={height}
+        />
       </div>
     </>
   );
