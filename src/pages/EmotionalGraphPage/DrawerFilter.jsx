@@ -165,7 +165,7 @@ export default function DrawerFilter({
         Filter by impact
       </Typography>
       <Slider
-        ariaLabelledby={impactLabel}
+        aria-labelledby={impactLabel}
         value={impactRange}
         onChange={handleImpactChange}
         step={1}
@@ -179,7 +179,7 @@ export default function DrawerFilter({
       <Typography variant='h6' sx={{ mt: 3 }}>
         Filter by emotions{' '}
         <IconButton
-          areaLabel='Restart-emotion-filters'
+          aria-label='Restart-emotion-filters'
           onClick={handleEmotionReset}
         >
           <ReplayIcon />
@@ -189,7 +189,7 @@ export default function DrawerFilter({
         sx={{ mt: 3 }}
         options={filteredEmotions}
         name='emotions'
-        areaLabel='Filter by emotions'
+        ariaLabel='Filter by emotions'
         value={
           filters.emotions ?? filteredEmotions.map((emotion) => emotion.name)
         }
