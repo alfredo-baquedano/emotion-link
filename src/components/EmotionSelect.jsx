@@ -17,7 +17,7 @@ import {
 } from '@mui/material';
 import DonutSmallIcon from '@mui/icons-material/DonutSmall';
 import CloseIcon from '@mui/icons-material/Close';
-import useUser from '../contexts/UserContext';
+import { useUser } from '../contexts/UserContext';
 import RemoveDoneIcon from '@mui/icons-material/RemoveDone';
 import CheckIcon from '@mui/icons-material/Check';
 

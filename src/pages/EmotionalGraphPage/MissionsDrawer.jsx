@@ -1,5 +1,5 @@
 import { Drawer, Typography, Box, Toolbar } from '@mui/material';
-import useUser from '../../contexts/UserContext';
+import { useUser } from '../../contexts/UserContext';
 import { styled } from '@mui/system';
 import LinearProgress from '@mui/material/LinearProgress';
 import missions from '../../contants/missions.json';
@@ -16,7 +16,7 @@ const StyledLinearProgress = styled(LinearProgress)({
 });
 
 export default function MissionsDrawer({ open, onClose }) {
-  const { user, setUser, gainExp, getLevel, getDailyMissions } = useUser();
+  const { user, setUser, gainExp, getLevel } = useUser();
   const userLevel = getLevel();
 
   const getProgression = () => {
@@ -62,7 +62,7 @@ export default function MissionsDrawer({ open, onClose }) {
         <StyledLinearProgress variant='determinate' value={getProgression()} />
       )}
       <MissionList
-        missions={getDailyMissions()}
+        missions={user.currentDailyMissions}
         onComplete={(m) => handleCompleteMission(m)}
       />
     </Box>
