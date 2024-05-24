@@ -39,41 +39,37 @@ export default function MissionsDrawer({ open, onClose }) {
     gainExp(mission.experience);
   };
 
-  const DrawerList = (
-    <Box sx={{ width: 360, p: 3 }} display='flex' flexDirection='column'>
-      <Box sx={{ mt: 2 }}>
-        <Typography variant='h6' gutterBottom>
-          Level {userLevel}
-        </Typography>
-      </Box>
-      {userLevel === 3 ? (
-        <StyledLinearProgress variant='determinate' value={100} />
-      ) : (
-        <StyledLinearProgress
-          variant='determinate'
-          sx={{
-            color: blue[700],
-          }}
-          value={getProgression()}
-        />
-      )}
-
-      <Divider sx={{ my: 2 }} />
-      <Typography variant='h6' gutterBottom>
-        Daily Missions
-      </Typography>
-      <MissionList
-        missions={user.currentDailyMissions}
-        onComplete={(m) => handleCompleteMission(m)}
-      />
-    </Box>
-  );
-
   return (
     <div>
       <Drawer variant='persistent' anchor='right' open={open} onClose={onClose}>
         <Toolbar variant='dense' />
-        {DrawerList}
+        <Box sx={{ width: 360, p: 3 }} display='flex' flexDirection='column'>
+          <Box sx={{ mt: 2 }}>
+            <Typography variant='h6' gutterBottom>
+              Level {userLevel}
+            </Typography>
+          </Box>
+          {userLevel === 3 ? (
+            <StyledLinearProgress variant='determinate' value={100} />
+          ) : (
+            <StyledLinearProgress
+              variant='determinate'
+              sx={{
+                color: blue[700],
+              }}
+              value={getProgression()}
+            />
+          )}
+
+          <Divider sx={{ my: 2 }} />
+          <Typography variant='h6' gutterBottom>
+            Daily Missions
+          </Typography>
+          <MissionList
+            missions={user.currentDailyMissions}
+            onComplete={(m) => handleCompleteMission(m)}
+          />
+        </Box>
       </Drawer>
     </div>
   );
