@@ -14,12 +14,18 @@ import {
   Button,
   Box,
   Tooltip,
+  Grow,
+  Slide,
 } from '@mui/material';
 import DonutSmallIcon from '@mui/icons-material/DonutSmall';
 import CloseIcon from '@mui/icons-material/Close';
-import { useUser } from '../contexts/UserContext';
-import RemoveDoneIcon from '@mui/icons-material/RemoveDone';
 import CheckIcon from '@mui/icons-material/Check';
+import RemoveDoneIcon from '@mui/icons-material/RemoveDone';
+import { useUser } from '../contexts/UserContext';
+
+const Transition = forwardRef((props, ref) => (
+  <Slide direction='up' ref={ref} {...props} />
+));
 
 const EmotionSelect = ({ name, onChange, value = [], options, ariaLabel }) => {
   const { getLevel } = useUser();
@@ -244,18 +250,11 @@ const EmotionSelect = ({ name, onChange, value = [], options, ariaLabel }) => {
       <Dialog
         fullScreen
         open={openEmotionWheel}
+        keepMounted
         onClose={handleCloseEmotionWheel}
-        // TransitionComponent={forwardRef((props2, transitionFef) => (
-        //   <Slide
-        //     {...props2}
-        //     direction='up'
-        //     ref={transitionFef}
-        //     mountOnEnter
-        //     unmountOnExit
-        //   />
-        // ))}
+        TransitionComponent={Transition}
       >
-        <AppBar>
+        <AppBar position='static'>
           <Toolbar>
             <IconButton
               edge='start'
@@ -285,9 +284,10 @@ const EmotionSelect = ({ name, onChange, value = [], options, ariaLabel }) => {
             </Button>
           </Toolbar>
         </AppBar>
-        {openEmotionWheel && (
+        <Grow in={openEmotionWheel}>
           <DialogContent
             sx={{
+              height: '100%',
               justifyContent: 'center',
               alignItems: 'center',
               display: 'flex',
@@ -295,7 +295,7 @@ const EmotionSelect = ({ name, onChange, value = [], options, ariaLabel }) => {
           >
             <svg width='600' height='600' ref={ref}></svg>
           </DialogContent>
-        )}
+        </Grow>
       </Dialog>
     </>
   );

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, forwardRef } from 'react';
 import DrawerFilter from './DrawerFilter';
 import EmotionalChart from './EmotionalChart';
 import CreateEventForm from './CreateEventForm';
@@ -7,11 +7,13 @@ import { Dialog, AppBar, Toolbar, Typography, IconButton } from '@mui/material';
 import emotionList from '../../contants/emotions.json';
 import ConfirmDeleteEvent from './ConfirmDeleteEvent';
 import VirtualPet from './VirtualPet';
-import petImage from '../../../assets/petImage.png';
 import VisualizeEvent from './VisualizeEvent';
 import { Star, Tune } from '@mui/icons-material';
 import MissionsDrawer from './MissionsDrawer';
 import ToggleColorMode from './../../components/ToggleColorMode';
+import Grow from '@mui/material/Grow';
+
+const Transition = forwardRef((props, ref) => <Grow ref={ref} {...props} />);
 
 const EmotionalGraphPage = () => {
   const [openCreateEvent, setOpenCreateEvent] = useState(false);
@@ -205,7 +207,11 @@ const EmotionalGraphPage = () => {
         onClose={() => setOpenMissions(false)}
       />
       <Toolbar variant='dense' />
-      <Dialog open={openCreateEvent} onClose={handleCloseCreateEvent}>
+      <Dialog
+        TransitionComponent={Transition}
+        open={openCreateEvent}
+        onClose={handleCloseCreateEvent}
+      >
         <CreateEventForm
           events={events}
           relatedEvent={selectedEvent}
@@ -214,7 +220,11 @@ const EmotionalGraphPage = () => {
           onClose={handleCloseCreateEvent}
         />
       </Dialog>
-      <Dialog open={openEditEvent} onClose={handleCloseEditEvent}>
+      <Dialog
+        TransitionComponent={Transition}
+        open={openEditEvent}
+        onClose={handleCloseEditEvent}
+      >
         <EditEventForm
           events={events}
           currentEvent={selectedEvent}
@@ -223,14 +233,22 @@ const EmotionalGraphPage = () => {
           onClose={handleCloseEditEvent}
         />
       </Dialog>
-      <Dialog open={openDeleteEvent} onClose={handleCloseDeleteEvent}>
+      <Dialog
+        TransitionComponent={Transition}
+        open={openDeleteEvent}
+        onClose={handleCloseDeleteEvent}
+      >
         <ConfirmDeleteEvent
           event={selectedEvent}
           onDelete={handleDeleteEvent}
           onClose={handleCloseDeleteEvent}
         />
       </Dialog>
-      <Dialog open={openViewEvent} onClose={handleCloseViewEvent}>
+      <Dialog
+        TransitionComponent={Transition}
+        open={openViewEvent}
+        onClose={handleCloseViewEvent}
+      >
         <VisualizeEvent event={selectedEvent} onClose={handleCloseViewEvent} />
       </Dialog>
       <EmotionalChart
@@ -241,7 +259,7 @@ const EmotionalGraphPage = () => {
         onClickDelete={handleOpenDeleteEvent}
         onClickView={handleOpenViewEvent}
       />
-      <VirtualPet petImage={petImage} />
+      <VirtualPet />
     </div>
   );
 };

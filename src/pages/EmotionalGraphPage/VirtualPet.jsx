@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, forwardRef } from 'react';
 import { Tooltip, Avatar, Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import petImage from '../../../assets/petImage.png';
+import Grow from '@mui/material/Grow';
 
 const adviceList = [
   'Remember to take deep breaths when you feel overwhelmed.',
@@ -16,8 +18,11 @@ const adviceList = [
   'Your progress bar will fill up as you complete more missions.',
 ];
 
-const VirtualPet = ({ petImage }) => {
+const Transition = forwardRef((props, ref) => <Grow ref={ref} {...props} />);
+
+const VirtualPet = ({ tipDuration = 6000, tipDelay = 10000 }) => {
   const [advice, setAdvice] = useState('');
+  const [showTooltip, setShowTooltip] = useState(false);
   const zIndex = 1250;
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'), { noSsr: true });
@@ -27,10 +32,17 @@ const VirtualPet = ({ petImage }) => {
       const randomAdvice =
         adviceList[Math.floor(Math.random() * adviceList.length)];
       setAdvice(randomAdvice);
-    }, 10000);
+    }, tipDelay);
 
     return () => clearInterval(intervalId);
   }, []);
+
+  useEffect(() => {
+    setShowTooltip(true);
+    setTimeout(() => {
+      setShowTooltip(false);
+    }, tipDuration);
+  }, [advice]);
 
   const handlePetClick = () => {
     const randomAdvice =
@@ -50,6 +62,8 @@ const VirtualPet = ({ petImage }) => {
         }}
       >
         <Tooltip
+          TransitionComponent={Transition}
+          leaveDelay={3000}
           title={
             <Box
               sx={{
@@ -65,7 +79,7 @@ const VirtualPet = ({ petImage }) => {
           }
           placement='top'
           arrow
-          open={Boolean(advice)}
+          open={showTooltip}
           PopperProps={{
             sx: {
               '.MuiTooltip-tooltip': {
