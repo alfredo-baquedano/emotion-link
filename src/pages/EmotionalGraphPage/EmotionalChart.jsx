@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import ChartLegend from './../../components/ChartLegend';
 import emotionList from '../../contants/emotions.json';
-import { IconButton } from '@mui/material';
+import { IconButton, useMediaQuery, useTheme } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
@@ -18,6 +18,8 @@ const EmotionalChart = ({
   const ref = useRef();
   const refNodes = useRef();
   const refLinks = useRef();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'), { noSsr: true });
 
   const width = document.documentElement.clientWidth;
   const height = document.documentElement.clientHeight - 48;
@@ -354,12 +356,12 @@ const EmotionalChart = ({
         <div
           style={{
             position: 'absolute',
-            left: 0,
-            right: 0,
+            right: isMobile ? 20 : '50%',
+            zIndex: 100,
+            transform: 'translate(50%, 0)',
+            display: 'flex',
+            flexDirection: isMobile ? 'column' : 'row',
             bottom: 10,
-            zIndex: 1000,
-            margin: 'auto',
-            textAlign: 'center',
           }}
         >
           <IconButton aria-label='Zoom in' onClick={() => setZoom(zoom + 5)}>

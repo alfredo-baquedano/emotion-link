@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Tooltip, Avatar, Box } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const adviceList = [
   'Remember to take deep breaths when you feel overwhelmed.',
@@ -17,6 +19,8 @@ const adviceList = [
 const VirtualPet = ({ petImage }) => {
   const [advice, setAdvice] = useState('');
   const zIndex = 1250;
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'), { noSsr: true });
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -35,61 +39,79 @@ const VirtualPet = ({ petImage }) => {
   };
 
   return (
-    <Box sx={{ position: 'fixed', right: 120, bottom: 20, zIndex }}>
-      <Tooltip
-        title={
-          <Box
-            sx={{
-              p: 1,
-              fontSize: '1rem',
-              fontFamily: 'Arial, sans-serif',
-              maxWidth: '200px',
-              whiteSpace: 'pre-wrap',
-            }}
-          >
-            {advice}
-          </Box>
-        }
-        placement='top'
-        arrow
-        open={Boolean(advice)}
-        PopperProps={{
-          sx: {
-            '.MuiTooltip-tooltip': {
-              bgcolor: 'white',
-              color: 'black',
-              borderRadius: '12px',
-              boxShadow: 3,
-              textAlign: 'center',
-            },
-            '.MuiTooltip-arrow': {
-              color: 'white',
-            },
-            zIndex,
-          },
-          modifiers: [
-            {
-              name: 'offset',
-              options: {
-                offset: [0, -10],
-              },
-            },
-          ],
+    <>
+      <Box
+        sx={{
+          position: 'fixed',
+          right: isMobile ? '50%' : 100,
+          transform: 'translate(50%, 0)',
+          bottom: 20,
+          zIndex,
         }}
       >
-        <Avatar
-          alt='Virtual Pet'
-          src={petImage}
-          sx={{
-            width: 100,
-            height: 100,
-            cursor: 'pointer',
-            zIndex,
+        <Tooltip
+          title={
+            <Box
+              sx={{
+                p: 1,
+                fontSize: '1rem',
+                fontFamily: 'Arial, sans-serif',
+                maxWidth: '200px',
+                whiteSpace: 'pre-wrap',
+              }}
+            >
+              {advice}
+            </Box>
+          }
+          placement='top'
+          arrow
+          open={Boolean(advice)}
+          PopperProps={{
+            sx: {
+              '.MuiTooltip-tooltip': {
+                bgcolor: 'white',
+                color: 'black',
+                borderRadius: '12px',
+                boxShadow: 3,
+                textAlign: 'center',
+              },
+              '.MuiTooltip-arrow': {
+                color: 'white',
+              },
+              zIndex,
+            },
+            modifiers: [
+              {
+                name: 'offset',
+                options: {
+                  offset: [0, -10],
+                },
+              },
+            ],
           }}
-          onClick={handlePetClick}
-        />
-      </Tooltip>
-    </Box>
+        >
+          <Avatar
+            alt='Virtual Pet'
+            src={petImage}
+            sx={{
+              width: 100,
+              height: 100,
+              cursor: 'pointer',
+              zIndex,
+            }}
+            onClick={handlePetClick}
+          />
+        </Tooltip>
+      </Box>
+      <Box
+        sx={{
+          position: 'fixed',
+          right: 0,
+          bottom: 20,
+          zIndex,
+        }}
+      ></Box>
+    </>
   );
 };
 
