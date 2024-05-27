@@ -130,7 +130,16 @@ const EmotionalGraphPage = () => {
   };
 
   const handleCreateEvent = (event) => {
-    setEvents([...events, event]);
+    const updatedEvents = events.map((e) => {
+      if (event.relationships.preceded_by.includes(e.id))
+        e.relationships.followed_by = [
+          ...e.relationships.followed_by,
+          event.id,
+        ];
+      return e;
+    });
+    event.relationships.preceded_by = [];
+    setEvents([...updatedEvents, event]);
     setOpenCreateEvent(false);
   };
 
