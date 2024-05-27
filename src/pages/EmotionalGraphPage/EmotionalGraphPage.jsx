@@ -27,6 +27,7 @@ const EmotionalGraphPage = () => {
     endDate: null,
   });
   const [events, setEvents] = useState([]);
+  const [filteredEvents, setFilteredEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [openFilters, setOpenFilters] = useState(false);
   const [openMissions, setOpenMissions] = useState(false);
@@ -54,6 +55,40 @@ const EmotionalGraphPage = () => {
   useEffect(() => {
     if (events.length) localStorage.setItem('events', JSON.stringify(events));
   }, [events]);
+
+  useEffect(() => {
+    const filteredEvents = events.map((node) => {
+      const eventDate = new Date(node.date);
+      const isDateInRange =
+        (!filters.startDate || eventDate >= new Date(filters.startDate)) &&
+        (!filters.endDate || eventDate <= new Date(filters.endDate));
+      const matchesImpactRange =
+        node.impact >= filters.impactRange[0] &&
+        node.impact <= filters.impactRange[1];
+      const matchesSearchTerm =
+        !filters.searchTerm ||
+        node.name.toLowerCase().includes(filters.searchTerm.toLowerCase());
+      const matchesPeopleInvolved =
+        !filters.peopleInvolved ||
+        node.participants.some((p) =>
+          p.toLowerCase().includes(filters.peopleInvolved.toLowerCase()),
+        );
+      const matchesEmotions =
+        !filters.emotions ||
+        node.emotions.some((emotion) => filters.emotions?.includes(emotion));
+
+      const visible =
+        node.name === 'Myself' ||
+        (matchesEmotions &&
+          matchesImpactRange &&
+          matchesSearchTerm &&
+          matchesPeopleInvolved &&
+          isDateInRange);
+
+      return { ...node, visible };
+    });
+    setFilteredEvents(filteredEvents);
+  }, [events, filters]);
 
   const handleOpenCreateEvent = (e) => {
     setSelectedEvent(e.target.__data__);
@@ -109,37 +144,6 @@ const EmotionalGraphPage = () => {
     if (index > -1) setEvents(events.filter((_, i) => i !== index));
     setOpenDeleteEvent(false);
   };
-
-  const filteredEvents = events.map((node) => {
-    const eventDate = new Date(node.date);
-    const isDateInRange =
-      (!filters.startDate || eventDate >= new Date(filters.startDate)) &&
-      (!filters.endDate || eventDate <= new Date(filters.endDate));
-    const matchesImpactRange =
-      node.impact >= filters.impactRange[0] &&
-      node.impact <= filters.impactRange[1];
-    const matchesSearchTerm =
-      !filters.searchTerm ||
-      node.name.toLowerCase().includes(filters.searchTerm.toLowerCase());
-    const matchesPeopleInvolved =
-      !filters.peopleInvolved ||
-      node.participants.some((p) =>
-        p.toLowerCase().includes(filters.peopleInvolved.toLowerCase()),
-      );
-    const matchesEmotions =
-      !filters.emotions ||
-      node.emotions.some((emotion) => filters.emotions?.includes(emotion));
-
-    const visible =
-      node.name === 'Myself' ||
-      (matchesEmotions &&
-        matchesImpactRange &&
-        matchesSearchTerm &&
-        matchesPeopleInvolved &&
-        isDateInRange);
-
-    return { ...node, visible };
-  });
 
   return (
     <div style={{ height: 'calc(100vh - 48px)' }}>
