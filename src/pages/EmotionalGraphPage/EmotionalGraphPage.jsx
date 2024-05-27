@@ -140,8 +140,14 @@ const EmotionalGraphPage = () => {
   };
 
   const handleDeleteEvent = (event) => {
-    const index = events.findIndex((e) => event.id === e.id);
-    if (index > -1) setEvents(events.filter((_, i) => i !== index));
+    const updatedEvents = events.map((e) => {
+      e.relationships.followed_by = e.relationships.followed_by.filter(
+        (relatedEvent) => relatedEvent.id !== event.id,
+      );
+      return e;
+    });
+    const index = updatedEvents.findIndex((e) => event.id === e.id);
+    if (index > -1) setEvents(updatedEvents.filter((_, i) => i !== index));
     setOpenDeleteEvent(false);
   };
 
@@ -215,6 +221,9 @@ const EmotionalGraphPage = () => {
           onClose={handleCloseDeleteEvent}
         />
       </Dialog>
+      <Dialog open={openViewEvent} onClose={handleCloseViewEvent}>
+        <VisualizeEvent event={selectedEvent} onClose={handleCloseViewEvent} />
+      </Dialog>
       <EmotionalChart
         events={filteredEvents}
         filters={filters}
@@ -223,9 +232,6 @@ const EmotionalGraphPage = () => {
         onClickDelete={handleOpenDeleteEvent}
         onClickView={handleOpenViewEvent}
       />
-      <Dialog open={openViewEvent} onClose={handleCloseViewEvent}>
-        <VisualizeEvent event={selectedEvent} onClose={handleCloseViewEvent} />
-      </Dialog>
       <VirtualPet petImage={petImage} />
     </div>
   );
