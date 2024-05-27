@@ -173,6 +173,7 @@ const EmotionSelect = ({ name, onChange, value = [], options, ariaLabel }) => {
         sx={{ mt: 2 }}
         multiple
         fullWidth
+        disableCloseOnSelect
         value={getCurrentEmotions(emotions, value)}
         options={(options ?? emotionList).sort(
           (a, b) => Number(a.level > userLevel) - Number(b.level > userLevel),
