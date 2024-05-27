@@ -5,12 +5,14 @@ import {
   DialogContentText,
   DialogActions,
   Button,
+  Box,
 } from '@mui/material';
+import { getEventNeonBorderStyle } from '../../utils/styling';
 
 const ConfirmDeleteEvent = ({ event, onClose, onDelete }) => {
   const hadleDeleteEvent = () => onDelete(event);
   return (
-    <>
+    <Box sx={{ ...getEventNeonBorderStyle(event) }}>
       <DialogTitle>Delete Event</DialogTitle>
       <DialogContent>
         <DialogContentText>
@@ -25,7 +27,7 @@ const ConfirmDeleteEvent = ({ event, onClose, onDelete }) => {
           Confirm
         </Button>
       </DialogActions>
-    </>
+    </Box>
   );
 };
 
