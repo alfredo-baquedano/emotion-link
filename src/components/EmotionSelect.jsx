@@ -191,13 +191,13 @@ const EmotionSelect = ({ name, onChange, value = [], options, ariaLabel }) => {
         renderTags={(tagValue, getTagProps) =>
           tagValue.map((option, index) => (
             <Chip
+              {...getTagProps({ index })}
               key={option.name}
               label={option.displayName}
               style={{
                 backgroundColor: option.color,
                 color: '#000',
               }}
-              {...getTagProps({ index })}
             />
           ))
         }

@@ -28,7 +28,7 @@ const MissionList = ({ missions = [], onComplete = () => {} }) => {
         <StyledListItem
           sx={{ mt: 2 }}
           key={value.mission}
-          ariaDescription={`Mission ${index + 1} ${value.mission}`}
+          aria-description={`Mission ${index + 1} ${value.mission}`}
           secondaryAction={
             <IconButton
               edge='end'

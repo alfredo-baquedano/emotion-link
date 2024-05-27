@@ -23,7 +23,7 @@ const EmotionalChart = ({
   const height = document.documentElement.clientHeight - 48;
 
   const nodes = events.map((event) => ({
-    ...refNodes.current.find((node) => node.id === event.id),
+    ...(refNodes.current?.find((node) => node.id === event.id) ?? {}),
     ...event,
   }));
   const nodeIds = new Set(nodes.map((node) => node.id));
