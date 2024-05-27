@@ -25,7 +25,6 @@ export function UserContextProvider({ children }) {
       ?.level ?? 0;
 
   const gainExp = useCallback((exp) => {
-    console.debug('gain');
     setUser((prevUser) => ({
       ...prevUser,
       experience: prevUser.experience + exp,

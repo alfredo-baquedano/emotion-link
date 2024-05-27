@@ -58,7 +58,6 @@ const EditEventForm = ({ onEdit, onClose, currentEvent, events }) => {
     });
   };
 
-  console.log('getEventNeonBorderStyle', getEventNeonBorderStyle(eventData));
   return (
     <Box sx={{ ...getEventNeonBorderStyle(eventData) }}>
       <Box component='form' onSubmit={handleSubmit} sx={{ p: 2 }}>
@@ -157,10 +156,8 @@ const EditEventForm = ({ onEdit, onClose, currentEvent, events }) => {
                   events.find((event) => event.id === option)?.name
                 }
                 renderTags={(value, getTagProps) => {
-                  console.log('value', value);
                   return value.map((option, index) => {
                     const event = events.find((e) => e.id === option);
-                    console.log('event', event);
                     return (
                       <Chip
                         {...getTagProps({ index })}

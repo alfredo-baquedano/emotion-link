@@ -169,7 +169,7 @@ const EmotionalChart = ({
       .selectAll('g')
       .data(nodes)
       .attr('cx', (d) => d.x)
-      .attr('cy', (d) => console.log('d', d))
+      .attr('cy', (d) => d.y)
       .join('g')
       .call(drag(simulation));
 
