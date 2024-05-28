@@ -5,6 +5,7 @@ import emotionList from '../../contants/emotions.json';
 import { IconButton, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { getEmotionMap } from '../../utils/emotions';
 
 const EmotionalChart = ({
   events,
@@ -60,10 +61,7 @@ const EmotionalChart = ({
   const types = Array.from(new Set(links.map((d) => d.type)));
   const color = d3.scaleOrdinal(types, d3.schemeCategory10);
 
-  const emotions = emotionList.children.reduce(
-    (acc, curr) => ({ ...acc, [curr.name]: curr }),
-    {},
-  );
+  const emotions = getEmotionMap();
 
   useEffect(() => {
     const svgElement = d3.select(ref.current);
