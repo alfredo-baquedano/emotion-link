@@ -29,7 +29,7 @@ export default function MissionsDrawer({ open, onClose }) {
   const userLevel = getLevel();
 
   const expRegToNextLevel =
-    missions[userLevel].requiredExp - missions[userLevel - 1].requiredExp;
+    missions[userLevel]?.requiredExp ?? 0 - missions[userLevel - 1].requiredExp;
   const expCurrentProgression =
     user.experience - missions[userLevel - 1].requiredExp;
 

@@ -21,8 +21,8 @@ export function UserContextProvider({ children }) {
   );
 
   const getLevel = () =>
-    missions.reverse().findLast((level) => user.experience >= level.requiredExp)
-      ?.level ?? 0;
+    missions.findLast((level) => user.experience >= level.requiredExp)?.level ??
+    0;
 
   const gainExp = useCallback((exp) => {
     setUser((prevUser) => ({
