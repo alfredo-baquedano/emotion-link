@@ -12,6 +12,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 import missions from '../../contants/missions.json';
 import MissionList from './MissionsList';
 import { blue, grey } from '@mui/material/colors';
+import MissionTimer from './MissionTimer';
 
 const StyledLinearProgress = styled(LinearProgress)({
   height: 10,
@@ -82,7 +83,7 @@ export default function MissionsDrawer({ open, onClose }) {
 
           <Divider sx={{ my: 2 }} />
           <Typography variant='h6' gutterBottom>
-            Daily Missions
+            Daily Missions <MissionTimer />
           </Typography>
           <MissionList
             missions={user.currentDailyMissions}
