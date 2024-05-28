@@ -202,16 +202,29 @@ const EmotionalChart = ({
     nodeCircle
       .append('circle')
       .attr('r', 25)
-      .attr('fill', (d) => emotions[d?.emotions[0]]?.color ?? 'white')
-      .attr('opacity', (d) => (d.visible ? 1 : 0.2));
+      .style('transform', (d) =>
+        d.x === undefined ? `scale(0.1)` : `scale(1)`,
+      )
+      .transition()
+      .duration(200)
+      .style('transform', `scale(1)`)
+      .style('opacity', (d) => (d.visible ? 1 : 0.2))
+      .attr('fill', (d) => emotions[d?.emotions[0]]?.color ?? 'white');
+
+    console.log('nodes', nodes);
 
     nodeCircle
       .append('path')
-      .data(nodes)
       .attr('d', 'M-25,0 a1,1 0 0,0 50,0')
       .attr('transform', 'rotate(-45)')
-      .attr('fill', (d) => emotions[d?.emotions[1]]?.color ?? 'transparent')
-      .attr('opacity', (d) => (d.visible ? 1 : 0.2));
+      .style('transform', (d) =>
+        d.x === undefined ? `scale(0.1)` : `scale(1)`,
+      )
+      .transition()
+      .duration(200)
+      .style('transform', `scale(1)`)
+      .style('opacity', (d) => (d.visible ? 1 : 0.2))
+      .attr('fill', (d) => emotions[d?.emotions[1]]?.color ?? 'transparent');
 
     node
       .append('text')
@@ -223,7 +236,6 @@ const EmotionalChart = ({
       .attr('stroke-linecap', 'round')
       .attr('stroke-linejoin', 'round')
       .attr('stroke-width', 0.4)
-      .attr('opacity', (d) => (d.visible ? 1 : 0.2))
       .text((d) => d.name);
 
     const editButton = node
