@@ -43,6 +43,7 @@ const EditEventForm = ({ onEdit, onClose, currentEvent, events }) => {
     onEdit(newEvent);
     setEventData({
       name: '',
+      description: '',
       date: '',
       location: '',
       participants: [],
@@ -69,6 +70,16 @@ const EditEventForm = ({ onEdit, onClose, currentEvent, events }) => {
             label='Event Name'
             fullWidth
             value={eventData.name}
+            onChange={handleChange}
+          />
+          <TextField
+            sx={{ mt: 2 }}
+            name='description'
+            label='Description'
+            multiline
+            maxRows={4}
+            fullWidth
+            value={eventData.description}
             onChange={handleChange}
           />
           <LocalizationProvider dateAdapter={AdapterDayjs}>

@@ -1,15 +1,26 @@
-import { Card, CardContent, Typography, Chip, Box } from '@mui/material';
+import {
+  Card,
+  CardContent,
+  Typography,
+  Chip,
+  Box,
+  Avatar,
+  Tooltip,
+} from '@mui/material';
 import { getEmotionMap } from '../../utils/emotions';
 import dayjs from 'dayjs';
 import { getEventNeonBorderStyle } from '../../utils/styling';
+import { useTheme } from '@emotion/react';
 
 const emotions = getEmotionMap();
 const VisualizeEvent = ({ event }) => {
+  const theme = useTheme();
   if (!event) return null;
 
   const {
     date,
     name,
+    description,
     location,
     participants = [],
     impact,
@@ -18,14 +29,31 @@ const VisualizeEvent = ({ event }) => {
 
   const formattedDate = dayjs(date).format('MM/DD/YYYY');
 
+  console.log('theme.palette', theme.palette);
+
   return (
     <Card sx={{ minWidth: 300, ...getEventNeonBorderStyle(event) }}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color='text.secondary' gutterBottom>
           {formattedDate}
         </Typography>
-        <Typography variant='h5' component='div'>
-          {name}
+        <Typography variant='h5'>
+          {name}{' '}
+          <Tooltip title='level of impact' arrow placement='top'>
+            <Avatar
+              sx={{
+                display: 'inline-flex',
+                width: 26,
+                height: 26,
+                p: 0,
+                textAlign: 'center',
+                color: theme.palette.info.contrastText,
+                bgcolor: theme.palette.text.secondary,
+              }}
+            >
+              {impact}
+            </Avatar>
+          </Tooltip>
         </Typography>
         {location && (
           <Typography sx={{ mb: 1.5 }} color='text.secondary'>
@@ -34,10 +62,10 @@ const VisualizeEvent = ({ event }) => {
         )}
         {participants.length > 0 && (
           <Typography variant='body2'>
-            Participants: {participants.join(', ')}
+            Participants {participants.join(', ')}
           </Typography>
         )}
-        <Typography variant='body2'>Impact: {impact}</Typography>
+        <Typography variant='body2'>{description}</Typography>
         <Box sx={{ display: 'flex', flexWrap: 'wrap', mt: 1 }}>
           {eventEmotions.map((emotion) => (
             <Chip

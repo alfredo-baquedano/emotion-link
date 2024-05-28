@@ -223,7 +223,6 @@ const EmotionalChart = ({
       .attr('stroke-linecap', 'round')
       .attr('stroke-linejoin', 'round')
       .attr('stroke-width', 0.4)
-      .attr('opacity', (d) => (d.visible ? 1 : 0.2))
       .text((d) => d.name);
 
     const editButton = node

@@ -27,7 +27,8 @@ import { getEventNeonBorderStyle } from '../../utils/styling';
 const CreateEventForm = ({ events, onCreate, onClose, relatedEvent }) => {
   const [eventData, setEventData] = useState({
     name: '',
-    date: dayjs(),
+    description: '',
+    date: dayjs().format('MM/DD/YYYY'),
     location: '',
     participants: [],
     customTags: [],
@@ -55,6 +56,7 @@ const CreateEventForm = ({ events, onCreate, onClose, relatedEvent }) => {
       ...eventData,
       id: uuidv4(),
     };
+    console.log('newEvent', newEvent);
     onCreate(newEvent);
     setEventData({
       name: '',
@@ -83,6 +85,16 @@ const CreateEventForm = ({ events, onCreate, onClose, relatedEvent }) => {
             label='Event Name'
             fullWidth
             value={eventData.name}
+            onChange={handleChange}
+          />
+          <TextField
+            sx={{ mt: 2 }}
+            name='description'
+            label='Description'
+            multiline
+            maxRows={4}
+            fullWidth
+            value={eventData.description}
             onChange={handleChange}
           />
           <LocalizationProvider dateAdapter={AdapterDayjs}>
