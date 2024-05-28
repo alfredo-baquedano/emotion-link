@@ -197,32 +197,35 @@ const EmotionalChart = ({
 
     const nodeCircle = node.append('g').attr('cursor', 'grab');
 
+    nodes.forEach((node) => {
+      const primaryColor = emotions[node?.emotions[0]]?.color ?? 'white';
+      const secondaryColor = emotions[node?.emotions[1]]?.color ?? primaryColor;
+      const gradient = svg
+        .append('linearGradient')
+        .attr('id', `gradient-circle-${node.id}`)
+        .attr('x1', '0%')
+        .attr('y1', '0%')
+        .attr('x2', '100%')
+        .attr('y2', '100%');
+
+      gradient
+        .append('stop')
+        .attr('offset', '30%')
+        .attr('stop-color', `${primaryColor}`)
+        .attr('stop-opacity', 1);
+
+      gradient
+        .append('stop')
+        .attr('offset', '70%')
+        .attr('stop-color', `${secondaryColor}`)
+        .attr('stop-opacity', 1);
+    });
+
     nodeCircle
       .append('circle')
       .attr('r', 25)
-      .attr('fill', (d) => emotions[d?.emotions[0]]?.color ?? 'white')
+      .attr('fill', (d) => `url(#gradient-circle-${d.id})`)
       .attr('opacity', (d) => (d.visible ? 1 : 0.2));
-
-    nodeCircle
-      .append('path')
-      .data(nodes)
-      .attr('d', 'M-25,0 a1,1 0 0,0 50,0')
-      .attr('transform', 'rotate(-45)')
-      .attr('fill', (d) => emotions[d?.emotions[1]]?.color ?? 'transparent')
-      .attr('opacity', (d) => (d.visible ? 1 : 0.2));
-
-    node
-      .append('text')
-      .attr('y', 40)
-      .attr('text-anchor', 'middle')
-      .attr('fill', 'white')
-      .attr('font-size', '14px')
-      .attr('stroke', 'black')
-      .attr('stroke-linecap', 'round')
-      .attr('stroke-linejoin', 'round')
-      .attr('stroke-width', 0.4)
-      .text((d) => d.name);
-
     const editButton = node
       .append('g')
       .data(nodes)
@@ -233,7 +236,7 @@ const EmotionalChart = ({
       .style('cursor', 'pointer')
       .style('display', 'none')
       .attr('stroke', 'gray')
-      .attr('stroke-width', 0.4)
+      .attr('stroke-width', 0.6)
       .on('click', (event) => {
         event.stopPropagation();
         onClickEdit(event);
@@ -328,6 +331,19 @@ const EmotionalChart = ({
         'd',
         'M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5M12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5m0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3',
       );
+
+    node
+      .append('text')
+      .attr('y', 40)
+      .attr('text-anchor', 'middle')
+      .attr('fill', 'white')
+      .attr('font-size', '14px')
+      .attr('font-width', '700')
+      .attr('stroke', 'black')
+      .attr('stroke-linecap', 'round')
+      .attr('stroke-linejoin', 'round')
+      .attr('stroke-width', 0.4)
+      .text((d) => d.name);
 
     simulation.on('tick', () => {
       refNodes.current = JSON.parse(JSON.stringify(nodes));
