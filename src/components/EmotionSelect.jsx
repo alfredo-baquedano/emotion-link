@@ -44,7 +44,7 @@ const EmotionSelect = ({ name, onChange, value = [], options, ariaLabel }) => {
 
   const getTooltipText = (emotion) =>
     emotion.level > userLevel
-      ? `You need level ${emotion.level} to unlock this emotion`
+      ? `\nNote: You need level ${emotion.level} to unlock this emotion`
       : '';
 
   const getEmotionArray = (obj) => {
@@ -147,7 +147,7 @@ const EmotionSelect = ({ name, onChange, value = [], options, ariaLabel }) => {
       })
       .attr('d', arc)
       .append('title')
-      .text((d) => `${d.data.description}\nNote: ${getTooltipText(d.data)}`);
+      .text((d) => `${d.data.description}${getTooltipText(d.data)}`);
 
     svg
       .append('g')
@@ -208,7 +208,12 @@ const EmotionSelect = ({ name, onChange, value = [], options, ariaLabel }) => {
           ))
         }
         renderOption={(props, option) => (
-          <Tooltip title={getTooltipText(option)} placement='top' arrow>
+          <Tooltip
+            describeChild
+            title={`${option.description}${getTooltipText(option)}`}
+            placement='top'
+            arrow
+          >
             <div style={{ display: 'inline-block' }}>
               <Chip
                 {...props}
@@ -237,13 +242,15 @@ const EmotionSelect = ({ name, onChange, value = [], options, ariaLabel }) => {
                 ...params.inputProps,
               }}
             ></TextField>
-            <IconButton
-              aria-label='Open emotion wheel'
-              sx={{ position: 'absolute', right: 4, top: 8 }}
-              onClick={handleOpenEmotionWheel}
-            >
-              <DonutSmallIcon />
-            </IconButton>
+            <Tooltip title='Open emotion wheel' arrow placement='top'>
+              <IconButton
+                aria-label='Open emotion wheel'
+                sx={{ position: 'absolute', right: 4, top: 8 }}
+                onClick={handleOpenEmotionWheel}
+              >
+                <DonutSmallIcon />
+              </IconButton>
+            </Tooltip>
           </Box>
         )}
       />

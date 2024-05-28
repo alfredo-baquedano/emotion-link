@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import ChartLegend from './../../components/ChartLegend';
 import emotionList from '../../contants/emotions.json';
-import { IconButton, useMediaQuery, useTheme } from '@mui/material';
+import { IconButton, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 
@@ -363,12 +363,16 @@ const EmotionalChart = ({
             bottom: 10,
           }}
         >
-          <IconButton aria-label='Zoom in' onClick={() => setZoom(zoom + 5)}>
-            <AddIcon />
-          </IconButton>
-          <IconButton aria-label='Zoom out' onClick={() => setZoom(zoom - 5)}>
-            <RemoveIcon />
-          </IconButton>
+          <Tooltip describeChild title='Zoom in' arrow placement='top'>
+            <IconButton aria-label='Zoom in' onClick={() => setZoom(zoom + 5)}>
+              <AddIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip describeChild title='Zoom out' arrow placement='top'>
+            <IconButton aria-label='Zoom out' onClick={() => setZoom(zoom - 5)}>
+              <RemoveIcon />
+            </IconButton>
+          </Tooltip>
         </div>
         <svg
           ref={ref}

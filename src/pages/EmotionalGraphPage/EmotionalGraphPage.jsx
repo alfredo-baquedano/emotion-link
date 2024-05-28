@@ -3,7 +3,14 @@ import DrawerFilter from './DrawerFilter';
 import EmotionalChart from './EmotionalChart';
 import CreateEventForm from './CreateEventForm';
 import EditEventForm from './EditEventForm';
-import { Dialog, AppBar, Toolbar, Typography, IconButton } from '@mui/material';
+import {
+  Dialog,
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  Tooltip,
+} from '@mui/material';
 import emotionList from '../../contants/emotions.json';
 import ConfirmDeleteEvent from './ConfirmDeleteEvent';
 import VirtualPet from './VirtualPet';
@@ -174,25 +181,47 @@ const EmotionalGraphPage = () => {
           >
             Emotional Link
           </Typography>
-          <IconButton
-            edge='start'
-            color='inherit'
-            aria-label='Filters menu'
-            sx={{ mr: 2 }}
-            onClick={() => setOpenFilters((open) => !open)}
+
+          <Tooltip
+            describeChild
+            title='Open filters menu'
+            arrow
+            placement='top'
           >
-            <Tune />
-          </IconButton>
-          <IconButton
-            edge='start'
-            color='inherit'
-            aria-label='Missions menu'
-            sx={{ mr: 2 }}
-            onClick={() => setOpenMissions((open) => !open)}
+            <IconButton
+              edge='start'
+              color='inherit'
+              aria-label='Filters menu'
+              sx={{ mr: 2 }}
+              onClick={() => setOpenFilters((open) => !open)}
+            >
+              <Tune />
+            </IconButton>
+          </Tooltip>
+          <Tooltip
+            describeChild
+            title='Open missions menu'
+            arrow
+            placement='top'
           >
-            <Star />
-          </IconButton>
-          <ToggleColorMode />
+            <IconButton
+              edge='start'
+              color='inherit'
+              aria-label='Missions menu'
+              sx={{ mr: 2 }}
+              onClick={() => setOpenMissions((open) => !open)}
+            >
+              <Star />
+            </IconButton>
+          </Tooltip>
+          <Tooltip
+            describeChild
+            title='Toggle color mode'
+            arrow
+            placement='top'
+          >
+            <ToggleColorMode />
+          </Tooltip>
         </Toolbar>
       </AppBar>
       <DrawerFilter

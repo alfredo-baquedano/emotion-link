@@ -1,4 +1,11 @@
-import { Drawer, Typography, Box, Toolbar, Divider } from '@mui/material';
+import {
+  Drawer,
+  Typography,
+  Box,
+  Toolbar,
+  Divider,
+  Tooltip,
+} from '@mui/material';
 import { useUser } from '../../contexts/UserContext';
 import { styled } from '@mui/system';
 import LinearProgress from '@mui/material/LinearProgress';
@@ -20,14 +27,12 @@ export default function MissionsDrawer({ open, onClose }) {
   const { user, setUser, gainExp, getLevel } = useUser();
   const userLevel = getLevel();
 
-  const getProgression = () => {
-    const expRegToNextLevel =
-      missions[userLevel].requiredExp - missions[userLevel - 1].requiredExp;
-    const expCurrentProgression =
-      user.experience - missions[userLevel - 1].requiredExp;
+  const expRegToNextLevel =
+    missions[userLevel].requiredExp - missions[userLevel - 1].requiredExp;
+  const expCurrentProgression =
+    user.experience - missions[userLevel - 1].requiredExp;
 
-    return (expCurrentProgression / expRegToNextLevel) * 100;
-  };
+  const currentProgression = (expCurrentProgression / expRegToNextLevel) * 100;
 
   const handleCompleteMission = (mission) => {
     setUser((prevUser) => ({
@@ -50,15 +55,29 @@ export default function MissionsDrawer({ open, onClose }) {
             </Typography>
           </Box>
           {userLevel === 3 ? (
-            <StyledLinearProgress variant='determinate' value={100} />
+            <Tooltip
+              describeChild
+              title='You have reached max level!'
+              placement='top'
+              arrow
+            >
+              <StyledLinearProgress variant='determinate' value={100} />
+            </Tooltip>
           ) : (
-            <StyledLinearProgress
-              variant='determinate'
-              sx={{
-                color: blue[700],
-              }}
-              value={getProgression()}
-            />
+            <Tooltip
+              describeChild
+              title={`You have ${expCurrentProgression} EXP on your current level. Earn ${expRegToNextLevel - expCurrentProgression} EXP to level up!`}
+              placement='top'
+              arrow
+            >
+              <StyledLinearProgress
+                variant='determinate'
+                sx={{
+                  color: blue[700],
+                }}
+                value={currentProgression}
+              />
+            </Tooltip>
           )}
 
           <Divider sx={{ my: 2 }} />

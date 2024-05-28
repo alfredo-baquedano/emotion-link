@@ -4,6 +4,7 @@ import {
   ListItem,
   ListItemText,
   IconButton,
+  Tooltip,
 } from '@mui/material';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import CheckIcon from '@mui/icons-material/Check';
@@ -30,18 +31,25 @@ const MissionList = ({ missions = [], onComplete = () => {} }) => {
           key={value.mission}
           aria-description={`Mission ${index + 1} ${value.mission}`}
           secondaryAction={
-            <IconButton
-              edge='end'
-              aria-label='Complete mission'
-              disabled={value.completed}
-              onClick={() => handleComplete(value)}
+            <Tooltip
+              describeChild
+              title='Complete mission'
+              placement='top'
+              arrow
             >
-              {value.completed ? (
-                <CheckIcon color='success' />
-              ) : (
-                <TaskAltIcon />
-              )}
-            </IconButton>
+              <IconButton
+                edge='end'
+                aria-label='Complete mission'
+                disabled={value.completed}
+                onClick={() => handleComplete(value)}
+              >
+                {value.completed ? (
+                  <CheckIcon color='success' />
+                ) : (
+                  <TaskAltIcon />
+                )}
+              </IconButton>
+            </Tooltip>
           }
         >
           <ListItemText
