@@ -14,12 +14,14 @@ import {
   AccordionDetails,
   Autocomplete,
   Chip,
+  Tooltip,
 } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { v4 as uuidv4 } from 'uuid';
 import EmotionSelect from './../../components/EmotionSelect';
+import EventChip from './../../components/EventChip';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import dayjs from 'dayjs';
 import { getEventNeonBorderStyle } from '../../utils/styling';
@@ -158,7 +160,6 @@ const CreateEventForm = ({ events, onCreate, onClose, relatedEvent }) => {
               <Autocomplete
                 sx={{ mt: 2 }}
                 multiple
-                freeSolo
                 value={eventData.relationships.followed_by ?? []}
                 name='relationships'
                 onChange={(event, newValue) => {
@@ -180,21 +181,32 @@ const CreateEventForm = ({ events, onCreate, onClose, relatedEvent }) => {
                     (e) => e.name !== 'Myself' && e.id !== relatedEvent.id,
                   )
                   .map((e) => e.id)}
-                getOptionLabel={(option) =>
-                  events.find((event) => event.id === option)?.name
-                }
+                renderOption={(props, option) => {
+                  const eventOption = events.find(
+                    (event) => event.id === option,
+                  );
+                  return (
+                    <Tooltip
+                      describeChild
+                      title={`${eventOption.description ?? eventOption.name}`}
+                      placement='top'
+                      arrow
+                    >
+                      <EventChip
+                        event={eventOption}
+                        {...props}
+                        sx={{
+                          margin: '3px',
+                        }}
+                      />
+                    </Tooltip>
+                  );
+                }}
                 renderTags={(value, getTagProps) => {
                   return value.map((option, index) => {
                     const event = events.find((e) => e.id === option);
                     return (
-                      <Chip
-                        {...getTagProps({ index })}
-                        // sx={{
-                        //   backgroundImage: `linear-gradient(to bottom right, ${event.emotions[0]}, ${event.emotions[1] ?? event.emotions[0]})`,
-                        // }}
-                        variant='outlined'
-                        label={event.name}
-                      />
+                      <EventChip event={event} {...getTagProps({ index })} />
                     );
                   });
                 }}
