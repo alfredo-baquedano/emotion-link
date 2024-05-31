@@ -60,7 +60,6 @@ const EditEventForm = ({ onEdit, onClose, currentEvent, events }) => {
       },
     });
   };
-  console.log('eventData', eventData);
 
   return (
     <Box sx={{ ...getEventNeonBorderStyle(eventData) }}>
@@ -196,15 +195,19 @@ const EditEventForm = ({ onEdit, onClose, currentEvent, events }) => {
                     </Tooltip>
                   );
                 }}
-                renderTags={(value, getTagProps) => {
-                  return value.map((option, index) => {
+                renderTags={(value, getTagProps) =>
+                  value.map((option, index) => {
                     const event = events.find((e) => e.id === option);
                     if (!event) return;
                     return (
-                      <EventChip event={event} {...getTagProps({ index })} />
+                      <EventChip
+                        {...getTagProps({ index })}
+                        key={event.id}
+                        event={event}
+                      />
                     );
-                  });
-                }}
+                  })
+                }
                 renderInput={(params) => (
                   <TextField
                     {...params}

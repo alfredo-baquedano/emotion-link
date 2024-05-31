@@ -58,7 +58,6 @@ const CreateEventForm = ({ events, onCreate, onClose, relatedEvent }) => {
       ...eventData,
       id: uuidv4(),
     };
-    console.log('newEvent', newEvent);
     onCreate(newEvent);
     setEventData({
       name: '',
@@ -212,14 +211,18 @@ const CreateEventForm = ({ events, onCreate, onClose, relatedEvent }) => {
                     </Tooltip>
                   );
                 }}
-                renderTags={(value, getTagProps) => {
-                  return value.map((option, index) => {
+                renderTags={(value, getTagProps) =>
+                  value.map((option, index) => {
                     const event = events.find((e) => e.id === option);
                     return (
-                      <EventChip event={event} {...getTagProps({ index })} />
+                      <EventChip
+                        {...getTagProps({ index })}
+                        key={event.id}
+                        event={event}
+                      />
                     );
-                  });
-                }}
+                  })
+                }
                 renderInput={(params) => (
                   <TextField
                     {...params}
