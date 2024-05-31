@@ -1,10 +1,10 @@
 import { getEmotionMap } from "./emotions";
 import { useTheme } from "@mui/material";
 
+const emotions = getEmotionMap()
+
 export const getEventNeonBorderStyle = (event) => {
-  const emotions = getEmotionMap()
-  const primaryColor = emotions[event?.emotions?.[0]]?.color ?? 'transparent';
-  const secondaryColor = emotions[event?.emotions?.[1]]?.color ?? primaryColor;
+  const [primaryColor, secondaryColor] = getEventEmotionColors(event, 'transparent');
   const { palette } = useTheme();
   const transparency = palette.mode === 'light' ? '#FFFFFFAA, #FFF' : '#000000AF, #000'
 
@@ -19,4 +19,10 @@ export const getEventNeonBorderStyle = (event) => {
     "OTransition": "border 200ms ease-out",
     "transition": "border 200ms ease-out"
   }
+}
+
+export const getEventEmotionColors = (event, defaultColor = 'white') => {
+  const colors = event.emotions.map((emotion) => emotions[emotion].color ?? defaultColor);
+  if (colors.length < 2) return [...colors, colors[0]];
+  return colors;
 }
