@@ -1,6 +1,11 @@
 const ChartLegend = ({ emotionList }) => (
   <div
-    style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}
+    style={{
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      flexWrap: 'wrap',
+    }}
   >
     {emotionList.map((emotion) => (
       <div
@@ -17,6 +22,7 @@ const ChartLegend = ({ emotionList }) => (
             backgroundColor: emotion.color,
             height: '16px',
             width: '16px',
+            borderRadius: '4px',
           }}
         ></div>
         <span style={{ marginLeft: '8px' }}>{emotion.displayName}</span>

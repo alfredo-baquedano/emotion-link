@@ -1,78 +1,26 @@
-import { Card, CardContent, Typography, Chip, Box } from '@mui/material';
-import emotionsData from '../../contants/emotions.json';
+import {
+  Card,
+  CardContent,
+  Typography,
+  Chip,
+  Box,
+  Avatar,
+  Tooltip,
+} from '@mui/material';
+import { getEmotionMap } from '../../utils/emotions';
 import dayjs from 'dayjs';
+import { getEventNeonBorderStyle } from '../../utils/styling';
+import { useTheme } from '@emotion/react';
 
-const getEmotionArray = (obj) => {
-  const result = [];
-  const recurse = (currentObj) => {
-    if (currentObj.name !== 'none') result.push(currentObj);
-    if (currentObj.children && Array.isArray(currentObj.children)) {
-      currentObj.children.forEach((child) => recurse(child));
-    }
-  };
-  recurse(obj);
-  return result;
-};
-
-const emotions = getEmotionArray(emotionsData);
-
-const hexToRgb = (hex) => {
-  let r = 0,
-    g = 0,
-    b = 0;
-  if (hex.length === 4) {
-    r = parseInt(hex[1] + hex[1], 16);
-    g = parseInt(hex[2] + hex[2], 16);
-    b = parseInt(hex[3] + hex[3], 16);
-  } else if (hex.length === 7) {
-    r = parseInt(hex[1] + hex[2], 16);
-    g = parseInt(hex[3] + hex[4], 16);
-    b = parseInt(hex[5] + hex[6], 16);
-  }
-  return { r, g, b };
-};
-
-const rgbToHex = (r, g, b) => {
-  return (
-    '#' +
-    [r, g, b]
-      .map((x) => {
-        const hex = x.toString(16);
-        return hex.length === 1 ? '0' + hex : hex;
-      })
-      .join('')
-  );
-};
-
-const getAverageColor = (colors) => {
-  const total = colors.length;
-  const rgbValues = colors.map((color) => hexToRgb(color));
-  const avgR = Math.round(
-    rgbValues.reduce((acc, val) => acc + val.r, 0) / total,
-  );
-  const avgG = Math.round(
-    rgbValues.reduce((acc, val) => acc + val.g, 0) / total,
-  );
-  const avgB = Math.round(
-    rgbValues.reduce((acc, val) => acc + val.b, 0) / total,
-  );
-  return rgbToHex(avgR, avgG, avgB);
-};
-
-const getNeonBorderStyle = (colors) => {
-  const color = colors.length > 0 ? getAverageColor(colors) : '#fff';
-  return {
-    border: `2px solid ${color}`,
-    boxShadow: `0 0 5px ${color}, 0 0 10px ${color}, 0 0 15px ${color}, 0 0 20px ${color}`,
-  };
-};
-
+const emotions = getEmotionMap();
 const VisualizeEvent = ({ event }) => {
+  const theme = useTheme();
   if (!event) return null;
 
   const {
     date,
     name,
+    description,
     location,
     participants = [],
     impact,
@@ -81,20 +29,31 @@ const VisualizeEvent = ({ event }) => {
 
   const formattedDate = dayjs(date).format('MM/DD/YYYY');
 
-  const filteredEmotions = emotions.filter((emotion) =>
-    eventEmotions.includes(emotion.name),
-  );
-
-  const emotionColors = filteredEmotions.map((emotion) => emotion.color);
+  console.log('theme.palette', theme.palette);
 
   return (
-    <Card sx={{ minWidth: 275, ...getNeonBorderStyle(emotionColors) }}>
+    <Card sx={{ minWidth: 300, ...getEventNeonBorderStyle(event) }}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color='text.secondary' gutterBottom>
           {formattedDate}
         </Typography>
-        <Typography variant='h5' component='div'>
-          {name}
+        <Typography variant='h5'>
+          {name}{' '}
+          <Tooltip title='level of impact' arrow placement='top'>
+            <Avatar
+              sx={{
+                display: 'inline-flex',
+                width: 26,
+                height: 26,
+                p: 0,
+                textAlign: 'center',
+                color: theme.palette.info.contrastText,
+                bgcolor: theme.palette.text.secondary,
+              }}
+            >
+              {impact}
+            </Avatar>
+          </Tooltip>
         </Typography>
         {location && (
           <Typography sx={{ mb: 1.5 }} color='text.secondary'>
@@ -103,17 +62,17 @@ const VisualizeEvent = ({ event }) => {
         )}
         {participants.length > 0 && (
           <Typography variant='body2'>
-            Participants: {participants.join(', ')}
+            Participants {participants.join(', ')}
           </Typography>
         )}
-        <Typography variant='body2'>Impact: {impact}</Typography>
+        <Typography variant='body2'>{description}</Typography>
         <Box sx={{ display: 'flex', flexWrap: 'wrap', mt: 1 }}>
-          {filteredEmotions.map((emotion) => (
+          {eventEmotions.map((emotion) => (
             <Chip
-              key={emotion.name}
-              label={emotion.displayName}
+              key={emotions[emotion].name}
+              label={emotions[emotion].displayName}
               sx={{
-                backgroundColor: emotion.color,
+                backgroundColor: emotions[emotion].color,
                 color: '#000',
                 m: 0.5,
               }}

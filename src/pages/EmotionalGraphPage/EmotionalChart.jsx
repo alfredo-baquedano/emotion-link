@@ -2,9 +2,10 @@ import { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import ChartLegend from './../../components/ChartLegend';
 import emotionList from '../../contants/emotions.json';
-import { IconButton } from '@mui/material';
+import { IconButton, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { getEmotionMap } from '../../utils/emotions';
 
 const EmotionalChart = ({
   events,
@@ -18,9 +19,14 @@ const EmotionalChart = ({
   const ref = useRef();
   const refNodes = useRef();
   const refLinks = useRef();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'), { noSsr: true });
+
+  const width = document.documentElement.clientWidth;
+  const height = document.documentElement.clientHeight - 48;
 
   const nodes = events.map((event) => ({
-    ...refNodes.current.find((node) => node.id === event.id),
+    ...(refNodes.current?.find((node) => node.id === event.id) ?? {}),
     ...event,
   }));
   const nodeIds = new Set(nodes.map((node) => node.id));
@@ -55,10 +61,7 @@ const EmotionalChart = ({
   const types = Array.from(new Set(links.map((d) => d.type)));
   const color = d3.scaleOrdinal(types, d3.schemeCategory10);
 
-  const emotions = emotionList.children.reduce(
-    (acc, curr) => ({ ...acc, [curr.name]: curr }),
-    {},
-  );
+  const emotions = getEmotionMap();
 
   useEffect(() => {
     const svgElement = d3.select(ref.current);
@@ -100,8 +103,6 @@ const EmotionalChart = ({
   };
 
   const loadChart = (svg) => {
-    const width = 1628;
-    const height = 800;
     const simulation = d3
       .forceSimulation(nodes)
       .force(
@@ -120,6 +121,8 @@ const EmotionalChart = ({
       .attr('viewBox', [-width / 2, -height / 2, width, height])
       .attr('width', width)
       .attr('height', height)
+      .attr('role', 'img')
+      .attr('area-label', 'Emotions node graph')
       .attr('style', 'font: 12px sans-serif;')
       .attr('transform', `scale(${zoom / 50})`);
     // .call(
@@ -166,7 +169,7 @@ const EmotionalChart = ({
       .selectAll('g')
       .data(nodes)
       .attr('cx', (d) => d.x)
-      .attr('cy', (d) => console.log('d', d))
+      .attr('cy', (d) => d.y)
       .join('g')
       .call(drag(simulation));
 
@@ -194,42 +197,46 @@ const EmotionalChart = ({
 
     const nodeCircle = node.append('g').attr('cursor', 'grab');
 
+    nodes.forEach((node) => {
+      const primaryColor = emotions[node?.emotions[0]]?.color ?? 'white';
+      const secondaryColor = emotions[node?.emotions[1]]?.color ?? primaryColor;
+      const gradient = svg
+        .append('linearGradient')
+        .attr('id', `gradient-circle-${node.id}`)
+        .attr('x1', '0%')
+        .attr('y1', '0%')
+        .attr('x2', '100%')
+        .attr('y2', '100%');
+
+      gradient
+        .append('stop')
+        .attr('offset', '30%')
+        .attr('stop-color', `${primaryColor}`)
+        .attr('stop-opacity', 1);
+
+      gradient
+        .append('stop')
+        .attr('offset', '70%')
+        .attr('stop-color', `${secondaryColor}`)
+        .attr('stop-opacity', 1);
+    });
+
     nodeCircle
       .append('circle')
       .attr('r', 25)
-      .attr('fill', (d) => emotions[d?.emotions[0]]?.color ?? 'white')
+      .attr('fill', (d) => `url(#gradient-circle-${d.id})`)
       .attr('opacity', (d) => (d.visible ? 1 : 0.2));
-
-    nodeCircle
-      .append('path')
-      .data(nodes)
-      .attr('d', 'M-25,0 a1,1 0 0,0 50,0')
-      .attr('transform', 'rotate(-45)')
-      .attr('fill', (d) => emotions[d?.emotions[1]]?.color ?? 'transparent')
-      .attr('opacity', (d) => (d.visible ? 1 : 0.2));
-
-    node
-      .append('text')
-      .attr('y', 40)
-      .attr('text-anchor', 'middle')
-      .attr('fill', 'white')
-      .attr('font-size', '14px')
-      .attr('stroke', 'black')
-      .attr('stroke-linecap', 'round')
-      .attr('stroke-linejoin', 'round')
-      .attr('stroke-width', 0.4)
-      .attr('opacity', (d) => (d.visible ? 1 : 0.2))
-      .text((d) => d.name);
-
     const editButton = node
       .append('g')
       .data(nodes)
       .attr('id', (d) => `edit-button-${d.id}`)
       .attr('transform', `translate(22, -19)`)
+      .attr('role', 'button')
+      .attr('area-label', 'Edit event')
       .style('cursor', 'pointer')
       .style('display', 'none')
       .attr('stroke', 'gray')
-      .attr('stroke-width', 0.4)
+      .attr('stroke-width', 0.6)
       .on('click', (event) => {
         event.stopPropagation();
         onClickEdit(event);
@@ -325,6 +332,19 @@ const EmotionalChart = ({
         'M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5M12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5m0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3',
       );
 
+    node
+      .append('text')
+      .attr('y', 40)
+      .attr('text-anchor', 'middle')
+      .attr('fill', 'white')
+      .attr('font-size', '14px')
+      .attr('font-width', '700')
+      .attr('stroke', 'black')
+      .attr('stroke-linecap', 'round')
+      .attr('stroke-linejoin', 'round')
+      .attr('stroke-width', 0.4)
+      .text((d) => d.name);
+
     simulation.on('tick', () => {
       refNodes.current = JSON.parse(JSON.stringify(nodes));
       refLinks.current = JSON.parse(JSON.stringify(links));
@@ -349,22 +369,31 @@ const EmotionalChart = ({
         <div
           style={{
             position: 'absolute',
-            left: 0,
-            right: 0,
+            right: isMobile ? 20 : '50%',
+            zIndex: 100,
+            transform: 'translate(50%, 0)',
+            display: 'flex',
+            flexDirection: isMobile ? 'column' : 'row',
             bottom: 10,
-            zIndex: 1000,
-            margin: 'auto',
-            textAlign: 'center',
           }}
         >
-          <IconButton onClick={() => setZoom(zoom + 5)}>
-            <AddIcon />
-          </IconButton>
-          <IconButton onClick={() => setZoom(zoom - 5)}>
-            <RemoveIcon />
-          </IconButton>
+          <Tooltip describeChild title='Zoom in' arrow placement='top'>
+            <IconButton aria-label='Zoom in' onClick={() => setZoom(zoom + 5)}>
+              <AddIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip describeChild title='Zoom out' arrow placement='top'>
+            <IconButton aria-label='Zoom out' onClick={() => setZoom(zoom - 5)}>
+              <RemoveIcon />
+            </IconButton>
+          </Tooltip>
         </div>
-        <svg ref={ref} style={{ height: '100%', width: '100%' }} />
+        <svg
+          ref={ref}
+          style={{ height: '100%', width: '100%' }}
+          width={width}
+          height={height}
+        />
       </div>
     </>
   );

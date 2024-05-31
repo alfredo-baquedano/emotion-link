@@ -27,6 +27,9 @@ const getTheme = (mode) => ({
         // palette values for dark mode
       }),
   },
+  shape: {
+    borderRadius: 12
+  }
 });
 
 export default getTheme;

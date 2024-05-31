@@ -3,8 +3,12 @@ import Box from '@mui/material/Box';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { useTheme } from '../contexts/ThemeContext';
+import { forwardRef } from 'react';
 
-export default function ToggleColorMode({ showText = false }) {
+const ToggleColorMode = forwardRef(function ToggleColorMode(
+  { showText = false, ...props },
+  ref,
+) {
   const { theme, toggleColorMode } = useTheme();
 
   return (
@@ -23,7 +27,14 @@ export default function ToggleColorMode({ showText = false }) {
             dark: 'Oscuro',
           }[theme.palette.mode]
         }`}
-      <IconButton sx={{ ml: 1 }} onClick={toggleColorMode} color='inherit'>
+      <IconButton
+        {...props}
+        ref={ref}
+        aria-label='Switch theme'
+        sx={{ ml: 1 }}
+        onClick={toggleColorMode}
+        color='inherit'
+      >
         {theme.palette.mode === 'dark' ? (
           <Brightness7Icon />
         ) : (
@@ -32,4 +43,6 @@ export default function ToggleColorMode({ showText = false }) {
       </IconButton>
     </Box>
   );
-}
+});
+
+export default ToggleColorMode;

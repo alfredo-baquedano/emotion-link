@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Divider from '@mui/material/Divider';
@@ -42,6 +42,7 @@ export default function DrawerFilter({
   const [startDate, setStartDate] = useState(filters.startDate || null);
   const [endDate, setEndDate] = useState(filters.endDate || null);
   const [impactRange, setImpactRange] = useState(filters.impactRange);
+  const impactLabel = useId();
 
   const handleEmotionChange = (event) => {
     setFilters((prevFilters) => ({
@@ -160,10 +161,11 @@ export default function DrawerFilter({
         />
       </LocalizationProvider>
       <Divider sx={{ mb: 3 }} />
-      <Typography variant='h6' sx={{ mt: 3 }}>
+      <Typography id={impactLabel} variant='h6' sx={{ mt: 3 }}>
         Filter by impact
       </Typography>
       <Slider
+        aria-labelledby={impactLabel}
         value={impactRange}
         onChange={handleImpactChange}
         step={1}
@@ -176,7 +178,10 @@ export default function DrawerFilter({
       <Divider sx={{ my: 2 }} />
       <Typography variant='h6' sx={{ mt: 3 }}>
         Filter by emotions{' '}
-        <IconButton onClick={handleEmotionReset}>
+        <IconButton
+          aria-label='Restart-emotion-filters'
+          onClick={handleEmotionReset}
+        >
           <ReplayIcon />
         </IconButton>
       </Typography>
@@ -184,6 +189,7 @@ export default function DrawerFilter({
         sx={{ mt: 3 }}
         options={filteredEmotions}
         name='emotions'
+        ariaLabel='Filter by emotions'
         value={
           filters.emotions ?? filteredEmotions.map((emotion) => emotion.name)
         }

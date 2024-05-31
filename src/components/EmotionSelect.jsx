@@ -14,16 +14,25 @@ import {
   Button,
   Box,
   Tooltip,
+  Grow,
+  Slide,
 } from '@mui/material';
 import DonutSmallIcon from '@mui/icons-material/DonutSmall';
 import CloseIcon from '@mui/icons-material/Close';
-import useUser from '../contexts/UserContext';
+import CheckIcon from '@mui/icons-material/Check';
+import RemoveDoneIcon from '@mui/icons-material/RemoveDone';
+import { useUser } from '../contexts/UserContext';
 
-const EmotionSelect = ({ name, onChange, value = [], options }) => {
+const Transition = forwardRef((props, ref) => (
+  <Slide direction='up' ref={ref} {...props} />
+));
+
+const EmotionSelect = ({ name, onChange, value = [], options, ariaLabel }) => {
   const { getLevel } = useUser();
   const [openEmotionWheel, setOpenEmotionWheel] = useState(false);
   const handleOpenEmotionWheel = () => setOpenEmotionWheel(true);
   const handleCloseEmotionWheel = () => setOpenEmotionWheel(false);
+  const userLevel = getLevel();
 
   const handleClearEmotions = () =>
     onChange({
@@ -34,8 +43,8 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
     });
 
   const getTooltipText = (emotion) =>
-    emotion.level > getLevel()
-      ? `You need to get level ${emotion.level} to unlock this emotion`
+    emotion.level > userLevel
+      ? `\nNote: You need level ${emotion.level} to unlock this emotion`
       : '';
 
   const getEmotionArray = (obj) => {
@@ -103,17 +112,18 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
       .data(root.descendants().filter((d) => d.depth))
       .join('path')
       .attr('fill-opacity', (d) =>
-        currentEmotions.find((e) => e.name === d.data.name) ? 1 : 0.6,
+        currentEmotions.find((e) => e.name === d.data.name) ? 1 : 0.3,
       )
-      .style('filter', (d) =>
-        d.data.level > getLevel() ? 'grayscale(1)' : 'grayscale(0)',
+      .attr('stroke', 'white')
+      .attr('stroke-width', (d) =>
+        currentEmotions.find((e) => e.name === d.data.name) ? 1 : 0,
       )
-      .attr('fill', (d) => d.data.color)
+      .attr('fill', (d) => (d.data.level > userLevel ? 'gray' : d.data.color))
       .attr('id', (d) => d.data.name)
       .on('click', function () {
         const emotionData =
           d3.select(this)._groups?.[0]?.[0]?.__data__?.data ?? '';
-        if (emotionData.level > getLevel()) return;
+        if (emotionData.level > userLevel) return;
         const index = currentEmotions.findIndex(
           (emotion) => emotion.name === emotionData.name,
         );
@@ -137,7 +147,7 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
       })
       .attr('d', arc)
       .append('title')
-      .text((d) => `${getTooltipText(d.data)}\n${d.data.description}`);
+      .text((d) => `${d.data.description}${getTooltipText(d.data)}`);
 
     svg
       .append('g')
@@ -169,9 +179,10 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
         sx={{ mt: 2 }}
         multiple
         fullWidth
+        disableCloseOnSelect
         value={getCurrentEmotions(emotions, value)}
         options={(options ?? emotionList).sort(
-          (a, b) => Number(a.level > getLevel()) - Number(b.level > getLevel()),
+          (a, b) => Number(a.level > userLevel) - Number(b.level > userLevel),
         )}
         popupIcon={false}
         onChange={(event, newValue) => {
@@ -186,24 +197,29 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
         renderTags={(tagValue, getTagProps) =>
           tagValue.map((option, index) => (
             <Chip
+              {...getTagProps({ index })}
               key={option.name}
               label={option.displayName}
               style={{
                 backgroundColor: option.color,
                 color: '#000',
               }}
-              {...getTagProps({ index })}
             />
           ))
         }
         renderOption={(props, option) => (
-          <Tooltip title={getTooltipText(option)} placement='top' arrow>
+          <Tooltip
+            describeChild
+            title={`${option.description}${getTooltipText(option)}`}
+            placement='top'
+            arrow
+          >
             <div style={{ display: 'inline-block' }}>
               <Chip
                 {...props}
                 key={option.name}
                 label={option.displayName}
-                disabled={option.level > getLevel()}
+                disabled={option.level > userLevel}
                 style={{
                   margin: '3px',
                   borderWidth: 1,
@@ -220,35 +236,32 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
             <TextField
               {...params}
               label='Emotions'
+              aria-label={ariaLabel ?? ''}
               name={name}
               inputProps={{
                 ...params.inputProps,
               }}
             ></TextField>
-            <IconButton
-              sx={{ position: 'absolute', right: 4, top: 8 }}
-              onClick={handleOpenEmotionWheel}
-            >
-              <DonutSmallIcon />
-            </IconButton>
+            <Tooltip title='Open emotion wheel' arrow placement='top'>
+              <IconButton
+                aria-label='Open emotion wheel'
+                sx={{ position: 'absolute', right: 4, top: 8 }}
+                onClick={handleOpenEmotionWheel}
+              >
+                <DonutSmallIcon />
+              </IconButton>
+            </Tooltip>
           </Box>
         )}
       />
       <Dialog
         fullScreen
         open={openEmotionWheel}
+        keepMounted
         onClose={handleCloseEmotionWheel}
-        // TransitionComponent={forwardRef((props2, transitionFef) => (
-        //   <Slide
-        //     {...props2}
-        //     direction='up'
-        //     ref={transitionFef}
-        //     mountOnEnter
-        //     unmountOnExit
-        //   />
-        // ))}
+        TransitionComponent={Transition}
       >
-        <AppBar>
+        <AppBar position='static'>
           <Toolbar>
             <IconButton
               edge='start'
@@ -261,13 +274,27 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
             <Typography sx={{ ml: 2, flex: 1 }} variant='h6' component='div'>
               Select Emotions
             </Typography>
-            <Button onClick={handleClearEmotions}>Clear</Button>
-            <Button onClick={handleCloseEmotionWheel}>Save</Button>
+            <Button
+              sx={{ mr: 2 }}
+              variant='outlined'
+              startIcon={<RemoveDoneIcon />}
+              onClick={handleClearEmotions}
+            >
+              Clear
+            </Button>
+            <Button
+              variant='contained'
+              startIcon={<CheckIcon />}
+              onClick={handleCloseEmotionWheel}
+            >
+              Select {value.length > 0 ? `(${value.length + 1})` : ''}
+            </Button>
           </Toolbar>
         </AppBar>
-        {openEmotionWheel && (
+        <Grow in={openEmotionWheel}>
           <DialogContent
             sx={{
+              height: '100%',
               justifyContent: 'center',
               alignItems: 'center',
               display: 'flex',
@@ -275,7 +302,7 @@ const EmotionSelect = ({ name, onChange, value = [], options }) => {
           >
             <svg width='600' height='600' ref={ref}></svg>
           </DialogContent>
-        )}
+        </Grow>
       </Dialog>
     </>
   );
