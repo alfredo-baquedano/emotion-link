@@ -160,7 +160,7 @@ const EmotionalGraphPage = () => {
   const handleDeleteEvent = (event) => {
     const updatedEvents = events.map((e) => {
       e.relationships.followed_by = e.relationships.followed_by.filter(
-        (relatedEvent) => relatedEvent.id !== event.id,
+        (relatedEvent) => relatedEvent !== event.id,
       );
       return e;
     });
