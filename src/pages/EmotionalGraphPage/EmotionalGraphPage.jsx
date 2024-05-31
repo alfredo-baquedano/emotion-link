@@ -19,6 +19,8 @@ import { Star, Tune } from '@mui/icons-material';
 import MissionsDrawer from './MissionsDrawer';
 import ToggleColorMode from './../../components/ToggleColorMode';
 import Grow from '@mui/material/Grow';
+import Lottie from 'lottie-react';
+import lottieBG from '../../contants/lottieBG.json';
 
 const Transition = forwardRef((props, ref) => <Grow ref={ref} {...props} />);
 
@@ -280,6 +282,11 @@ const EmotionalGraphPage = () => {
       >
         <VisualizeEvent event={selectedEvent} onClose={handleCloseViewEvent} />
       </Dialog>
+      <Lottie
+        animationData={lottieBG}
+        loop={true}
+        style={{ position: 'absolute' }}
+      />
       <EmotionalChart
         events={filteredEvents}
         filters={filters}
