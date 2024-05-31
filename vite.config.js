@@ -9,6 +9,6 @@ export default defineConfig(({ mode }) => {
       'process.env': env,
     },
     plugins: [react()],
-    base: '/emotion-linking/'
+    base: '/emotion-link/'
   };
 });
