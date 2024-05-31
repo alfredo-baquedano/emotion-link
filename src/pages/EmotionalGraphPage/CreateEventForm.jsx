@@ -181,6 +181,16 @@ const CreateEventForm = ({ events, onCreate, onClose, relatedEvent }) => {
                     (e) => e.name !== 'Myself' && e.id !== relatedEvent.id,
                   )
                   .map((e) => e.id)}
+                filterOptions={(options, state) =>
+                  options.filter((option) => {
+                    const eventName = events.find(
+                      (event) => event.id === option,
+                    )?.name;
+                    return eventName
+                      ?.toLowerCase()
+                      .includes(state.inputValue.toLowerCase());
+                  })
+                }
                 renderOption={(props, option) => {
                   const eventOption = events.find(
                     (event) => event.id === option,

@@ -165,6 +165,16 @@ const EditEventForm = ({ onEdit, onClose, currentEvent, events }) => {
                   .sort((a, b) => a.name.localeCompare(b.name))
                   .filter((e) => e.name !== 'Myself' && e.id !== eventData.id)
                   .map((e) => e.id)}
+                filterOptions={(options, state) =>
+                  options.filter((option) => {
+                    const eventName = events.find(
+                      (event) => event.id === option,
+                    )?.name;
+                    return eventName
+                      ?.toLowerCase()
+                      .includes(state.inputValue.toLowerCase());
+                  })
+                }
                 renderOption={(props, option) => {
                   const eventOption = events.find(
                     (event) => event.id === option,
