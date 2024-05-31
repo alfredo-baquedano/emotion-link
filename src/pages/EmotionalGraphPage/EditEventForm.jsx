@@ -161,7 +161,7 @@ const EditEventForm = ({ onEdit, onClose, currentEvent, events }) => {
                 }}
                 options={events
                   .sort((a, b) => a.name.localeCompare(b.name))
-                  .filter((e) => e.name !== 'Myself')
+                  .filter((e) => e.name !== 'Myself' && e.id !== eventData.id)
                   .map((e) => e.id)}
                 getOptionLabel={(option) =>
                   events.find((event) => event.id === option)?.name
