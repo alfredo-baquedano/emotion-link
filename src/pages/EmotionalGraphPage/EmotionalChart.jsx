@@ -16,14 +16,16 @@ const EmotionalChart = ({
   onClickView,
 }) => {
   const [zoom, setZoom] = useState(50);
-  const ref = useRef();
+  const [width, setWidth] = useState(document.documentElement.clientWidth);
+  const [height, setHeight] = useState(
+    document.documentElement.clientHeight - 48,
+  );
+  const refSvg = useRef();
+  const refContainer = useRef();
   const refNodes = useRef();
   const refLinks = useRef();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'), { noSsr: true });
-
-  const width = document.documentElement.clientWidth;
-  const height = document.documentElement.clientHeight - 48;
 
   const nodes = events.map((event) => ({
     ...(refNodes.current?.find((node) => node.id === event.id) ?? {}),
@@ -63,11 +65,21 @@ const EmotionalChart = ({
 
   const emotions = getEmotionMap();
 
+  const calculateSvgSize = () => {
+    setWidth(refContainer.current.clientWidth);
+    setHeight(refContainer.current.clientHeight);
+  };
+
   useEffect(() => {
-    const svgElement = d3.select(ref.current);
+    const svgElement = d3.select(refSvg.current);
     loadChart(svgElement);
-    return () => d3.select(ref.current).selectAll('*').remove();
+    return () => d3.select(refSvg.current).selectAll('*').remove();
   }, [events, filters, zoom]);
+
+  useEffect(() => {
+    window.addEventListener('resize', calculateSvgSize);
+    return () => window.removeEventListener('resize', calculateSvgSize);
+  }, [calculateSvgSize]);
 
   const linkArc = (d) => {
     const r = Math.hypot(d.target.x - d.source.x, d.target.y - d.source.y);
@@ -356,6 +368,7 @@ const EmotionalChart = ({
   return (
     <>
       <div
+        ref={refContainer}
         style={{
           width: '100%',
           height: '100%',
@@ -389,7 +402,7 @@ const EmotionalChart = ({
           </Tooltip>
         </div>
         <svg
-          ref={ref}
+          ref={refSvg}
           style={{ height: '100%', width: '100%' }}
           width={width}
           height={height}
