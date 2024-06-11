@@ -1,8 +1,7 @@
 import { useState, useEffect, forwardRef } from 'react';
-import DrawerFilter from './DrawerFilter';
-import EmotionalChart from './EmotionalChart';
-import CreateEventForm from './CreateEventForm';
-import EditEventForm from './EditEventForm';
+import EmotionNetworkChart from '@/components/charts/EmotionNetworkChart';
+import CreateEventForm from '@/components/modals/CreateEventForm';
+import EditEventForm from '@/components/modals/EditEventForm';
 import {
   Dialog,
   AppBar,
@@ -11,18 +10,19 @@ import {
   IconButton,
   Tooltip,
 } from '@mui/material';
-import emotionList from '../../contants/emotions.json';
-import ConfirmDeleteEvent from './ConfirmDeleteEvent';
-import VirtualPet from './VirtualPet';
-import VisualizeEvent from './VisualizeEvent';
+import emotionList from '@/contants/emotions.json';
+import ConfirmDeleteEvent from '@/components/modals/ConfirmDeleteEvent';
+import VirtualPet from '../components/pet/VirtualPet';
+import VisualizeEvent from '../components/modals/VisualizeEvent';
 import { Star, Tune } from '@mui/icons-material';
-import MissionsDrawer from './MissionsDrawer';
-import ToggleColorMode from './../../components/ToggleColorMode';
+import MissionsDrawer from '@/components/missions/MissionsDrawer';
+import FilterDrawer from '@/components/filters/FilterDrawer';
+import ToggleColorMode from '@/components/ToggleColorMode';
 import Grow from '@mui/material/Grow';
 
 const Transition = forwardRef((props, ref) => <Grow ref={ref} {...props} />);
 
-const EmotionalGraphPage = () => {
+const EmotionGraphPage = () => {
   const [openCreateEvent, setOpenCreateEvent] = useState(false);
   const [openEditEvent, setOpenEditEvent] = useState(false);
   const [openDeleteEvent, setOpenDeleteEvent] = useState(false);
@@ -224,7 +224,7 @@ const EmotionalGraphPage = () => {
           </Tooltip>
         </Toolbar>
       </AppBar>
-      <DrawerFilter
+      <FilterDrawer
         open={openFilters}
         onClose={() => setOpenFilters(false)}
         filters={filters}
@@ -280,7 +280,7 @@ const EmotionalGraphPage = () => {
       >
         <VisualizeEvent event={selectedEvent} onClose={handleCloseViewEvent} />
       </Dialog>
-      <EmotionalChart
+      <EmotionNetworkChart
         events={filteredEvents}
         filters={filters}
         onClickCreate={handleOpenCreateEvent}
@@ -293,4 +293,4 @@ const EmotionalGraphPage = () => {
   );
 };
 
-export default EmotionalGraphPage;
+export default EmotionGraphPage;

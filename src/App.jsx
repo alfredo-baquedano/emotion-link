@@ -1,6 +1,6 @@
-import NotFound from './pages/NotFoundPage/NotFoundPage';
-import EmotionalGraphPage from './pages/EmotionalGraphPage/EmotionalGraphPage';
-import ErrorPage from './pages/ErrorPage/ErrorPage';
+import NotFound from './pages/NotFoundPage';
+import EmotionGraphPage from './pages/EmotionGraphPage';
+import ErrorPage from './pages/ErrorPage';
 import { ThemeContextProvider } from './contexts/ThemeContext';
 import { SnackbarContextProvider } from './contexts/SnackbarContext';
 import { createHashRouter, RouterProvider } from 'react-router-dom';
@@ -9,7 +9,7 @@ import { UserContextProvider } from './contexts/UserContext';
 const router = createHashRouter([
   {
     path: '/',
-    element: <EmotionalGraphPage />,
+    element: <EmotionGraphPage />,
     errorElement: <ErrorPage />,
     children: [
       {

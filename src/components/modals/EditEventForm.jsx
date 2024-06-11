@@ -19,9 +19,9 @@ import {
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import EmotionSelect from './../../components/EmotionSelect';
+import EmotionSelect from '../EmotionSelect';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import EventChip from '../../components/EventChip';
+import EventChip from '../EventChip';
 import dayjs from 'dayjs';
 import { getEventNeonBorderStyle } from '../../utils/styling';
 

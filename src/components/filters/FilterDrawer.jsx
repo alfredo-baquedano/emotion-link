@@ -11,7 +11,7 @@ import Slider from '@mui/material/Slider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import emotionsData from '../../contants/emotions.json';
 import { Toolbar, IconButton } from '@mui/material';
-import EmotionSelect from '../../components/EmotionSelect';
+import EmotionSelect from '../EmotionSelect';
 import ReplayIcon from '@mui/icons-material/Replay';
 
 const getEmotionArray = (obj) => {
@@ -28,7 +28,7 @@ const getEmotionArray = (obj) => {
 
 const emotions = getEmotionArray(emotionsData);
 
-export default function DrawerFilter({
+export default function FilterDrawer({
   open,
   onClose,
   filters,

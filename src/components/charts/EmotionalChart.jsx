@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
-import ChartLegend from './../../components/ChartLegend';
+import ChartLegend from './ChartLegend';
 import emotionList from '../../contants/emotions.json';
 import { IconButton, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
