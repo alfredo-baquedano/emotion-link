@@ -1,4 +1,4 @@
-import emotionTree from '../contants/emotions.json';
+import emotionTree from '@/constants/emotions.json';
 
 export const getEmotionList = () => {
   const result = [];

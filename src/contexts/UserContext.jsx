@@ -5,8 +5,8 @@ import {
   createContext,
   useContext,
 } from 'react';
-import missions from './../contants//missions.json';
-import dailyMissions from './../contants//dailyMissions.json';
+import missions from '@/constants//missions.json';
+import dailyMissions from '@/constants//dailyMissions.json';
 import dayjs from 'dayjs';
 
 const UserContext = createContext();

@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState, forwardRef } from 'react';
-import emotions from './../contants/emotions.json';
+import emotions from '@/constants/emotions.json';
 import * as d3 from 'd3';
 import {
   Autocomplete,
@@ -17,11 +17,13 @@ import {
   Grow,
   Slide,
 } from '@mui/material';
-import DonutSmallIcon from '@mui/icons-material/DonutSmall';
-import CloseIcon from '@mui/icons-material/Close';
-import CheckIcon from '@mui/icons-material/Check';
-import RemoveDoneIcon from '@mui/icons-material/RemoveDone';
-import { useUser } from '../contexts/UserContext';
+import {
+  Close as CloseIcon,
+  Check as CheckIcon,
+  DonutSmall as DonutSmallIcon,
+  RemoveDone as RemoveDoneIcon,
+} from '@mui/icons-material';
+import { useUser } from '@/contexts/UserContext';
 
 const Transition = forwardRef((props, ref) => (
   <Slide direction='up' ref={ref} {...props} />

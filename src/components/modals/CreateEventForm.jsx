@@ -19,12 +19,12 @@ import {
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { ExpandMore as ExpandMoreIcon } from '@mui/icons-material';
+import { getEventNeonBorderStyle } from '@/utils/styling';
 import { v4 as uuidv4 } from 'uuid';
+import dayjs from 'dayjs';
 import EmotionSelect from '../EmotionSelect';
 import EventChip from '../EventChip';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import dayjs from 'dayjs';
-import { getEventNeonBorderStyle } from '../../utils/styling';
 
 const CreateEventForm = ({ events, onCreate, onClose, relatedEvent }) => {
   const [eventData, setEventData] = useState({

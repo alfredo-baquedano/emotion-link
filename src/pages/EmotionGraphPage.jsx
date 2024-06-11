@@ -2,22 +2,14 @@ import { useState, useEffect, forwardRef } from 'react';
 import EmotionNetworkChart from '@/components/charts/EmotionNetworkChart';
 import CreateEventForm from '@/components/modals/CreateEventForm';
 import EditEventForm from '@/components/modals/EditEventForm';
-import {
-  Dialog,
-  AppBar,
-  Toolbar,
-  Typography,
-  IconButton,
-  Tooltip,
-} from '@mui/material';
-import emotionList from '@/contants/emotions.json';
+import { Dialog, Toolbar } from '@mui/material';
+import emotionList from '@/constants/emotions.json';
 import ConfirmDeleteEvent from '@/components/modals/ConfirmDeleteEvent';
-import VirtualPet from '../components/pet/VirtualPet';
-import VisualizeEvent from '../components/modals/VisualizeEvent';
-import { Star, Tune } from '@mui/icons-material';
+import VirtualPet from '@/components/pet/VirtualPet';
+import VisualizeEvent from '@/components/modals/VisualizeEvent';
 import MissionsDrawer from '@/components/missions/MissionsDrawer';
 import FilterDrawer from '@/components/filters/FilterDrawer';
-import ToggleColorMode from '@/components/ToggleColorMode';
+import Header from '@/components/header/Header';
 import Grow from '@mui/material/Grow';
 
 const Transition = forwardRef((props, ref) => <Grow ref={ref} {...props} />);
@@ -171,59 +163,10 @@ const EmotionGraphPage = () => {
 
   return (
     <div style={{ height: 'calc(100vh - 48px)' }}>
-      <AppBar sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-        <Toolbar variant='dense'>
-          <Typography
-            sx={{ marginRight: 'auto' }}
-            variant='h6'
-            color='inherit'
-            component='div'
-          >
-            Emotional Link
-          </Typography>
-
-          <Tooltip
-            describeChild
-            title='Open filters menu'
-            arrow
-            placement='top'
-          >
-            <IconButton
-              edge='start'
-              color='inherit'
-              aria-label='Filters menu'
-              sx={{ mr: 2 }}
-              onClick={() => setOpenFilters((open) => !open)}
-            >
-              <Tune />
-            </IconButton>
-          </Tooltip>
-          <Tooltip
-            describeChild
-            title='Open missions menu'
-            arrow
-            placement='top'
-          >
-            <IconButton
-              edge='start'
-              color='inherit'
-              aria-label='Missions menu'
-              sx={{ mr: 2 }}
-              onClick={() => setOpenMissions((open) => !open)}
-            >
-              <Star />
-            </IconButton>
-          </Tooltip>
-          <Tooltip
-            describeChild
-            title='Toggle color mode'
-            arrow
-            placement='top'
-          >
-            <ToggleColorMode />
-          </Tooltip>
-        </Toolbar>
-      </AppBar>
+      <Header
+        onMissionClick={() => setOpenMissions((open) => !open)}
+        onFilterClick={() => setOpenFilters((open) => !open)}
+      />
       <FilterDrawer
         open={openFilters}
         onClose={() => setOpenFilters(false)}

@@ -1,8 +1,10 @@
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
-import { useTheme } from '../contexts/ThemeContext';
+import {
+  Brightness4 as DarkIcon,
+  Brightness7 as LightIcon,
+} from '@mui/icons-material';
+import { useTheme } from '@/contexts/ThemeContext';
 import { forwardRef } from 'react';
 
 const ToggleColorMode = forwardRef(function ToggleColorMode(
@@ -35,11 +37,7 @@ const ToggleColorMode = forwardRef(function ToggleColorMode(
         onClick={toggleColorMode}
         color='inherit'
       >
-        {theme.palette.mode === 'dark' ? (
-          <Brightness7Icon />
-        ) : (
-          <Brightness4Icon />
-        )}
+        {theme.palette.mode === 'dark' ? <LightIcon /> : <DarkIcon />}
       </IconButton>
     </Box>
   );

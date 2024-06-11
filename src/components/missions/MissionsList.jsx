@@ -6,8 +6,10 @@ import {
   IconButton,
   Tooltip,
 } from '@mui/material';
-import TaskAltIcon from '@mui/icons-material/TaskAlt';
-import CheckIcon from '@mui/icons-material/Check';
+import {
+  TaskAlt as TaskAltIcon,
+  Check as CheckIcon,
+} from '@mui/icons-material';
 import { styled } from '@mui/system';
 
 const StyledListItem = styled(ListItem)(({ theme }) => ({

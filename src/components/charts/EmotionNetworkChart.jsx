@@ -1,11 +1,10 @@
 import { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
-import ChartLegend from './ChartLegend';
-import emotionList from '../../contants/emotions.json';
 import { IconButton, Tooltip, useMediaQuery, useTheme } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
-import { getEmotionMap } from '../../utils/emotions';
+import { Add as AddIcon, Remove as RemoveIcon } from '@mui/icons-material';
+import emotionList from '@/constants/emotions.json';
+import { getEmotionMap } from '@/utils/emotions';
+import ChartLegend from './ChartLegend';
 
 const EmotionNetworkChart = ({
   events,

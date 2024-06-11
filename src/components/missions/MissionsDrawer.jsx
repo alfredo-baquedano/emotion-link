@@ -5,13 +5,13 @@ import {
   Toolbar,
   Divider,
   Tooltip,
+  LinearProgress,
 } from '@mui/material';
-import { useUser } from '../../contexts/UserContext';
 import { styled } from '@mui/system';
-import LinearProgress from '@mui/material/LinearProgress';
-import missions from '../../contants/missions.json';
-import MissionList from './MissionsList';
 import { blue, grey } from '@mui/material/colors';
+import { useUser } from '@/contexts/UserContext';
+import missions from '@/constants/missions.json';
+import MissionList from './MissionsList';
 import MissionTimer from './MissionTimer';
 
 const StyledLinearProgress = styled(LinearProgress)({
