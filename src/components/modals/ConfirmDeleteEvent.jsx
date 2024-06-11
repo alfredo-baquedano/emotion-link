@@ -7,7 +7,7 @@ import {
   Button,
   Box,
 } from '@mui/material';
-import { getEventNeonBorderStyle } from '../../utils/styling';
+import { getEventNeonBorderStyle } from '@/utils/styling';
 
 const ConfirmDeleteEvent = ({ event, onClose, onDelete }) => {
   const hadleDeleteEvent = () => onDelete(event);

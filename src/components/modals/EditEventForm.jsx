@@ -23,7 +23,7 @@ import EmotionSelect from '../EmotionSelect';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import EventChip from '../EventChip';
 import dayjs from 'dayjs';
-import { getEventNeonBorderStyle } from '../../utils/styling';
+import { getEventNeonBorderStyle } from '@/utils/styling';
 
 const EditEventForm = ({ onEdit, onClose, currentEvent, events }) => {
   const [eventData, setEventData] = useState(currentEvent);

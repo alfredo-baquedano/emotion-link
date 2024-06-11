@@ -7,9 +7,9 @@ import {
   Avatar,
   Tooltip,
 } from '@mui/material';
-import { getEmotionMap } from '../../utils/emotions';
 import dayjs from 'dayjs';
-import { getEventNeonBorderStyle } from '../../utils/styling';
+import { getEmotionMap } from '@/utils/emotions';
+import { getEventNeonBorderStyle } from '@/utils/styling';
 import { useTheme } from '@emotion/react';
 
 const emotions = getEmotionMap();
