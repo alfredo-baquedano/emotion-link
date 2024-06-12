@@ -23,3 +23,13 @@ export const getEmotionMap = () => {
   recurse(emotionTree);
   return result;
 };
+
+export const getTooltipText = (emotion, level) =>
+  emotion.level > level
+    ? `\nNote: You need level ${emotion.level} to unlock this emotion`
+    : '';
+
+export const getEmotionsDetails = (emotions) => {
+  return getEmotionList().filter(emotion => emotions.includes(emotion.name));
+};
+

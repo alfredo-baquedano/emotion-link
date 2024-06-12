@@ -76,7 +76,11 @@ const EmotionGraphPage = () => {
         );
       const matchesEmotions =
         !filters.emotions ||
-        node.emotions.some((emotion) => filters.emotions?.includes(emotion));
+        node.emotions.some((emotion) =>
+          filters.emotions
+            ?.map((filteredEmotion) => filteredEmotion.name)
+            ?.includes(emotion),
+        );
 
       const visible =
         node.name === 'Myself' ||

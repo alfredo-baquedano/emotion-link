@@ -1,6 +1,6 @@
 import { Chip, useTheme } from '@mui/material';
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
-import { getEventEmotionColors } from '../utils/styling';
+import { getEventEmotionColors } from '@/utils/styling';
 
 const EventChip = ({ event, ...props }) => {
   const { palette } = useTheme();

@@ -2,7 +2,7 @@ import { useState, useEffect, forwardRef } from 'react';
 import { Tooltip, Avatar, Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import petImage from '../../../assets/petImage.png';
+import petImage from '@/assets/petImage.png';
 import Grow from '@mui/material/Grow';
 
 const adviceList = [

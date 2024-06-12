@@ -29,8 +29,6 @@ const VisualizeEvent = ({ event }) => {
 
   const formattedDate = dayjs(date).format('MM/DD/YYYY');
 
-  console.log('theme.palette', theme.palette);
-
   return (
     <Card sx={{ minWidth: 300, ...getEventNeonBorderStyle(event) }}>
       <CardContent>

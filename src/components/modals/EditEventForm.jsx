@@ -24,9 +24,15 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import EventChip from '../EventChip';
 import dayjs from 'dayjs';
 import { getEventNeonBorderStyle } from '@/utils/styling';
+import { getEmotionsDetails } from '@/utils/emotions';
 
 const EditEventForm = ({ onEdit, onClose, currentEvent, events }) => {
-  const [eventData, setEventData] = useState(currentEvent);
+  console.log('currentEvent', currentEvent);
+  console.log('test', getEmotionsDetails(currentEvent.emotions));
+  const [eventData, setEventData] = useState({
+    ...currentEvent,
+    emotions: getEmotionsDetails(currentEvent.emotions),
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,6 +46,7 @@ const EditEventForm = ({ onEdit, onClose, currentEvent, events }) => {
     e.preventDefault();
     const newEvent = {
       ...eventData,
+      emotions: eventData.emotions.map((e) => e.name),
       impact: parseInt(eventData.impact),
     };
     onEdit(newEvent);
@@ -62,7 +69,14 @@ const EditEventForm = ({ onEdit, onClose, currentEvent, events }) => {
   };
 
   return (
-    <Box sx={{ ...getEventNeonBorderStyle(eventData) }}>
+    <Box
+      sx={{
+        ...getEventNeonBorderStyle({
+          ...eventData,
+          emotions: eventData.emotions.map((e) => e.name),
+        }),
+      }}
+    >
       <Box component='form' onSubmit={handleSubmit} sx={{ p: 2 }}>
         <DialogTitle id='alert-dialog-title'>Edit Event</DialogTitle>
         <DialogContent sx={{ overflowY: 'auto', maxHeight: 500 }}>

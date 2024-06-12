@@ -56,6 +56,7 @@ const CreateEventForm = ({ events, onCreate, onClose, relatedEvent }) => {
     e.preventDefault();
     const newEvent = {
       ...eventData,
+      emotions: eventData.emotions.map((e) => e.name),
       id: uuidv4(),
     };
     onCreate(newEvent);
@@ -76,7 +77,14 @@ const CreateEventForm = ({ events, onCreate, onClose, relatedEvent }) => {
   };
 
   return (
-    <Box sx={{ ...getEventNeonBorderStyle(eventData) }}>
+    <Box
+      sx={{
+        ...getEventNeonBorderStyle({
+          ...eventData,
+          emotions: eventData.emotions.map((e) => e.name),
+        }),
+      }}
+    >
       <Box component='form' onSubmit={handleSubmit} sx={{ p: 4 }}>
         <DialogTitle id='alert-dialog-title'>Create Related Event</DialogTitle>
         <DialogContent sx={{ overflowY: 'auto', maxHeight: 500 }}>

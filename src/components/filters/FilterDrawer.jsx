@@ -16,22 +16,10 @@ import {
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import emotionsData from '@/constants/emotions.json';
 import EmotionSelect from '../EmotionSelect';
+import { getEmotionList } from '../../utils/emotions';
 
-const getEmotionArray = (obj) => {
-  const result = [];
-  const recurse = (currentObj) => {
-    if (currentObj.name !== 'none') result.push(currentObj);
-    if (currentObj.children && Array.isArray(currentObj.children)) {
-      currentObj.children.forEach((child) => recurse(child));
-    }
-  };
-  recurse(obj);
-  return result;
-};
-
-const emotions = getEmotionArray(emotionsData);
+const emotions = getEmotionList();
 
 export default function FilterDrawer({
   open,
@@ -195,9 +183,7 @@ export default function FilterDrawer({
         options={filteredEmotions}
         name='emotions'
         ariaLabel='Filter by emotions'
-        value={
-          filters.emotions ?? filteredEmotions.map((emotion) => emotion.name)
-        }
+        value={filters.emotions ?? filteredEmotions}
         onChange={handleEmotionChange}
       />
     </Box>
